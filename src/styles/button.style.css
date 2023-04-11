@@ -1,0 +1,101 @@
+.btn{
+    font-weight: 400;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 13px;
+    transition: transform 0.3s ease;
+    height: 38px;
+    /* width: ; */
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+}
+
+/* Button Colos and Styles */
+.btn--primary--solid{
+    background-color: #556EE6;
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.btn--green--solid{
+  background-color: #34C38F;
+  color: white;
+  border: none;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+
+.btn--danger--solid{
+    background-color: #E72E1E;
+    color: white;
+    border: none;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+
+.btn--grey--solid{
+    background-color: #F1F2F5;
+    color: #696974 !important;
+    border: none;
+    font-weight: 600;
+    font-size: 12px;
+}
+
+.btn--primary--outline{
+    background-color: transparent;
+    border: 2px solid #FFFFFF;
+}
+
+.btn--orange--solid{
+    background-color: var(--orange);
+    color: var(--white);
+    border: none;
+}
+.btn--orange--primary{
+    background-color: var(--orange);
+    color: var(--primary);
+    border: none;
+}
+
+.btn--white--outline{
+    background-color: transparent;
+    border: 1px solid #FFFFFF;
+    color: #FFFFFF;
+    display: none;
+}   
+
+/* Button Sizes */
+.btn--large{
+    width: 125px !important ;
+    height: 40px;
+}
+
+.btn--medium{
+    color: #FFFFFF;
+    width: 102px;
+}
+
+.btn--small{
+    font-size: 13px;
+    background-color: #556EE6;;
+    width: 102px;
+}
+
+.btn--big{
+    font-size: 13px;
+    background-color: #556EE6;;
+    width: 102px;
+}
+
+.btn--table{
+    width: 84px;
+    height: 24px;
+    font-size: 11px !important;
+    font-weight: 400;
+}
