@@ -32,13 +32,13 @@ export const MenuItemContainer = styled.div<{depth:any}>
   }
 
   &.selected {
-    color: #696CFF;
-    background: rgba(105, 108, 255, 0.29);
+    color: #210590;
+    background: #E9E6F4;
     border-radius: 8px;
     margin: 0 10px;
   }
 
   &.selected .icon {
-    color: #696CFF;  
+    color: #210590;  
   }
 `;

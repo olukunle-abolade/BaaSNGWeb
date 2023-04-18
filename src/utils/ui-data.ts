@@ -1,13 +1,8 @@
 import { FiUser, FiSettings, FiLogOut } from 'react-icons/fi';
 import { BiTransfer, BiHomeCircle } from 'react-icons/bi';
-import { VscCalendar } from 'react-icons/vsc';
-import { HiOutlineChatAlt2 } from 'react-icons/hi';
-import { FaRegUserCircle, FaUserMinus } from 'react-icons/fa';
-import { IoReceiptOutline } from 'react-icons/io5';
+import { IoMdSettings } from 'react-icons/io';
 import { MdDashboard } from 'react-icons/md';
-import { RiBarChart2Fill } from 'react-icons/ri';
-import { BsBarChartFill, BsCloudUploadFill } from 'react-icons/bs';
-import { GiStabbedNote } from 'react-icons/gi';
+import {FaUserCog} from 'react-icons/fa';
 export const user_menu = [
   {
     icon: FiUser,
@@ -51,65 +46,15 @@ const MENU_OPTIONS = [
   {
       name: "Dashboard",
       icon: MdDashboard,
-      url: "/",
+      url: "/dashboard",
   },
   {
     name: "Transactions",
     icon: BiTransfer,
-    url: "#",
+    url: "/dashboard/transactions"
   }
 ];
 
-export const specialists = [
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-  {
-    image: '',
-    name: 'David McHenry',
-    position: 'Doctor',
-    duty: ['surgery', 'General Care'],
-  },
-];
 
 const MENU_OPTIONS2 = [
   {
@@ -118,31 +63,20 @@ const MENU_OPTIONS2 = [
 
   {
     name: "Administration",
-    icon: VscCalendar,
+    icon: FaUserCog,
     url: "#",
     subItems: [
-    {
-        name: "Hospitals",
-        url: "/individual/hospital-list/hospital",
-    },
-    {
-        name: "Eye Clinic",
-        url: "#",
-    },
-    {
-        name: "Dental",
-        url: "#",
-    },
-    {
-        name: "Diagnostics Centers",
-        url: "#",
-    },
+      {
+          name: "Roles & Privileges",
+          url: "/dashboard",
+
+      }
     ],
   },
   {
       name: "Settings",
-      icon: VscCalendar,
-      url: "#",
+      icon: IoMdSettings,
+      url: "/dashboard/settings",
   }
 ]
 

@@ -1,57 +1,34 @@
 "use client"
 import React from 'react'
-import DashboardLayout from './layout'
 
 const Dashboard = () => {
   return (
-    // <DashboardLayout>
       <div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-         <div>page</div>
-          <div>page</div>
-           <div>page</div>
-           <div>page</div>
-           <div>page</div>
-           <div>page</div>
-            <div>page</div>
-             <div>page</div>
-             <div>page</div>
-             <div>page</div>
-              <div>page</div>
-              <div>page</div>
-              <div>page</div>
-              <div>page</div>
-              
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>
+        <h3 className="text-black">Dashboard</h3>       
       </div>
-     
-    // </DashboardLayout>
   )
 }
 
