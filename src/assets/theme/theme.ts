@@ -14,6 +14,7 @@ export const COLORS = {
     kbackground: "#F8F8FB",
     kgrey: "#555B6D",
     kbadge: "#FA6A6A",
+    kgreen: "#12B76A"
 
 };
 export const SIZES = {
@@ -34,7 +35,7 @@ export const SIZES = {
     body3: 16,
     body4: 14,
     body5: 12,
-    sidebar: "18.75rem"
+    sidebar: "14.25rem"
 };
 export const FONTS = {
     h1: {  fontSize: SIZES.h1, lineHeight: 36 },

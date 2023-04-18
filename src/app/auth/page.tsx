@@ -1,5 +1,6 @@
 'use client'
 
+import { useRouter } from 'next/navigation';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
@@ -12,6 +13,7 @@ const Login = () => {
   const { handleSubmit, register } = useForm({
     mode: 'onChange',
   });
+  const router = useRouter();
 
   const onSubmit = async (data: any) => {
     console.log(data);
@@ -58,7 +60,7 @@ const Login = () => {
             </div>
 
             <div className='space-y-4 mt-8'>
-              <CustomButton title="Sign In"  onClick={()=> {}} />
+              <CustomButton title="Sign In"  onClick={() =>router.push("/dashboard")} />
               <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
             </div>
 

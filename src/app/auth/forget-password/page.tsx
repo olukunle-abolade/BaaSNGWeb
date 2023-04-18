@@ -9,7 +9,6 @@ import CustomButton from '@/components/CustomButton';
 const ForgetPassword = () => {
   const router = useRouter();
 
-
   return (
     <div>
       <AuthFlowLayout

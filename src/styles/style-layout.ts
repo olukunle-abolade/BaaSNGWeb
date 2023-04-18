@@ -8,8 +8,9 @@ export const LayoutWrapper = styled.div `
 `
 
 export const LayoutContent = styled.div `
-    padding: .5rem .5rem 0  calc(${SIZES.sidebar} + .5rem);
-    background: ${COLORS.kbackground};
+    height: 5rem;
+    padding-left:calc(${SIZES.sidebar} + 1rem);
+    background: #F7F7F7;
     min-height: 100vh !important;
 `
 
