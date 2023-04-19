@@ -17,7 +17,7 @@ const RightDasboard= () => {
             <div className='bg-black h-[182.55px]'></div>
           </div>
         </Box>
-        <Box height={247}>
+        <Box height={247}> 
           <div className="grid grid-rows-4 grid-flow-col gap-4 h-full my-6">
             <div className="row-span-2 col-span-1 bg-black"></div>
             <div className="row-span-2 col-span-1 bg-black"></div>

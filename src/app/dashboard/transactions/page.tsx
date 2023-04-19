@@ -5,13 +5,15 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 
 // ** Image
 import IntraImage from '@/assets/images/intrabank.png'
 import CustomButton from '@/components/CustomButton';
 import Question  from '@/assets/images/question.png';
+import { Button } from '@mui/material';
+import SidebarAddUser from '@/components/user/AddUserDrawer';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -49,10 +51,13 @@ function a11yProps(index: number) {
 
 const Transactions = () => {
   const [value, setValue] = React.useState(0);
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   return (
     <>
@@ -66,7 +71,8 @@ const Transactions = () => {
         </Box>
         <TabPanel value={value} index={0}>
           <Box>
-            <div className="grid grid-cols-3 gap-4 w-[966px] mt-8">
+            
+            <div className="grid grid-cols-3 gap-4 w-[966px] mt-8" onClick={toggleAddUserDrawer}>
               <div className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
                 {/* circle  */}
                 <div className='flex items-center justify-center w-[75px] h-[75px] rounded-full bg-white'>
@@ -110,6 +116,8 @@ const Transactions = () => {
                 </div>
               </div>
             </div>
+
+            <SidebarAddUser open={addUserOpen} toggle={toggleAddUserDrawer} />
           </Box>
         </TabPanel>
         <TabPanel value={value} index={1}>
