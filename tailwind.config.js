@@ -19,6 +19,11 @@ module.exports = {
         n600: '#2E2E2E',
         n800: '#0D0D0D',
         p50: '#E9E6F4',
+        kpsec: 'rgba(33, 5, 144, 0.05)',
+        kgsec: 'rgba(18, 183, 106, 0.05)',
+        krsec: 'rgba(240, 68, 56, 0.05)',
+        kysec: 'rgba(247, 144, 9, 0.05)',
+        kpshadow: '0px 4px 10px rgba(174, 173, 173, 0.03)',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
