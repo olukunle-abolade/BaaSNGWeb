@@ -14,6 +14,7 @@ const ForgetPassword = () => {
       <AuthFlowLayout
         title='Forgot password?'
         desc='No worries, we’ll send you reset instructions.'
+        backToLogin
       >
         <div>
           <TextField label='Email' placeholder="Enter your email address"  type="email"/>

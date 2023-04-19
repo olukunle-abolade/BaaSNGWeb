@@ -13,6 +13,8 @@ import {  FC, ReactNode } from 'react';
 import Link from 'next/link';
 import { AuthFlowLayoutContainer } from '@/styles/style-layout';
 
+// ** icons
+import {FiArrowLeft} from 'react-icons/fi'
 
 interface IAuthLayout {
   img?: any;
@@ -25,6 +27,8 @@ interface IAuthLayout {
 interface IAuthFlowLayout {
   title: string;
   desc: string;
+  backToLogin?: boolean;
+  iconComponent?: ReactNode;
   children: ReactNode;
 }
 
@@ -97,7 +101,7 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
   )
 }
 
-export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, children}) => {
+export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, backToLogin, iconComponent, children}) => {
   return (
     <AuthFlowLayoutContainer>
       <div className="fixed top-3 left-10">
@@ -112,7 +116,7 @@ export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, children}) => 
         <div className='w-full h-full'>
           {/* icon logo */}
           <div className='flex mx-auto mb-5 w-[81px] h-[81px] rounded-full bg-kprimary  border-[15px]   border-[rgba(33, 5, 144, 0.1)]'>
-
+            {iconComponent}
           </div>
           <div className='mb-8 space-y-2'>
             <h2 className='text-3xl text-n800 text-center font-semibold '>{title}</h2>
@@ -120,11 +124,13 @@ export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, children}) => 
           </div>
           
           {children}
-          
-
-          <div className="text-center mt-8">
-            <Link href={"/"} className='text-n200 text-sm font-semibold text-center'>Back to log in</Link>
-          </div>
+          {
+            backToLogin &&
+            <div className="flex items-center justify-center text-center mt-8 space-x-2 ">
+              <FiArrowLeft color='#666666' size={20}/>
+              <Link href={"/"} className='text-n200 text-sm font-semibold text-center'>Back to log in</Link>
+            </div>
+          }
         </div>
       </div>
       <footer className='fixed bottom-5 left-[50%] text-n100 text-sm font-normal '>© BaaS 2023</footer>

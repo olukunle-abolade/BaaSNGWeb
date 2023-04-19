@@ -15,6 +15,8 @@ const SetPassword = () => {
       <AuthFlowLayout
         title='Set new password'
         desc='Your new password must be different to previously used passwords.'
+        backToLogin
+        
       >
         <div>
           <PasswordField

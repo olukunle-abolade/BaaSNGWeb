@@ -29,7 +29,6 @@ const Settings = () => {
         <h3 className="text-black">Settings</h3>
         <h3 className="text-black">Settings</h3>       
       </div>
-     
   )
 }
 
