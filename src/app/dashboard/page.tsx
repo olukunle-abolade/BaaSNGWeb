@@ -3,7 +3,7 @@ import React from 'react'
 
 // ** MUI
 import { Box } from '@mui/material'
-
+import Grid from '@mui/material/Grid'
 
 const RightDasboard= () => {
   return (
@@ -24,6 +24,9 @@ const RightDasboard= () => {
             <div className="row-span-4 col-span-2 bg-black"></div>
           </div>
         </Box>
+        <Grid item xs={12}>
+          {/* <TableBasicSort /> */}
+        </Grid>
       </>
   )
 }
