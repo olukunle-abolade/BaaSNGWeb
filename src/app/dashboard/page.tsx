@@ -16,6 +16,8 @@ import FolderIcon from '@/assets/icons/folder.png'
 import DownChartIcon from "@/assets/icons/down-cart.png"
 import UpChartIcon from "@/assets/icons/up-cart.png"
 import PendIcon from "@/assets/icons/pend.png"
+import ApexLineChart from '@/view/charts/apex-charts/ApexLineChart'
+import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
 
 const RightDasboard= () => {
   return (
@@ -92,7 +94,9 @@ const RightDasboard= () => {
                 <p className='text-n100 text-sm font-normal'>Total Transactions</p>
                 </div>
             </div>
-            <div className="row-span-4 col-span-2 bg-white shadow-kpshadow rounded-[10px]"></div>
+            <div className="row-span-4 col-span-2 bg-white shadow-kpshadow rounded-[10px] h-[247px]">
+              <ApexAreaChart />
+            </div>
           </div>
         </Box>
         <Grid item xs={12} mt={10}>
