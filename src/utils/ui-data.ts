@@ -68,7 +68,7 @@ const MENU_OPTIONS2 = [
     subItems: [
       {
           name: "Roles & Privileges",
-          url: "/dashboard",
+          url: "/dashboard/rolenpri",
 
       }
     ],
