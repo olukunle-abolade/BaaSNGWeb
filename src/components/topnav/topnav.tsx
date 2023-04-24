@@ -10,6 +10,7 @@ import { notification } from '@/utils/ui-data'
 import Dropdown from '../dropdown/dropdown'
 
 import { usePathname, useSearchParams } from 'next/navigation';
+import CustomButton from '../CustomButton'
 
 const renderNotification = (item: any, index: any) => (
   <TopNavNotificationItem key = {index}>
@@ -45,6 +46,11 @@ const Topnav = () => {
           <div className="flex items-center justify-center h-10 w-10 rounded-lg bg-white">
             <IoSearch className='text-n100 hover:scale-150' size={20}/>
           </div>
+          {/* button */}
+          {
+            name === 'ADMINISTRATION' &&
+            <CustomButton title='New' iconName buttonStyle={{display: 'flex', alignItems: 'center'}} textStyle={{marginLeft: 4}} />
+          }
           {/* notification */}
           <div className="relative flex items-center justify-center h-10 w-10 rounded-lg bg-white">
             <Dropdown

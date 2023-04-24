@@ -1,6 +1,7 @@
 import React from 'react'
 import { COLORS, SIZES } from '@/assets/theme/theme';
 import Image from 'next/image';
+import {FiPlusCircle} from 'react-icons/fi'
 
 interface ButtonType {
   title: string;
@@ -30,10 +31,10 @@ const CustomButton: React.FC<ButtonType> = ({title, buttonStyle,titleColor, butt
         iconImage &&
         <Image src={iconImage} alt=""  height={20} width={20}  />
       }
-      {/* {
+      {
         iconName &&
-        <Ionicons name={iconName} size={20} color={iconColor}  />
-      } */}
+        <FiPlusCircle  size={20} color={iconColor}  />
+      } 
       <h3  style={{...styles.title, color: titleColor || COLORS.kwhite, ...textStyle}}>{title}</h3>
     </button>
   )
