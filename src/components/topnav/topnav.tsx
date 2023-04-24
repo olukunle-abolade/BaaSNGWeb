@@ -9,7 +9,7 @@ import {ImNotification} from "react-icons/im"
 import { notification } from '@/utils/ui-data'
 import Dropdown from '../dropdown/dropdown'
 
-
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const renderNotification = (item: any, index: any) => (
   <TopNavNotificationItem key = {index}>
@@ -20,12 +20,23 @@ const renderNotification = (item: any, index: any) => (
 
 
 const Topnav = () => {
+  const pathname = usePathname();
+
+  let name = "";
+  if(pathname === "/dashboard"){
+    name = "DASHBOARD"
+  }else if(pathname === "/dashboard/transactions"){
+    name = "TRANSACTIONS"
+  }else if(pathname === "/dashboard/rolenpri"){
+    name = "ADMINISTRATION"
+  }
+
   return (
     <>
       <TopNavWrapper>
         {/* Left hand side top nav */}
         <div className = "left_Topnav">
-          <h3 className='text-sm text-[#2D2D2D] font-semibold'>DASHBOARD</h3>
+          <h3 className='text-sm text-[#2D2D2D] font-semibold'>{name}</h3>
         </div>
 
         {/* Right Hand side nav */}

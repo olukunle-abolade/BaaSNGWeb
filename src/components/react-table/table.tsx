@@ -4,11 +4,11 @@
 /* eslint-disable react/jsx-key */
 import React, {useMemo, useState} from 'react'
 import {useTable, useGlobalFilter, usePagination, useRowSelect, useFilters} from 'react-table'
-import {Box} from "@mui/material"
+import {Box, Tooltip} from "@mui/material"
 import { useRouter } from 'next/router'
 import { TableCard, TableWrapper } from './styled-react-table'
 import MOCK_DATA from '@/utils/MOCK_DATA.json'
-
+import Badge from '@/components/badge/badge'
 // 
 import {FiMoreVertical} from 'react-icons/fi'
 // Custom component to render Genres 
@@ -65,14 +65,19 @@ const IndeterminateCheckbox: React.FC<ICheckBox> = React.forwardRef(
 )
 
 
-// interface IRTable {
-//   footerShow: any;
-//   search: any;
-//   paginate: any;
-//   COLUMNS: any;
-//   MOCK_DATA: any;
-//   children: any;
-// }
+// status color
+const claimStatus = {
+  "Deactivated" : "fail",
+  "Active": "success",
+}
+
+const RenderClaimsToggle = () => (
+  <Tooltip title="Settings">
+      <span  style={{backgroundColor: "#EAEAEA", height: 24, width: 24}} className='ml-2 flex items-center justify-center rounded -z-10'>
+          <FiMoreVertical  className='z-0' style={{fontSize: 17}}/>
+      </span>
+  </Tooltip>   
+)
 
  
 const RTable = () => {
@@ -89,11 +94,15 @@ const RTable = () => {
     },
     {
       Header: 'Status',
-      accessor : "status"
+      accessor: "status",
+      Cell: ({ cell: { value } }: {value: string, cell: string}) => <Badge
+      type = {claimStatus["Active"]}
+      content = {value}
+  />
     },
     {
       Header: "Action",
-       Cell: () => <FiMoreVertical color='#000000'/>
+       Cell: () => <RenderClaimsToggle/>
     }
   ],
   []

@@ -1,0 +1,18 @@
+.badge{
+    /* padding: 3px 11px; */
+    color: #12B76A;
+    border-radius: 30px;
+    font-size: 14px;
+}
+
+.badge-fail {
+    background-color: #E72E1E;
+}
+
+.badge-pending {
+    background-color: #FBB129;
+}
+
+.badge-success {
+    /* background-color: #34C38F; */
+}

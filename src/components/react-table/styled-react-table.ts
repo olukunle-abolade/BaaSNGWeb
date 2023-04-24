@@ -40,7 +40,7 @@ export const TableWrapper = styled.div`
                 color:  #4A4A4A;
                 font-size: ${SIZES.h4};
                 margin-top: 5rem;
-                border-bottom: 1px solid #EFF2F7;;
+                font-weight: 400;
             }
 
             &:hover{
