@@ -6,6 +6,7 @@ module.exports = {
     './src/app/**/*.{js,ts,jsx,tsx}',
     './src/styles/**/*.{js,ts,jsx,tsx}',
     './src/layouts/**/*.{js,ts,jsx,tsx}',
+    './src/view/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -13,6 +14,7 @@ module.exports = {
         kprimary: '#210590',
         kblackCom: '#0D0D0D',
         kblack2: '#697A8D',
+        n40: '#DEDEDE',
         n50: '#BFBFBF',
         n100: '#757575',
         n200: '#666666',

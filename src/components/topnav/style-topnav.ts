@@ -11,7 +11,7 @@ export const TopNavWrapper = styled.div`
     background: #F7F7F7;
     position:fixed;
     width: calc(100% - ${SIZES.sidebar} - 0.5rem);
-    height: 62px;
+    height: 80px;
     
     .left_Topnav {
       display: flex;

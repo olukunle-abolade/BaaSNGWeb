@@ -14,6 +14,11 @@ import CustomButton from '@/components/CustomButton';
 import Question  from '@/assets/images/question.png';
 import { Button } from '@mui/material';
 import SidebarAddUser from '@/components/user/AddUserDrawer';
+import Utility from '@/view/bills/Utility';
+import Recharge from '@/view/bills/Recharge';
+import Education from '@/view/bills/Education';
+import Finance from '@/view/bills/Finance';
+import Travel from '@/view/bills/Travel';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -34,7 +39,7 @@ function TabPanel(props: TabPanelProps) {
     >
       {value === index && (
         <Box>
-          <Typography>{children}</Typography>
+          <>{children}</>
         </Box>
       )}
     </div>
@@ -71,7 +76,6 @@ const Transactions = () => {
         </Box>
         <TabPanel value={value} index={0}>
           <Box>
-            
             <div className="grid grid-cols-3 gap-4 w-[966px] mt-8" onClick={toggleAddUserDrawer}>
               <div className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
                 {/* circle  */}
@@ -121,7 +125,14 @@ const Transactions = () => {
           </Box>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Bills Payment
+          <div className='space-y-8 mt-10'>
+            <Recharge />
+            <Utility />
+            <Education />
+            <Travel />
+            <Finance />
+          </div>
+          
         </TabPanel>
         <TabPanel value={value} index={2}>
           Transaction History

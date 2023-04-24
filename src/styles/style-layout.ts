@@ -17,7 +17,7 @@ export const LayoutContent = styled.div `
 export const LayoutContentMain = styled.div<{active: any}> `
     min-height: 100vh;
     padding: ${props => props.active ? `1.2rem 2rem` : ""};
-    padding-top: 15vh;
+    padding-top: 10vh;
 `
 
 export const AuthFlowLayoutContainer = styled.div `
