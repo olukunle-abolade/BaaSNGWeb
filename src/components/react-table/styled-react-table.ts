@@ -5,7 +5,6 @@ import styled from "styled-components"
 
 export const TableWrapper = styled.div`
     // overflow-y: auto;
-    // padding:18px;
     background: ${COLORS.kwhite};
 
     .table-spacing {
@@ -15,10 +14,9 @@ export const TableWrapper = styled.div`
         border-collapse: separate;
         border-spacing:0 0px !important;
         box-shadow: #F8F9FA;
-        // padding: 0 1rem;
 
         thead {
-            background: #F8F9FA;
+            background: #F4F4F4;
             tr{
                 padding: 0 3rem;
                 text-align: left;

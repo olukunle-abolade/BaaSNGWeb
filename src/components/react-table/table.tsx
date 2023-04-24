@@ -145,7 +145,7 @@ const RTable = () => {
   return (
     <TableCard>
       <TableWrapper>
-        <Box sx={{paddingTop: 2}}/>
+        <Box/>
         {/* {children} */}
 
         {/* <p className='px-4 text-kblackCom font-semibold text-body5 mb-4' >Recent Visit</p> */}
