@@ -53,7 +53,7 @@ const Transaction = () => {
       {
         Header: "Action",
         accessor: "Channel",
-        Cell: ({ cell:{ value}}:{cell: any}) => <p className='w-fit text-n100 text-xs font-medium rounded-[5px] px-3 py-2 bg-n40'>{value}</p>
+        Cell: ({ cell:{ value}}:{cell: any}) => <p className='w-fit text-n100 border border-n40 text-xs font-medium rounded-[5px] px-3 py-2'>{value}</p>
       },
       {
         Header: 'Status',
