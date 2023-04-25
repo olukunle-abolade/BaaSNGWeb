@@ -12,12 +12,10 @@ import {FiMoreVertical} from 'react-icons/fi'
 import MOCK_DATA from '@/utils/MOCK_DATA2.json'
 
 
-const RenderClaimsToggle = () => (
-  <Tooltip title="Settings">
-    <span  style={{backgroundColor: "#EAEAEA", height: 24, width: 24}} className='ml-2 flex items-center justify-center rounded -z-10'>
-      <FiMoreVertical  className='z-0' style={{fontSize: 17}}/>
-    </span>
-  </Tooltip>   
+const RenderClaimsToggle = (value: any) => (
+    <div  style={{backgroundColor: "#EAEAEA", height: 24, width: 24}} className='ml-2 flex items-center justify-center rounded -z-10'>
+      <p>{value}</p>
+    </div>
 )
 
 // status color
@@ -54,7 +52,8 @@ const Transaction = () => {
       },
       {
         Header: "Action",
-        Cell: () => <RenderClaimsToggle/>
+        accessor: "Channel",
+        Cell: ({ cell:{ value}}:{cell: any}) => <p className='w-fit text-n100 text-xs font-medium rounded-[5px] px-3 py-2 bg-n40'>{value}</p>
       },
       {
         Header: 'Status',
