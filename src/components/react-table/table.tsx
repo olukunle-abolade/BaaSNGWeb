@@ -2,8 +2,8 @@
 
 /* eslint-disable react/display-name */
 /* eslint-disable react/jsx-key */
-import React, {useState} from 'react'
-import {useTable, useGlobalFilter, usePagination, useRowSelect, useFilters} from 'react-table'
+import React, {FC, useState} from 'react'
+import {useTable, useGlobalFilter, usePagination, useRowSelect, useFilters, useAsyncDebounce} from 'react-table'
 import {Box, Tooltip} from "@mui/material"
 import { useRouter } from 'next/router'
 import { TableCard, TableWrapper } from './styled-react-table'
@@ -22,23 +22,73 @@ const Genres = () => {
   );
 };
 
+interface IGlobalFilter {
+  preGlobalFilteredRows: any
+  globalFilter: any 
+  setGlobalFilter: any
+}
 
-
-export const GlobalFilter = () => {
+export const GlobalFilter: FC<IGlobalFilter> = ({
+  preGlobalFilteredRows,
+  globalFilter,
+  setGlobalFilter,
+}) => {
   // Create a state
-  const [filterInput, setFilterInput] = useState("");
+  const count = preGlobalFilteredRows.length
   
-  // Update the state when input changes
-  const handleFilterChange = (e: any) => {
-    const value = e.target.value || undefined;
-    setFilterInput(value);
-  };
+  const [value, setValue] = React.useState(globalFilter)
+  const onChange = useAsyncDebounce(value => {
+    setGlobalFilter(value || undefined)
+  }, 200)
 
   return (
     <span className='flex items-center'>
       <p className='text-kblackCom text-body4 mr-2'>Search : {' '}</p>
-      <input value = {filterInput || ''}  onChange = {handleFilterChange} className="border-[#CED4DA] appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" ></input>
+      <input 
+        value = {value || ''}  
+        onChange={e => {
+          setValue(e.target.value);
+          onChange(e.target.value);
+        }} className="border-[#CED4DA] appearance-none border rounded  py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" ></input>
     </span>
+  )
+}
+
+// This is a custom filter UI for selecting
+// a unique option from a list
+interface ISelectColumnFilter{
+  filterValue: any;
+  setFilter: any;
+  preFilteredRows: any;
+  id: any
+}
+
+function SelectColumnFilter({
+  column: { filterValue, setFilter },
+}: {column: any} ) {
+  // Calculate the options for filtering
+  // using the preFilteredRows
+  // const options = React.useMemo(() => {
+  //   const options: Set<any> = new Set()
+  //   preFilteredRows.forEach((row:any) => {
+  //     options.add(row.values[id])
+  //   })
+  //   return [...options.values()]
+  // }, [id, preFilteredRows])
+
+  // Render a multi-select box
+  return (
+    <select
+      value={filterValue}
+      onChange={e => {
+        setFilter(e.target.value || undefined)
+      }}
+    >
+      <option value="">All</option>
+      <option value="Successful">Successful</option>
+      <option value="Failed">Failed</option>
+      <option value="Pending">Pending</option>
+    </select>
   )
 }
 
@@ -96,9 +146,12 @@ const RTable = (props: IRTable) => {
     headerGroups,
     rows,
     prepareRow,
+    state,
+    preGlobalFilteredRows,
+    setGlobalFilter,
   } = useTable({
     columns,
-    data
+    data,
   }, useGlobalFilter,useFilters, usePagination,useRowSelect, (hooks: any) => {
     hooks.visibleColumns.push((columns: any) => {
       return [
@@ -131,8 +184,8 @@ const RTable = (props: IRTable) => {
         {/* {children} */}
 
         {/* <p className='px-4 text-kblackCom font-semibold text-body5 mb-4' >Recent Visit</p> */}
-        {/* <div className=' flex justify-between items-center'>
-          {
+        <div className=' flex justify-between items-center'>
+          {/* {
             paginate &&
             <div className='flex items-center mb-4'>
               <p className='mr-2 blackcom text-body4'>Show</p>
@@ -147,12 +200,19 @@ const RTable = (props: IRTable) => {
               </select>
               <p className='ml-2 blackcom text-body4'>entries</p>
             </div>
-          }
+          } */}
           {
-            search && <div className='mb-6' ><GlobalFilter setFilter = {setFilter} /> </div>
+            // search && 
+            <div className='mb-6' >
+              <GlobalFilter
+                preGlobalFilteredRows={preGlobalFilteredRows}
+                globalFilter={state.globalFilter}
+                setGlobalFilter={setGlobalFilter}
+              /> 
+            </div>
           }
-          {children}
-        </div> */}
+          {/* {children} */}
+        </div>
         {/* <Box sx={{marginTop: 3}}/> */}
         <table className='table-spacing' {...getTableProps()}>
           <thead>

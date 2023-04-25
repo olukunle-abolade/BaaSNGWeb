@@ -15,6 +15,7 @@ import Education from '@/view/bills/Education';
 import Finance from '@/view/bills/Finance';
 import Travel from '@/view/bills/Travel';
 import Fund from '@/view/Funds/fund';
+import Transaction from '@/view/transactions/transaction';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -79,9 +80,9 @@ const Transactions = () => {
             <Finance />
           </div>
         </TabPanel>
-        
+
         <TabPanel value={value} index={2}>
-          Transaction History
+          <Transaction />
         </TabPanel>
 
       </Box>
