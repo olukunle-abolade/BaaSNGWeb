@@ -95,7 +95,7 @@ const RTable = () => {
     {
       Header: 'Status',
       accessor: "status",
-      Cell: ({ cell: { value } }: {value: string, cell: string}) => <Badge
+      Cell: ({ cell:{ value}}) => <Badge
       type = {claimStatus["Active"]}
       content = {value}
   />

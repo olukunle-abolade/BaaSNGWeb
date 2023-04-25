@@ -3,7 +3,9 @@ import React from 'react'
 
 const RolesnPri = () => {
   return (
-    <div><RTable/></div>
+    <div>
+      <RTable/>
+    </div>
   )
 }
 
