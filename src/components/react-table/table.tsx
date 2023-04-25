@@ -201,8 +201,7 @@ const RTable = (props: IRTable) => {
               <p className='ml-2 blackcom text-body4'>entries</p>
             </div>
           } */}
-          {
-            // search && 
+          {/* {
             <div className='mb-6' >
               <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
@@ -210,7 +209,7 @@ const RTable = (props: IRTable) => {
                 setGlobalFilter={setGlobalFilter}
               /> 
             </div>
-          }
+          } */}
           {/* {children} */}
         </div>
         {/* <Box sx={{marginTop: 3}}/> */}

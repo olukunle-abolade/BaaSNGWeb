@@ -19,8 +19,6 @@ export default function DashboardLayout({
           {children}
         </LayoutContentMain>
       </LayoutContent>
-
-
     </LayoutWrapper>
   );
 }

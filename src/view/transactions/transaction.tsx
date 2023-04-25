@@ -22,8 +22,8 @@ const RenderClaimsToggle = () => (
 
 // status color
 const claimStatus: any = {
-  "Deactivated" : "fail",
-  "Active": "success",
+  "deactivated" : "fail",
+  "active": "success",
 }
 
 
@@ -59,7 +59,7 @@ const Transaction = () => {
 
 
   return (
-    <div>
+    <div className = "mt-14">
       <RTable columnsData={columns} data={data}/>
     </div>
   )

@@ -21,9 +21,9 @@ const RenderClaimsToggle = () => (
 )
 
 // status color
-const claimStatus = {
-  "Deactivated" : "fail",
-  "Active": "success",
+const claimStatus: any = {
+  "deactivated" : "fail",
+  "active": "success",
 }
 
 
@@ -42,8 +42,8 @@ const RolesnPri = () => {
       {
         Header: 'Status',
         accessor: "status",
-          Cell: ({ cell:{ value}}) => <Badge
-          type = {claimStatus["Active"]}
+          Cell: ({ cell:{ value}}:{cell: any}) => <Badge
+          type = {claimStatus[value]}
           content = {value}
         />
       },

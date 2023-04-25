@@ -9,8 +9,11 @@ interface IBadge {
 }
 
 const Badge: FC<IBadge> = ({type, content}) => {
+
+  console.log(type)
+
   return (
-    <div className={`badge badge-${type} ease-out duration-500 hover:scale-110`}>
+    <div className={`badge badge-${type} ease-out duration-500 hover:scale-110 w-fit`}>
       {content}
     </div>
   )
