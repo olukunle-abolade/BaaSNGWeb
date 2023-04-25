@@ -9,7 +9,7 @@ import Badge from '@/components/badge/badge'
 
 // Third Party 
 import {FiMoreVertical} from 'react-icons/fi'
-import MOCK_DATA from '@/utils/MOCK_DATA.json'
+import MOCK_DATA from '@/utils/MOCK_DATA2.json'
 
 
 const RenderClaimsToggle = () => (
@@ -22,8 +22,9 @@ const RenderClaimsToggle = () => (
 
 // status color
 const claimStatus: any = {
-  "deactivated" : "fail",
-  "active": "success",
+  "Failed" : "fail",
+  "Success": "success",
+  "Pending": "pending"
 }
 
 
@@ -32,12 +33,28 @@ const Transaction = () => {
  const columns = useMemo(
   () => [
       {
-        Header: 'Role Name',
-        accessor: 'first_name'
+        Header: 'TransactionID',
+        accessor: 'TransactionID'
       },
       {
-        Header: 'Created By',
-        accessor: "last_name"
+        Header: 'Recipient Name',
+        accessor: "Recipient_Name"
+      },
+      {
+        Header: 'Account Number',
+        accessor: "Account_Number"
+      },
+      {
+        Header: 'Date',
+        accessor: "Date"
+      },
+      {
+        Header: 'Amount',
+        accessor: "Amount"
+      },
+      {
+        Header: "Action",
+        Cell: () => <RenderClaimsToggle/>
       },
       {
         Header: 'Status',
@@ -46,10 +63,6 @@ const Transaction = () => {
           type = {claimStatus[value]}
           content = {value}
         />
-      },
-      {
-        Header: "Action",
-        Cell: () => <RenderClaimsToggle/>
       }
     ],
   []

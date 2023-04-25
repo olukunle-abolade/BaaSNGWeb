@@ -1,14 +1,10 @@
 [
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48},
-    {"bom":"Active-4","ingredient":"Bosil","lot_number":"234123","expire":"24/01/22","new":"20/12/22","retest":48}
+  {"TransactionID":"TKWPA56-4","Recipient_Name":"David Ogunmode...","Account_Number":"1234567890","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Bank Transfer", "status": "Success"},
+  {"TransactionID":"TKWPA56-4","Recipient_Name":"Adeyemi Onanuga","Account_Number":"1234567890","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Balance",  "status": "Failed"},
+  {"TransactionID":"TKWPA56","Recipient_Name":"Fund Account ","Account_Number":"","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Bank Transfer",  "status": "Pending"},
+  {"TransactionID":"TKWPA56","Recipient_Name":"Top up Airtime","Account_Number":"1234567890","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Card",  "status": "Success"},
+  {"TransactionID":"TKWPA56","Recipient_Name":"Ogunmodede Opeol....","Account_Number":"","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Card",  "status": "Success"},
+  {"TransactionID":"TKWPA56","Recipient_Name":"Top up Airtime","Account Number":"1234567890","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Card",  "status": "Success"},
+  {"TransactionID":"TKWPA56","Recipient_Name":"Ogunmodede Opeol....","Account_Number":"1234567890","Date":"24/01/22","Amount":"NGN 5,000","Channel":"Bank Transfer",  "status": "Success"}
 ]
     

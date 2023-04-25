@@ -6,14 +6,16 @@
 }
 
 .badge-fail {
-  background-color: #F2F4F7;
-  color: #4A4A4A;
+  background: rgba(240, 68, 56, 0.05);
+  color: #F04438;
 }
 
 .badge-pending {
-  background-color: #FBB129;
+  color: #F79009;
+  background: rgba(247, 144, 9, 0.05);
 }
 
 .badge-success {
   color: #12B76A;
+  background: rgba(18, 183, 106, 0.05)
 }
