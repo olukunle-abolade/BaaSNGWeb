@@ -2,13 +2,13 @@
 
 /* eslint-disable react/display-name */
 /* eslint-disable react/jsx-key */
-import React, {useMemo, useState} from 'react'
+import React, {useState} from 'react'
 import {useTable, useGlobalFilter, usePagination, useRowSelect, useFilters} from 'react-table'
 import {Box, Tooltip} from "@mui/material"
 import { useRouter } from 'next/router'
 import { TableCard, TableWrapper } from './styled-react-table'
 import MOCK_DATA from '@/utils/MOCK_DATA.json'
-import Badge from '@/components/badge/badge'
+
 // 
 import {FiMoreVertical} from 'react-icons/fi'
 // Custom component to render Genres 
@@ -44,7 +44,6 @@ export const GlobalFilter = () => {
 
 interface ICheckBox { 
   indeterminate: any;
-
 }
 
 const IndeterminateCheckbox: React.FC<ICheckBox> = React.forwardRef(
@@ -79,43 +78,17 @@ const RenderClaimsToggle = () => (
   </Tooltip>   
 )
 
- 
-const RTable = () => {
-   // ***
-   const columns:any = React.useMemo(
-    () => [
-    {
-      Header: 'Role Name',
-      accessor: 'first_name'
-    },
-    {
-      Header: 'Created By',
-      accessor: "last_name"
-    },
-    {
-      Header: 'Status',
-      accessor: "status",
-      Cell: ({ cell:{ value}}) => <Badge
-      type = {claimStatus["Active"]}
-      content = {value}
-  />
-    },
-    {
-      Header: "Action",
-       Cell: () => <RenderClaimsToggle/>
-    }
-  ],
-  []
-)
+interface IRTable {
+  columnsData: any
+  data: any;
+}
 
-  // const data = useMemo(() => MOCK_DATA, [])
+const RTable = (props: IRTable) => {
 
-  // console.log(MOCK_DATA)
-  const data = React.useMemo(() => MOCK_DATA, [])
+  const { columnsData, data } = props
+ // ***
+ const columns = columnsData
 
-
-  console.log(data)
-  console.log(columns)
 
   const {
     getTableProps,
@@ -255,3 +228,25 @@ const RTable = () => {
 }
 
 export default RTable
+
+
+// const columnsData =  [
+//   {
+//     Header: 'Role Name',
+//     accessor: 'first_name'
+//   },
+//   {
+//     Header: 'Created By',
+//     accessor: "last_name"
+//   },
+//   {
+//     Header: 'Status',
+//     accessor: "status",
+//   },
+//   {
+//     Header: "Action",
+//     Cell: () => <RenderClaimsToggle/>
+//   }
+// ]
+
+// const data = React.useMemo(() => MOCK_DATA, [])

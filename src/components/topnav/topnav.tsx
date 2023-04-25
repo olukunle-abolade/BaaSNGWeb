@@ -167,7 +167,7 @@ const Topnav = () => {
                   value={value}
                   label='Contact'
                   onChange={onChange}
-                  placeholder='(397) 294-5153'
+                  placeholder='(+234) 294-5153'
                   error={Boolean(errors.email)}
                 />
               )}
@@ -175,17 +175,25 @@ const Topnav = () => {
           </FormControl>
           <FormControl fullWidth sx={{ mb: 6 }}>
             <InputLabel id='role-select'>Status</InputLabel>
-            <Select
-              fullWidth
-              value={status}
-              id='select-role'
-              label='Select Role'
-              labelId='role-select'
-              inputProps={{ placeholder: 'Select Role' }}
-            >
-              <MenuItem value='admin'>Activate</MenuItem>
-              <MenuItem value='author'>Deactivate</MenuItem>
-            </Select>
+            <Controller
+              name='status'
+              control={control}
+              rules={{ required: true }}
+              render={({ field: { value, onChange } }) => (
+                <Select
+                  fullWidth
+                  value={value}
+                  id='select-role'
+                  label='Select Role'
+                  labelId='role-select'
+                  inputProps={{ placeholder: 'Select Role' }}
+                  onChange={onChange}
+                >
+                  <MenuItem value='admin'>Activate</MenuItem>
+                  <MenuItem value='author'>Deactivate</MenuItem>
+                </Select>
+              )}
+            />
           </FormControl>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             {/* <Button size='large' type='submit' variant='contained' sx={{ mr: 3 }}>
