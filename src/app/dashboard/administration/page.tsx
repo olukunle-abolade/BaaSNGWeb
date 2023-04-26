@@ -49,7 +49,7 @@ const RolesnPri = () => {
       },
       {
         Header: "Action",
-        Cell: () => <RenderClaimsToggle/>
+        Cell: () => <RenderClaimsToggle />
       }
     ],
   []

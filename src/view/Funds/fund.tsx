@@ -20,7 +20,7 @@ const Fund = () => {
   return (
     <Box>
       <div className="grid grid-cols-3 gap-4 w-[966px] mt-8" onClick={toggleAddUserDrawer}>
-        <div className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
+        <div onClick={toggleAddUserDrawer} className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
           {/* circle  */}
           <div className='flex items-center justify-center w-[75px] h-[75px] rounded-full bg-white'>
             <Image 
@@ -34,7 +34,7 @@ const Fund = () => {
             <p className='text-n100 text-sm font-normal '>Send money to people using Baas</p>
           </div>
         </div>
-        <div className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
+        <div onClick={toggleAddUserDrawer} className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
           {/* circle  */}
           <div className='flex items-center justify-center w-[75px] h-[75px] rounded-full bg-white'>
             <Image 

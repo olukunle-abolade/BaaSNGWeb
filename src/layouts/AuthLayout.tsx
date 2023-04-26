@@ -137,4 +137,5 @@ export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, backToLogin, i
     </AuthFlowLayoutContainer>
   )
 }
+
 export default AuthLayout;
