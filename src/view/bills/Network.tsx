@@ -5,6 +5,9 @@ import React, { useState } from 'react'
 import PhoneInput from 'react-phone-input-2'
 import "react-phone-input-2/lib/bootstrap.css";
 
+//** Component 
+import SidebarAddUser from '@/components/user/AddUserDrawer';
+
 // ** Image
 import Airtel from '@/assets/images/Airtel.svg'
 import MTN from "@/assets/images/MTN.svg"
@@ -12,9 +15,12 @@ import Glo from "@/assets/images/GLO.svg"
 import Mobile from "@/assets/images/9MOBILE.svg"
 import { TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/CustomButton'
+import OTP from '../otp/OTP';
 
 const Network = () => {
   const [phone, setPhone] = useState("");
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   return (
     <div>
@@ -101,7 +107,11 @@ const Network = () => {
       <TextField label='Amount' type="text" placeholder="₦ 10.00 - ₦ 5,000,000.00" />
 
       {/* button */}
-      <CustomButton title='Pay' onClick={()=> null} buttonStyle={{marginTop: 40}} />
+      <CustomButton title='Pay' onClick={toggleAddUserDrawer} buttonStyle={{marginTop: 40}} />
+
+      <SidebarAddUser title='Transaction PIN' open={addUserOpen} toggle={toggleAddUserDrawer} >
+        <OTP />
+      </SidebarAddUser>
     </div>
    
   )
