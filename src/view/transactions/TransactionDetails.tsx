@@ -11,6 +11,7 @@ import CustomButton from '@/components/CustomButton'
 import Wema from '@/assets/images/Wema-Bank.svg'
 import Customer from '@/assets/images/customer.svg'
 import Feedback from '@/assets/images/feedback.svg'
+
 const TransactionDetails = () => {
   return (
     <div className="relative">

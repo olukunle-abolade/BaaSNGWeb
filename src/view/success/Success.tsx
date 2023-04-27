@@ -6,7 +6,6 @@ import { FaCheck } from 'react-icons/fa'
 // ** Components
 import CustomButton from '@/components/CustomButton'
 
-
 const Success = () => {
   return (
     <div className='flex flex-col items-center w-full'>

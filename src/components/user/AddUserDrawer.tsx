@@ -161,7 +161,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       variant='temporary'
       onClose={handleClose}
       ModalProps={{ keepMounted: true }}
-      sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 400 } } }}
+      sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 450 } } }}
     >
       <Header>
         <h3 className='text-lg text-[#2D2D2D font-medium]'>{title}</h3>
@@ -169,7 +169,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
           <Icon icon='bx:x' fontSize={20} />
         </IconButton>
       </Header>
-      <Divider sx={{backgroundColor: '#210590', height: 2,  width: { xs: 300, sm: 400 }}}  />
+      <Divider sx={{backgroundColor: '#210590', height: 2,  width: { xs: 300, sm: 450 }}}  />
       <Box sx={{ p: 5 }}>
        {children}
       </Box>

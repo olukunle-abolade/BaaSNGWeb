@@ -12,6 +12,7 @@ import IntraImage from '@/assets/images/intrabank.png'
 // ** Component
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import OTP from '../otp/OTP';
+import Receipt from '../receipt/Receipt';
 
 const Fund = () => {
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
@@ -65,7 +66,7 @@ const Fund = () => {
         </div>
       </div>
       <SidebarAddUser title='Funds Transfer' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        Form Component
+        <Receipt />
       </SidebarAddUser>
      
     </Box>
