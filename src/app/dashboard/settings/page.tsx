@@ -6,6 +6,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
+// ** Components
+import TransactionDetails from '@/view/transactions/TransactionDetails';
 
 
 interface TabPanelProps {
@@ -51,7 +53,9 @@ const Settings = () => {
 
   return (
     <>
-      <Box sx={{ width: '100%', bgColor: 'red' }}>
+      <TransactionDetails />
+      {/* sx={{borderStyle:'dashed'}} */}
+      {/* <Box sx={{ width: '100%', bgColor: 'red' }}>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs sx={{textTransform: 'capitalize'}} value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab sx={{textTransform: 'capitalize'}} label="Account Details" {...a11yProps(0)} />
@@ -80,7 +84,8 @@ const Settings = () => {
         <TabPanel value={value} index={5}>
           <p className="text-black">API Integrations</p>
         </TabPanel>
-      </Box>
+      </Box> */}
+
     </>
   )
 }

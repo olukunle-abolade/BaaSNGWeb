@@ -46,6 +46,7 @@ const styles = {
   container: {
     height: 48,
     width: '100%',
+    display: 'flex',
     justifyContent:"center",
     alignItems: "center",
     borderRadius: SIZES.base,

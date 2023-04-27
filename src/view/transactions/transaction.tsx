@@ -71,7 +71,7 @@ const Transaction = () => {
 
 
   return (
-    <div className = "mt-14">
+    <div className = "mt-10">
       <RTable columnsData={columns} data={data}/>
     </div>
   )
