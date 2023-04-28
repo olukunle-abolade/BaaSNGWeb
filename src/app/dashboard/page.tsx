@@ -16,7 +16,6 @@ import FolderIcon from '@/assets/icons/folder.png'
 import DownChartIcon from "@/assets/icons/down-cart.png"
 import UpChartIcon from "@/assets/icons/up-cart.png"
 import PendIcon from "@/assets/icons/pend.png"
-import ApexLineChart from '@/view/charts/apex-charts/ApexLineChart'
 import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
 
 const RightDasboard= () => {

@@ -22,6 +22,7 @@ module.exports = {
         n600: '#2E2E2E',
         n800: '#0D0D0D',
         p50: '#E9E6F4',
+        gray900: '#101828',
         kgreen: '#12B76A',
         kred: '#F04438',
         kyellow: '#F79009',

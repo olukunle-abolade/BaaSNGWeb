@@ -1,13 +1,19 @@
 'use client'
+import { useState } from 'react'
 
 // ** Components 
 import { SelectField, TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/CustomButton'
+import SidebarAddUser from '@/components/user/AddUserDrawer';
+import PaymentSummary from './PaymentSummary';
 
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
 
 const IntraBank = () => {
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
   return (
     <div>
       {/* chip */}
@@ -21,7 +27,7 @@ const IntraBank = () => {
         <p className='text-n100 text-sm font-normal'>Send money to BaaS friends and family.</p>
       </div>
 
-      <form className='mt-10'>
+      <div className='mt-10'>
         <TextField label='Account Number' type="text" placeholder="Enter 10 - digit Account Number" />
         <TextField label='Amount' type="text" placeholder="₦ 10.00-₦ 5,000,000.00" />
 
@@ -40,8 +46,12 @@ const IntraBank = () => {
           <option value="">Select Transfer Type</option>
         </SelectField>
 
-        <CustomButton title='Next' onClick={()=> null}  buttonStyle={{marginTop: 10}} />
-      </form>
+        <CustomButton title='Next' onClick={toggleAddUserDrawer}  buttonStyle={{marginTop: 10}} />
+      </div>
+
+      <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} >
+        <PaymentSummary />
+      </SidebarAddUser>
     </div>
   )
 }
