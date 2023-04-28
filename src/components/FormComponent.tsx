@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 // import 'react-phone-number-input/style.css';
 import {
   FormField,
@@ -68,43 +68,53 @@ export const TextField = React.forwardRef(function TextField(
   );
 });
 
-// export const SelectField = React.forwardRef(
-//   function SelectField({name, label, className, required, defaultValue,onChange, children, props}, ref){
-//     return (
-//         <FormField className={className}>
-//           <Label className="mb-2" htmlFor={name}>{label}</Label>
-//           <div className="flex justify-center">
-//             <div className="mb-3  w-full" >
-//               <select  className=" form-select appearance-none
-//                 block
-//                 w-full
-//                 px-3
-//                 py-2
-//                 mt-2
-//                 text-body4
-//                 font-normal
-//                 text-gray-400
-//                 bg-white bg-clip-padding bg-no-repeat
-//                 border border-solid border-gray-300
-//                 rounded
-//                 transition
-//                 ease-in-out
-//                 m-0
-//                 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
-//                   name = {name}
-//                   ref = {ref}
-//                   id={name}
-//                   onChange={onChange}
-//                   {...props}
-//                 >
-//                 {children}
-//               </select>
-//             </div>
-//             </div>
-//         </FormField>
-//     )
-//   }
-// )
+export const SelectField = React.forwardRef(
+  function SelectField({name, label, className,onChange, children, props}: {
+    label?: string;
+    type?: any;
+    name?: string;
+    onChange?: any;
+    className?: any;
+    errors?: any;
+    placeholder?: any;
+    props?: any
+    children?: ReactNode
+  }, ref: React.ForwardedRef<any>){
+    return (
+        <FormField className={className}>
+          <Label className="mb-2" htmlFor={name}>{label}</Label>
+          <div className="flex justify-center">
+            <div className="mb  w-full" >
+              <select  className=" form-select appearance-none
+                block
+                w-full
+                px-3
+                py-2
+                mt-2
+                text-body4
+                font-normal
+                text-gray-400
+                bg-white bg-clip-padding bg-no-repeat
+                border border-solid border-gray-300
+                rounded
+                transition
+                ease-in-out
+                m-0
+                focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
+                  name = {name}
+                  ref = {ref}
+                  id={name}
+                  onChange={onChange}
+                  {...props}
+                >
+                {children}
+              </select>
+            </div>
+            </div>
+        </FormField>
+    )
+  }
+)
 
 export const PasswordField = React.forwardRef(function PasswordField(
   {
