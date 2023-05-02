@@ -36,6 +36,8 @@ export const FormField = styled.div`
   }
   textarea {
     line-height: 1em;
+    padding-top: 0.8em;
+    height: 97px;
   }
 
   ::placeholder {

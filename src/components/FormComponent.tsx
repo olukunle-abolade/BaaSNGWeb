@@ -36,8 +36,10 @@ export const TextField = React.forwardRef(function TextField(
       {type === 'textarea' && (
         <textarea
           name={name}
+          rows = {4}
           id={name}
           defaultValue={defaultValue}
+          placeholder={placeholder}
           onChange={onChange}
           ref={ref}
         />
