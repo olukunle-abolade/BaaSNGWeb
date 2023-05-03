@@ -7,6 +7,7 @@ import {
   Label,
   PasswordType,
 } from '../styles/formcomponent.style';
+import { FiEye, FiEyeOff } from 'react-icons/fi';
 
 export const TextField = React.forwardRef(function TextField(
   {
@@ -156,9 +157,9 @@ export const PasswordField = React.forwardRef(function PasswordField(
           onChange={onChange}
           ref={ref}
         />
-        {/* <span className="p_visible" onClick={() => setShow(!show)}>
+        <span className="p_visible mr-2" onClick={() => setShow(!show)}>
             {!show ? <FiEye /> : <FiEyeOff />}
-          </span> */}
+          </span>
       </PasswordType>
     </FormField>
   );

@@ -7,7 +7,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 // ** Components
-import TransactionDetails from '@/view/transactions/TransactionDetails';
+import Password from '@/view/settings/password/Password';
 
 
 interface TabPanelProps {
@@ -53,9 +53,8 @@ const Settings = () => {
 
   return (
     <>
-      <TransactionDetails />
-      {/* sx={{borderStyle:'dashed'}} */}
-      {/* <Box sx={{ width: '100%', bgColor: 'red' }}>
+      {/* <TransactionDetails /> */}
+      <div className='w-full px-5 bg-white py-8'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
           <Tabs sx={{textTransform: 'capitalize'}} value={value} onChange={handleChange} aria-label="basic tabs example">
             <Tab sx={{textTransform: 'capitalize'}} label="Account Details" {...a11yProps(0)} />
@@ -73,7 +72,7 @@ const Settings = () => {
            <p className="text-black">Profile</p>
         </TabPanel>
         <TabPanel value={value} index={2}>
-          <p className="text-black">Password</p>
+          <Password />
         </TabPanel>
         <TabPanel value={value} index={3}>
           <p className="text-black">Preferences</p>
@@ -84,7 +83,7 @@ const Settings = () => {
         <TabPanel value={value} index={5}>
           <p className="text-black">API Integrations</p>
         </TabPanel>
-      </Box> */}
+      </div>
 
     </>
   )

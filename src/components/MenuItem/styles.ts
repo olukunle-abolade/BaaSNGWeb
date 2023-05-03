@@ -18,7 +18,6 @@ export const MenuItemContainer = styled.div<{depth:any}>
   }
 
   &:hover {
-    // color: #fc86aa;
     opacity: 0.5;
     cursor: pointer;
   }
