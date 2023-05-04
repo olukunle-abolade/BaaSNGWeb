@@ -114,21 +114,7 @@ const Preferences = () => {
             </label>
           </td>
         </tr>
-      </thead>
-      {/* <tbody>
-        <tr>
-          <td className="border border-slate-300 ...">Indiana</td>
-          <td className="border border-slate-300 ...">Indianapolis</td>
-        </tr>
-        <tr>
-          <td className="border border-slate-300 ...">Ohio</td>
-          <td className="border border-slate-300 ...">Columbus</td>
-        </tr>
-        <tr>
-          <td className="border border-slate-300 ...">Michigan</td>
-          <td className="border border-slate-300 ...">Detroit</td>
-        </tr>
-      </tbody> */}
+      </thead>  
     </table>
     </div>
   </div>

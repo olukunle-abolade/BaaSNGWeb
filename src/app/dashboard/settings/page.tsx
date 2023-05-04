@@ -10,6 +10,7 @@ import Box from '@mui/material/Box';
 import Password from '@/view/settings/password/Password';
 import Profile from '@/view/settings/profile/Profile';
 import Preferences from '@/view/settings/Preferences/Preferences';
+import Notification from '@/view/settings/Notification/Notification';
 
 
 interface TabPanelProps {
@@ -80,7 +81,7 @@ const Settings = () => {
           <Preferences />
         </TabPanel>
         <TabPanel value={value} index={4}>
-          <p className="text-black">Notifications</p>
+          <Notification />
         </TabPanel>
         <TabPanel value={value} index={5}>
           <p className="text-black">API Integrations</p>
