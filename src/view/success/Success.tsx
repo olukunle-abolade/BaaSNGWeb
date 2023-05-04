@@ -26,28 +26,28 @@ const Success = () => {
           {/* name */}
           <p className='text-n800 text-lg font-medium'>Network Provider</p>
           {/* desc */}
-          <h3 className="text-black text-lg font-semibild">Airtel</h3>
+          <h3 className="text-black text-lg font-semibold">Airtel</h3>
         </div>
          {/*  */}
          <div className="flex items-center justify-between">
           {/* name */}
           <p className='text-n800 text-lg font-medium'>Recipient</p>
           {/* desc */}
-          <h3 className="text-black text-lg font-semibild">081 345 6332</h3>
+          <h3 className="text-black text-lg font-semibold">081 345 6332</h3>
         </div>
          {/*  */}
          <div className="flex items-center justify-between">
           {/* name */}
           <p className='text-n800 text-lg font-medium'>Fee</p>
           {/* desc */}
-          <h3 className="text-black text-lg font-semibild">₦0.00</h3>
+          <h3 className="text-black text-lg font-semibold">₦0.00</h3>
         </div>
          {/*  */}
          <div className="flex items-center justify-between">
           {/* name */}
           <p className='text-n800 text-lg font-medium'>Payment Method</p>
           {/* desc */}
-          <h3 className="text-black text-lg font-semibild">Balance</h3>
+          <h3 className="text-black text-lg font-semibold">Balance</h3>
         </div>
       </div>
 

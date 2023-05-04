@@ -1,8 +1,5 @@
 import Image from 'next/image'
 
-// ** Third Pary
-import {BsFillCheckCircleFill} from 'react-icons/bs'
-
 // ** Images
 import ProfileImage from '@/assets/images/profile.svg'
 
