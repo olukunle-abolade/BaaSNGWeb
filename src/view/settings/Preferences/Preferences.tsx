@@ -9,6 +9,7 @@ import ProfileImage from '@/assets/images/profile.svg'
 // ** Components
 import CustomButton from '@/components/CustomButton'
 import {  SelectField, TextField } from '@/components/FormComponent'
+import { Divider } from '@mui/material'
 
 
 const Preferences = () => {
@@ -52,11 +53,11 @@ const Preferences = () => {
     </div>
 
     {/*  Switch */}
-    <div className="grid grid-cols-2 gap-x-4 mt-6 w-full h-fit">
-    <table className="border-separate border-spacing-20">
+    <div className="grid  gap-x-4 mt-6 w-full h-fit">
+    <table className="border-separate border-spacing-y-20 ">
       <thead className='space-y-8'>
-        <tr className='w-fit '>
-          <td className="text-black text-sm font-medium ">Transaction receipts</td>
+        <tr className='w-full border border-slate-300 '>
+          <td className="text-black text-sm align-text-top font-medium">Transaction receipts</td>
           <td className="flex flex-col space-y-4">
             <label className="relative inline-flex items-center cursor-pointer">
               <input type="checkbox" value="" className="sr-only peer"/>
@@ -72,7 +73,7 @@ const Preferences = () => {
           </td>
         </tr>
         <tr>
-          <td className="text-black text-sm font-medium">OTP confirmation</td>
+          <td className="text-black text-sm font-medium align-text-top">OTP confirmation</td>
           <td className="flex flex-col space-y-4">
             <label className="relative inline-flex items-center w-full cursor-pointer">
               <input type="checkbox" value="" className="sr-only peer"/>
@@ -88,7 +89,7 @@ const Preferences = () => {
           </td>
         </tr>
         <tr>
-          <td className="text-black text-sm font-medium">Payment method</td>
+          <td className="text-black text-sm font-medium align-text-top">Payment method</td>
           <td className="flex flex-col space-y-4">
             <label className="relative inline-flex items-center cursor-pointer">
               <input type="checkbox" value="" className="sr-only peer"/>
