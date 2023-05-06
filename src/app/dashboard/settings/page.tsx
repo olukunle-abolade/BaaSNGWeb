@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 // ** MUI
 import Tabs from '@mui/material/Tabs';
@@ -11,6 +11,7 @@ import Password from '@/view/settings/password/Password';
 import Profile from '@/view/settings/profile/Profile';
 import Preferences from '@/view/settings/Preferences/Preferences';
 import Notification from '@/view/settings/Notification/Notification';
+import Account from '@/view/settings/Account/Account';
 
 
 interface TabPanelProps {
@@ -69,7 +70,7 @@ const Settings = () => {
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
-          <p className="text-black">Account Details</p>
+          <Account />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <Profile />

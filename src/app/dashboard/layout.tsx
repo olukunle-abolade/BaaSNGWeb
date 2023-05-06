@@ -15,7 +15,7 @@ export default function DashboardLayout({
       <Sidebar/>
       <LayoutContent>
         <Topnav/>
-        <LayoutContentMain>
+        <LayoutContentMain active>
           {children}
         </LayoutContentMain>
       </LayoutContent>
