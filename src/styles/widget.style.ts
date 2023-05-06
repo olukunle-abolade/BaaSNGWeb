@@ -290,3 +290,26 @@ export const Bar = styled.div`
   margin: 6px 0;
   transition: 0.4s;
 `;
+
+// ProgressBar Style
+export const ProgressBar = styled.div` 
+  background-color: #E8E8E8;
+  border-radius: 5.5px;
+  position: relative;
+  margin: 15px 0;
+  height: 7px;
+  width: 100%;
+
+  .progress-done {
+    background: linear-gradient(119.79deg, #210590 20.8%, #5428FF 88.13%);
+    border-radius: 5.5px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 0;
+    opacity: 0.4;
+    transition: 1s ease 0.3s;
+  }
+`
