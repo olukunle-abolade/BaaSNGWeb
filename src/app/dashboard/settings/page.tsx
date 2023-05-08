@@ -12,6 +12,7 @@ import Profile from '@/view/settings/profile/Profile';
 import Preferences from '@/view/settings/Preferences/Preferences';
 import Notification from '@/view/settings/Notification/Notification';
 import Account from '@/view/settings/Account/Account';
+import Integrations from '@/view/settings/Integrations/Integrations';
 
 
 interface TabPanelProps {
@@ -85,7 +86,7 @@ const Settings = () => {
           <Notification />
         </TabPanel>
         <TabPanel value={value} index={5}>
-          <p className="text-black">API Integrations</p>
+          <Integrations />
         </TabPanel>
       </div>
 
