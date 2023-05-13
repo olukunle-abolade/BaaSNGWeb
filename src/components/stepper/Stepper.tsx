@@ -72,12 +72,12 @@ const Stepper: FC<IStepper> = ({steps, currentStep}) => {
 
   const displaySteps = newStep.map((step: any, index: number) => {
     return (
-      <div key={index} className={ index !== newStep.length - 1 ? "w-full flex items-center" : 'flex items-center'}>
-        <div className="relative flex flex-col items-center text-teal-600 ">
-          <div className={`w-12 h-12 flex items-center justify-center py-3 rounded-full transition duration-500 ease-in-out border-2 border-gray-300 ${step.selected ? "bg-green-600 text-white font-bold border border-green-600": ""}`}>
+      <div key={index} className={ index !== newStep.length - 1 ? "w-full h-[70vh] flex flex-col items-center" : 'flex flex-col items-center'}>
+        <div className="relative flex  items-center text-n60 text-xs">
+          <div className={`w-[22px] h-[22px] flex items-center justify-center  rounded-full transition duration-500 ease-in-out border-2 border-gray-300 ${step.selected ? "bg-kprimary text-white font-semibold border border-kprimary": ""}`}>
             {/* Display Numbers */} 
             {step.completed ? 
-              <span className="text-white font-bold text-xl">
+              <span className="text-white font-bold text-[10px]">
                 &#10003;
               </span> : (index + 1)
             }
@@ -87,7 +87,7 @@ const Stepper: FC<IStepper> = ({steps, currentStep}) => {
             {step.description}
           </div>
         </div>
-        <div className={`flex-auto border-t-2 transition duration-500 border-2 ease-in-out ${step.completed ? "border-green-600" : "border-gray-300"} `}>
+        <div className={`flex flex-col flex-auto border-t-2 transition duration-500 border-[1.3px] ease-in-out ${step.completed ? "border-kprimary" : "border-gray-300"}`}>
           {/* Desplay lines */}
         </div>
       </div>
@@ -97,7 +97,7 @@ const Stepper: FC<IStepper> = ({steps, currentStep}) => {
 
 
   return (
-    <div className="mx-4 p-4 flex justify-between items-center">
+    <div className="mx-4 p-4 h-[70vh] flex flex-col justify-between items-center">
       {displaySteps}
     </div>
   )

@@ -16,6 +16,7 @@ module.exports = {
         kblack2: '#697A8D',
         n40: '#DEDEDE',
         n50: '#BFBFBF',
+        n60: '#B0B0B0',
         n80: '#949494',
         n100: '#757575',
         n200: '#666666',

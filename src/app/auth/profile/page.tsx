@@ -1,6 +1,10 @@
 'use client'
 
 import {useState} from 'react';
+import Image from 'next/image';
+
+// ** Image
+import Logo from '@/assets/logo.png';
 
 // ** Component
 import Stepper from '@/components/stepper/Stepper'
@@ -15,7 +19,7 @@ const Profile = () => {
   const [userData, setUserData] = useState("")
   const [finalData, setFinalData] = useState([])
 
-  const steps = ["Account Information", 'Personal Details', 'Complelte']
+  const steps = ["Personal Information", 'Business Information', 'Financial Information', 'KYC and AML', 'Supporting Documents']
 
   const displayStep = (step: number) => {
     switch (step) {
@@ -36,32 +40,27 @@ const Profile = () => {
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   }
   return (
-    <div className="md:1/2 mx-auto shadow-xl rounded-2xl pb-2 bg-white">
-      {/* Stepper */}
-      <div className="container horizontal mt-5 mb-8 ">
-        <Stepper 
-          steps = {steps}
-          currentStep = {currentStep}
-        />
-      </div>
-      {/* Display Components */}
-      <div className='my-10 p-10 '>
-        <StepperContext.Provider value={{
-          userData ,
-          setUserData,
-          finalData,
-          setFinalData
-        }} >
-          {displayStep(currentStep)}
-        </StepperContext.Provider>
-      </div>
+    <div className='w-full h-screen '>
+      {/* sidbar */}
+      <div className='w-[17.563rem] h-screen bg-p50'>
+        <div className="flex items-center justify-center pt-10">
+          <Image
+            src= {Logo}
+            alt="banner"
+            height={100}
+            width={100}
+          />
+        </div>
 
-      {/* Navigation control */}
-      <StepperControl 
-        handleClick = {handleClick}
-        currentStep = {currentStep}
-        steps = {steps}
-      />
+        {/* Stepper */}
+        <div className=" horizontal mt-5 mb-8 ">
+          <Stepper 
+            steps = {steps}
+            currentStep = {currentStep}
+          />
+        </div>
+
+      </div>
     </div>
   )
 }
