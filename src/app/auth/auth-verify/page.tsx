@@ -1,10 +1,14 @@
 "use client"
 
+import Link from 'next/link'
+import { useRouter } from 'next/navigation';
+
+// ** Third Party
+import { FaRegEnvelope } from 'react-icons/fa';
+
+// ** Component
 import CustomButton from '@/components/CustomButton'
 import { AuthFlowLayout } from '@/layouts/AuthLayout'
-import React from 'react'
-import { useRouter } from 'next/navigation';
-import Link from 'next/link'
 
 
 const AuthVerify = () => {
@@ -14,6 +18,7 @@ const AuthVerify = () => {
     <AuthFlowLayout
       title='Check your email'
       desc='We sent a password reset link to oopeoluwa@gmail.com'
+      iconComponent={<FaRegEnvelope color='white' size={22}/>}
     >
       <div>
         <CustomButton title='Open email app' onClick={() =>router.push('/auth/set-password')}/>

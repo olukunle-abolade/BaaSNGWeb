@@ -115,7 +115,7 @@ export const AuthFlowLayout: FC<IAuthFlowLayout> = ({title, desc, backToLogin, i
       <div className="flex flex-col justify-center items-center w-[400px] h-[500px]  mx-auto space-y-2 ">
         <div className='w-full h-full'>
           {/* icon logo */}
-          <div className='flex mx-auto mb-5 w-[81px] h-[81px] rounded-full bg-kprimary  border-[15px]   border-[rgba(33, 5, 144, 0.1)]'>
+          <div className='flex items-center justify-center mx-auto mb-5 w-[81px] h-[81px] rounded-full bg-kprimary  border-[15px]   border-[rgba(33, 5, 144, 0.1)]'>
             {iconComponent}
           </div>
           <div className='mb-8 space-y-2'>

@@ -1,9 +1,14 @@
 "use client"
 
-import React from 'react'
+
 import { useRouter } from 'next/navigation';
+
+// ** Third Party
+import { FaRegEnvelope } from 'react-icons/fa';
+
+// ** Component
 import { AuthFlowLayout } from '@/layouts/AuthLayout'
-import { PasswordField, TextField } from '@/components/FormComponent';
+import { PasswordField } from '@/components/FormComponent';
 import CustomButton from '@/components/CustomButton';
 
 const SetPassword = () => {
@@ -15,6 +20,7 @@ const SetPassword = () => {
       <AuthFlowLayout
         title='Set new password'
         desc='Your new password must be different to previously used passwords.'
+        iconComponent={<FaRegEnvelope color='white' size={22}/>}
         backToLogin
         
       >

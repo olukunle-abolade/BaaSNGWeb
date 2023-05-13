@@ -13,7 +13,7 @@ const Success = () => {
       <div className='flex items-center justify-center mx-auto mb-5 w-[81px] h-[81px] rounded-full bg-kgreen border-[15px]  border-[rgba(18, 183, 106, 0.1)]'>
         <FaCheck color='#FFFFFF' />
       </div>
-
+      
       <h3 className='text-n800 text-lg font-semibold mb-6'>Enter your transaction pin</h3>
 
       {/* price */}

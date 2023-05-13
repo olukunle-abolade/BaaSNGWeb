@@ -1,12 +1,23 @@
-// ** Components
-import CustomButton from '@/components/CustomButton'
-import { PasswordField, TextField } from '@/components/FormComponent'
+import { useState } from 'react'
+
+// ** MUI
 import { Divider } from '@mui/material'
+
+// ** Third Party 
 import { BsPlus } from 'react-icons/bs'
 import { FaRegTrashAlt } from 'react-icons/fa'
 import { FiAlertTriangle } from 'react-icons/fi'
 
+// ** Components
+import CustomButton from '@/components/CustomButton'
+import { PasswordField, TextField } from '@/components/FormComponent'
+import SidebarAddUser from '@/components/user/AddUserDrawer'
+
+
 const Integrations = () => {
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+
   return (
     <div className='h-full'>
       {/*  */}
@@ -32,7 +43,7 @@ const Integrations = () => {
         <div className="flex items-center space-x-6">
           {/* ip whilelist */}
           <h3 className='text-sm text-n800 font-medium'>IP Whitelist</h3>
-          <CustomButton title='Add IP addresses' textStyle={{color: "#4730A3"}} buttonColor='#E9E6F4' buttonStyle={{width: 199}} />
+          <CustomButton title='Add IP addresses' onClick={toggleAddUserDrawer} textStyle={{color: "#4730A3"}} buttonColor='#E9E6F4' buttonStyle={{width: 199}} />
         </div>
 
         <div className="space-y-6 mt-6">
@@ -109,11 +120,14 @@ const Integrations = () => {
       </div>
 
       {/* Submit button */}
-
       <div className="flex space-x-8 items-center justify-end">
         <CustomButton title='Cancel' textStyle={{color: "#4A4A4A"}} buttonColor='transparent' buttonStyle={{borderWidth: 1, borderColor: '#DEDEDE', width: 147}} />
         <CustomButton title='Save Changes' buttonStyle={{width: 147}} />
       </div>
+
+      {/* Modal */}
+      <SidebarAddUser title='QR Payment' open={addUserOpen} toggle={toggleAddUserDrawer} >
+      </SidebarAddUser>
     </div>
   )
 }

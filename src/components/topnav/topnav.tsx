@@ -24,7 +24,7 @@ import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextFie
 const renderNotification = (item: any, index: any) => (
   <TopNavNotificationItem key = {index}>
     <ImNotification className= "mr-2"/>
-    <span className = "text-base">{item.note}</span>
+    <span className = "text-sm font-semibold text-[#2D2D2D]">{item.note}</span>
   </TopNavNotificationItem>
 )
 
