@@ -60,7 +60,19 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className='w-full'>
+      <div className='w-full flex-1'>
+        {/* Display Components */}
+        <div className='my-10 p-10 '>
+          <StepperContext.Provider value={{
+            userData ,
+            setUserData,
+            finalData,
+            setFinalData
+          }} >
+            {displayStep(currentStep)}
+          </StepperContext.Provider>
+        </div>
+
         {/* Navigation control */}
         <StepperControl 
           handleClick = {handleClick}
