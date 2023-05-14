@@ -9,10 +9,12 @@ import Logo from '@/assets/logo.png';
 // ** Component
 import Stepper from '@/components/stepper/Stepper'
 import StepperControl from '@/components/stepper/StepperControl'
-import Account from '@/view/steps/account/Account'
-import Details from '@/view/steps/details/Details'
-import Final from '@/view/steps/final/Final'
 import { StepperContext } from '@/contexts/StepperContext';
+import Personal from '@/view/steps/personal/Personal';
+import Bussiness from '@/view/steps/business/Business';
+import Financial from '@/view/steps/financial/Financial';
+import Kyc from '@/view/steps/kyc/Kyc';
+import Document from '@/view/steps/document/Document';
 
 const Profile = () => {
   const [currentStep, setCurrentStep] = useState(1)
@@ -24,11 +26,15 @@ const Profile = () => {
   const displayStep = (step: number) => {
     switch (step) {
       case 1:
-        return <Account />
+        return <Personal />
       case 2: 
-        return <Details />
+        return <Bussiness />
       case 3:
-        return <Final />
+        return <Financial />
+      case 4:
+        return <Kyc />
+      case 5:
+        return <Document />
       default:
     }
   }
@@ -60,7 +66,7 @@ const Profile = () => {
           />
         </div>
       </div>
-      <div className='w-full flex-1'>
+      <div className='w-full flex-1 bg-white'>
         {/* Display Components */}
         <div className='my-10 p-10 '>
           <StepperContext.Provider value={{

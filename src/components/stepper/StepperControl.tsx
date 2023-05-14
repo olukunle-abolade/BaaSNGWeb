@@ -16,7 +16,7 @@ const StepperControl: FC<IStepperControl> = ({handleClick, currentStep, steps })
         <HiArrowCircleLeft className="mr-2"/> Back
       </button>
       {/* Next Button */}
-      <CustomButton onClick = {() => handleClick("next")} title= {currentStep === steps.length - 1 ? "Confirm:" : "Next"}  buttonStyle={{width: 320}}  />
+      <CustomButton onClick = {() => handleClick("next")} title= {currentStep === steps.length - 1 ? "Confirm" : "Next"}  buttonStyle={{width: 320}}  />
     </div>
   )
 }
