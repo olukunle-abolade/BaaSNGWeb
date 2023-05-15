@@ -46,7 +46,7 @@ const Profile = () => {
     newStep > 0 && newStep <= steps.length && setCurrentStep(newStep);
   }
   return (
-    <div className='w-full h-screen flex '>
+    <div className='w-full h-full flex '>
       {/* sidbar */}
       <div className='w-[17.563rem] h-screen bg-p50'>
         <div className="flex items-center justify-center pt-10">
