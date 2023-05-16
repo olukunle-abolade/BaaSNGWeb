@@ -9,9 +9,9 @@ interface ISettings {
 
 const settings = {
   apiUrl: '',
-  appName: 'ERP Platform',
-  subject: 'ERP Platform',
-  baseUrl: 'https://telvida-erp.onrender.com/api/v1'
+  appName: 'BaaS Platform',
+  subject: 'BaaS Platform',
+  baseUrl: 'https://sandbox-api.baas.ng'
 } as ISettings
 
 export default settings

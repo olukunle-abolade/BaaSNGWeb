@@ -1,14 +1,32 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
-import { Checkbox, FormControlLabel } from '@mui/material';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+
+// ** MUI
+import { Checkbox, FormControlLabel } from '@mui/material';
+
+// ** Third Party
 import { useForm } from 'react-hook-form';
-import { PasswordField, TextField } from '@/components/FormComponent';
-import AuthLayout from '@/layouts/AuthLayout';
-import CustomButton from '@/components/CustomButton';
-import { COLORS } from '@/assets/theme/theme';
+
+// ** Images
 import Google from "@/assets/google.png"
+
+// ** Themes
+import { COLORS } from '@/assets/theme/theme';
+
+// ** Layout
+import AuthLayout from '@/layouts/AuthLayout';
+
+// ** Componentas
+import CustomButton from '@/components/CustomButton';
+import { PasswordField, TextField } from '@/components/FormComponent';
+
+interface UserData {
+  email: string
+  password: string
+}
+
 const Login = () => {
   const { handleSubmit, register } = useForm({
     mode: 'onChange',
@@ -29,7 +47,6 @@ const Login = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <TextField
               label="Email "
-              // name="email"
               type="email"
               placeholder="Enter  your email address"
               required={true}
@@ -37,7 +54,6 @@ const Login = () => {
             />
             <PasswordField
               label="Password"
-              // {...name}
               required={true}
               placeholder="Enter your password"
               {...register('password', { required: true })}

@@ -12,6 +12,7 @@
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.11.14",
+    "@reduxjs/toolkit": "^1.9.5",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
     "@types/react-dom": "18.0.11",
@@ -19,6 +20,7 @@
     "@types/styled-components": "^5.1.26",
     "D": "^1.0.0",
     "apexcharts": "^3.39.0",
+    "axios": "^1.4.0",
     "date-fns": "^2.29.3",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
@@ -30,6 +32,7 @@
     "react-icons": "^4.8.0",
     "react-otp-input": "^3.0.1",
     "react-phone-input-2": "^2.15.1",
+    "react-redux": "^8.0.5",
     "react-table": "^7.8.0",
     "styled-components": "^5.3.9",
     "typescript": "5.0.2"
