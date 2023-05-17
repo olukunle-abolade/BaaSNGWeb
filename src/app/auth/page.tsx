@@ -21,20 +21,36 @@ import AuthLayout from '@/layouts/AuthLayout';
 // ** Componentas
 import CustomButton from '@/components/CustomButton';
 import { PasswordField, TextField } from '@/components/FormComponent';
+import { useAuth } from '@/hooks/useAuth';
 
 interface UserData {
   email: string
   password: string
 }
 
+const defaultValues = {
+  email: 'ab3sure@gmail.com',
+  password: 'P@ssword88283'
+}
+
 const Login = () => {
   const { handleSubmit, register } = useForm({
+    defaultValues,
     mode: 'onChange',
   });
+
+  // ** Hooks
+  const auth = useAuth()
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    const { email, password, setError } = data
+    auth.login({ email, password }, () => {
+      setError('email', {
+        type: 'manual',
+        message: 'Email or Password is invalid'
+      })
+    })
   };
 
   return (
@@ -44,7 +60,7 @@ const Login = () => {
         discription="Welcome back! Please enter your details."
       >
         <div className="form_container mt-4" style={{ flexDirection: 'column' }}>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
             <TextField
               label="Email "
               type="email"
@@ -76,7 +92,7 @@ const Login = () => {
             </div>
 
             <div className='space-y-4 mt-8'>
-              <CustomButton title="Sign In"  onClick={() =>router.push("/dashboard")} />
+              <CustomButton title="Sign In" type = "submit"  />
               <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
             </div>
 

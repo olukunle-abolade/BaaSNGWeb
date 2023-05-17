@@ -115,7 +115,7 @@ const Topnav = () => {
               icon = {<IoMdNotificationsOutline/>}
               badge
               contentData = {notification}
-              renderData = {(item: any, index: any) => renderNotification(item, index)}
+              renderData = {(item: any, index: number) => renderNotification(item, index)}
               renderFooter = {() => <Link href= "#"> View All </Link>}
             />
           </div>

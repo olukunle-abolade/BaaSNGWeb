@@ -32,6 +32,14 @@ type Props = {
   children: ReactNode
 }
 
+const headers = {
+  'Content-Type': 'application/json',
+  'X-API-Key': process.env.NEXT_PUBLIC_BAAS_API_KEY
+}
+
+console.log(headers)
+console.log(process.env.NEXT_PUBLIC_BAAS_API_KEY)
+
 const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
@@ -76,9 +84,12 @@ const AuthProvider = ({ children }: Props) => {
     try {
       setLoading(true)
       await axios
-        .post(authConfig.loginEndpoint, {
+        .post(authConfig.loginEndpoint, 
+        {
           email: params.email,
           password: params.password
+        },{
+          headers: headers
         })
         .then(async response => {
           console.log(response.data)
@@ -86,7 +97,7 @@ const AuthProvider = ({ children }: Props) => {
           params.rememberMe
             ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
             : null
-          const returnUrl = pathname.returnUrl
+          const returnUrl = searchParams.toString()
 
           setUser({ ...response?.data?.data?.user })
           params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null

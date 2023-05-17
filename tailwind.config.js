@@ -7,6 +7,7 @@ module.exports = {
     './src/styles/**/*.{js,ts,jsx,tsx}',
     './src/layouts/**/*.{js,ts,jsx,tsx}',
     './src/view/**/*.{js,ts,jsx,tsx}',
+    '!./node_modules',
   ],
   theme: {
     extend: {

@@ -1,20 +1,23 @@
+'use client'
+
 import './globals.css'
 
 // ** Contexts
-// import { AuthProvider } from '@/contexts/AuthContext'
+import { AuthProvider } from '@/contexts/AuthContext'
 
 // ** Store Imports
-// ximport { Provider } from 'react-redux'
+import { store } from '@/store'
+import { Provider } from 'react-redux'
 
-export const metadata = {
-  title: 'Baas',
-  description: 'Fintech Application',
-  icons: {
-    icon: {
-      url: "/favicon.png",
-    },
-  }
-}
+// export const metadata = {
+//   title: 'Baas',
+//   description: 'Fintech Application',
+//   icons: {
+//     icon: {
+//       url: "/favicon.png",
+//     },
+//   }
+// }
 
 export default function RootLayout({
   children,
@@ -22,13 +25,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    // <Provider store={store}>
-      // <AuthProvider>
+    <Provider store={store}>
+      <AuthProvider>
         <html lang="en">
-          <body>{children}</body>
+          <body>
+            <main>{children}</main>
+          </body>
         </html>
-      // </AuthProvider>
-    // </Provider>
+       </AuthProvider>
+    </Provider>
 
   )
 }
