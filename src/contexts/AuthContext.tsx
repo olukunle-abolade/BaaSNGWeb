@@ -8,12 +8,24 @@ import { useRouter, usePathname, useSearchParams } from 'next/navigation'
 
 // ** Axios
 import axios from 'axios'
+import axiosCookieJarSupport from 'axios-cookiejar-support';
+import { CookieJar } from 'tough-cookie';
 
 // ** Config
 import authConfig from '../../src/configs/auth'
 
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+
+
+// Enable cookie handling in Axios
+
+// Create a new cookie jar instance
+const cookieJar = new CookieJar();
+
+// Configure Axios to use the cookie jar
+axios.defaults.jar = cookieJar;
+axios.defaults.withCredentials = true;
 
 // ** Defaults
 const defaultProvider: AuthValuesType = {
@@ -45,40 +57,40 @@ const AuthProvider = ({ children }: Props) => {
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
   const [loading, setLoading] = useState<boolean>(defaultProvider.loading)
   const [token, setToken] = useState('')
-  console.log(user)
+  // console.log(user)
 
   // ** Hooks
   const router = useRouter()
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  useEffect(() => {
-    const initAuth = async (): Promise<void> => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      setLoading(true)
-      console.log(storedToken)
-      if (storedToken) {
-        const userData = JSON.parse(window.localStorage.getItem(authConfig.storageDatekeyName)!)
+  // useEffect(() => {
+  //   const initAuth = async (): Promise<void> => {
+  //     const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+  //     setLoading(true)
+  //     console.log(storedToken)
+  //     if (storedToken) {
+  //       const userData = JSON.parse(window.localStorage.getItem(authConfig.storageDatekeyName)!)
 
-        setLoading(false)
-        setUser(userData)
-        setToken(storedToken)
-        console.log(user)
-      } else {
-        localStorage.removeItem('userData')
-        localStorage.removeItem('refreshToken')
-        localStorage.removeItem('accessToken')
-        setUser(null)
-        setLoading(false)
-        if (authConfig.onTokenExpiration === 'logout' && !pathname.includes('login')) {
-          router.replace('/login')
-        }
-        setLoading(false)
-      }
-    }
+  //       setLoading(false)
+  //       setUser(userData)
+  //       setToken(storedToken)
+  //       console.log(user)
+  //     } else {
+  //       localStorage.removeItem('userData')
+  //       localStorage.removeItem('refreshToken')
+  //       localStorage.removeItem('accessToken')
+  //       setUser(null)
+  //       setLoading(false)
+  //       if (authConfig.onTokenExpiration === 'logout' && !pathname.includes('login')) {
+  //         router.replace('/login')
+  //       }
+  //       setLoading(false)
+  //     }
+  //   }
 
-    initAuth()
-  }, [])
+  //   initAuth()
+  // }, [])
 
   const handleLog = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
     try {
@@ -89,22 +101,22 @@ const AuthProvider = ({ children }: Props) => {
           email: params.email,
           password: params.password
         },{
-          headers: headers
+          headers: headers,
+          withCredentials: true, // Enable sending cookies
         })
         .then(async response => {
-          console.log(response.data)
-
-          params.rememberMe
-            ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
-            : null
+          // params.rememberMe
+          //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
+          //   : null
           const returnUrl = searchParams.toString()
 
-          setUser({ ...response?.data?.data?.user })
-          params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
+          // setUser({ ...response?.data?.data?.user })
+          // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
 
-          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard'
           console.log(user)
           router.replace(redirectURL as string)
+          console.log(redirectURL)
           setLoading(false)
         })
 
