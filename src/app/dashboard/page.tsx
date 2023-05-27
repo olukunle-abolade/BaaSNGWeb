@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import Image from 'next/image'
 
 // ** MUI
@@ -26,7 +26,33 @@ import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
 import CustomButton from '@/components/CustomButton'
 import { TextField } from '@/components/FormComponent'
 
+// ** Slice
+import { fetchAsyncProfile } from '@/store/app/profile'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+
 const RightDasboard= () => {
+
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+
+  const url = '/records/profile?filter=email,eq,olu.a@gmail.com'
+
+  const userInfos = {
+    url: url,
+  }
+// Memoize the userInfo object
+// const memoizedUserInfo = useMemo(() => userInfos, [userInfos]);
+
+  // const userInfo = useMemo(() => userInfos, [userInfos])
+
+  useEffect(() => {
+    dispatch(fetchAsyncProfile(userInfos))
+      .unwrap()
+      .then(originalPromiseResult => {
+        console.log(originalPromiseResult)
+      })
+  }, [dispatch, userInfos])
   return (
       <>
         <h3 className='text-black text-2xl font-normal mb-6'>Good Morning, <span className='font-semibold'>Opeoluwa!</span></h3>

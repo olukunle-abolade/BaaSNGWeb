@@ -24,7 +24,6 @@ const ForgetPassword = () => {
         desc='No worries, we’ll send you reset instructions.'
         backToLogin
         iconComponent = {<FiKey color='white' size={22}/>}
-        // iconComponent={<FaRegEnvelope color='white' size={22}/>}
       >
         <div>
           <TextField label='Email' placeholder="Enter your email address"  type="email"/>

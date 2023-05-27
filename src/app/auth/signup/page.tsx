@@ -22,6 +22,8 @@ import AuthLayout from '@/layouts/AuthLayout';
 import CustomButton from '@/components/CustomButton';
 import { PasswordField, TextField } from '@/components/FormComponent';
 import { useAuth } from '@/hooks/useAuth';
+import { HTTP_STATUS } from '@/constants';
+import { ThreeDots } from 'react-loading-icons';
 
 interface UserData {
   email: string
@@ -33,7 +35,7 @@ const defaultValues = {
   password: 'P@ssword88283'
 }
 
-const Login = () => {
+const Signup = () => {
   const { handleSubmit, register } = useForm({
     defaultValues,
     mode: 'onChange',
@@ -45,19 +47,18 @@ const Login = () => {
 
   const onSubmit = async (data: any) => {
     const { email, password, setError } = data
-    auth.login({ email, password }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
+    auth.signup({ email, password }, () => {
+      
     })
   };
+
+  console.log(auth.loading)
 
   return (
     <div>
       <AuthLayout
-        title="Welcome Back"
-        discription="Welcome back! Please enter your details."
+        title="Sign Up"
+        discription="Welcome! Enter email address to begin."
       >
         <div className="form_container mt-4" style={{ flexDirection: 'column' }}>
           <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
@@ -79,20 +80,17 @@ const Login = () => {
               {/* <Checkbox label = ""  /> */}
               <FormControlLabel
                 control={<Checkbox />}
-                label="Remember me for 30days"
+                label="I agree to the terms and conditions"
                 className="text-kblackCom text-sm font-normal "
               />
-
-              <Link
-                href="/auth/forget-password"
-                className="text-kprimary text-sm font-normal "
-              >
-                Forget Password
-              </Link>
             </div>
 
             <div className='space-y-4 mt-8'>
-              <CustomButton title="Sign In" type = "submit"  />
+                {auth.loading ? (
+                    <ThreeDots className='loading-circle' stroke='black' />
+                  ) : (
+                    <CustomButton title="Continue" type ="submit"  />
+                  )}
               <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
             </div>
 
@@ -100,7 +98,7 @@ const Login = () => {
               {/* text */}
               <h3 className='text-n100 text-sm font-normal'>Don’t have an account?</h3>
               {/* link */}
-              <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
+              <Link href={"/"} className='text-kprimary text-sm font-semibold '>Sign In</Link>
             </div>
           </form>
         </div>
@@ -109,7 +107,7 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
 
 const styles = {
   google: {

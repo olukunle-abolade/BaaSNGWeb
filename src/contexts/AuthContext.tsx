@@ -35,6 +35,7 @@ const defaultProvider: AuthValuesType = {
   setUser: () => null,
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
+  signup: () => Promise.resolve(),
   logout: () => Promise.resolve()
 }
 
@@ -109,6 +110,11 @@ const AuthProvider = ({ children }: Props) => {
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
           const returnUrl = searchParams.toString()
+          console.log(response.headers);
+
+           // Retrieve all stored cookies
+          const cookies = cookieJar.getCookiesSync('https://sandbox-api.baas.ng/login');
+          console.log(cookies);
 
           // setUser({ ...response?.data?.data?.user })
           // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
@@ -117,6 +123,37 @@ const AuthProvider = ({ children }: Props) => {
           console.log(user)
           router.replace(redirectURL as string)
           console.log(redirectURL)
+          setLoading(false)
+        })
+
+        .catch(err => {
+          if (errorCallback) errorCallback(err)
+          setLoading(false)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleSignup = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    console.log(params)
+    try {
+      setLoading(true)
+      await axios
+        .post(authConfig.registerEndpoint, 
+        {
+          email: params.email,
+          password: params.password
+        },{
+          headers: headers,
+          withCredentials: true, // Enable sending cookies
+        })
+        .then(async response => {
+          // params.rememberMe
+          //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
+          //   : null
+          console.log(response);
+
           setLoading(false)
         })
 
@@ -144,6 +181,7 @@ const AuthProvider = ({ children }: Props) => {
     setLoading,
     token,
     login: handleLog,
+    signup: handleSignup,
     logout: handleLogout
   }
 
