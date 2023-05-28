@@ -16,6 +16,7 @@ import authConfig from '../../src/configs/auth'
 
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { toast } from 'react-hot-toast';
 
 
 // Enable cookie handling in Axios
@@ -30,7 +31,7 @@ axios.defaults.withCredentials = true;
 // ** Defaults
 const defaultProvider: AuthValuesType = {
   user: null,
-  loading: true,
+  loading: false,
   token: '',
   setUser: () => null,
   setLoading: () => Boolean,
@@ -159,6 +160,8 @@ const AuthProvider = ({ children }: Props) => {
 
         .catch(err => {
           if (errorCallback) errorCallback(err)
+          toast.error(err.response.data.message);
+          console.log(err.response.data.message)
           setLoading(false)
         })
     } catch (err) {

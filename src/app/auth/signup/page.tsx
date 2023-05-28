@@ -8,6 +8,7 @@ import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
 import { useForm } from 'react-hook-form';
+import { ThreeDots } from 'react-loading-icons';
 
 // ** Images
 import Google from "@/assets/google.png"
@@ -18,12 +19,12 @@ import { COLORS } from '@/assets/theme/theme';
 // ** Layout
 import AuthLayout from '@/layouts/AuthLayout';
 
+// ** Hooks
+import { useAuth } from '@/hooks/useAuth';
+
 // ** Componentas
 import CustomButton from '@/components/CustomButton';
 import { PasswordField, TextField } from '@/components/FormComponent';
-import { useAuth } from '@/hooks/useAuth';
-import { HTTP_STATUS } from '@/constants';
-import { ThreeDots } from 'react-loading-icons';
 
 interface UserData {
   email: string
@@ -87,7 +88,7 @@ const Signup = () => {
 
             <div className='space-y-4 mt-8'>
                 {auth.loading ? (
-                    <ThreeDots className='loading-circle' stroke='black' />
+                    <ThreeDots width={30} className='loading-circle mx-auto' stroke='#210590' fill='#210590' />
                   ) : (
                     <CustomButton title="Continue" type ="submit"  />
                   )}

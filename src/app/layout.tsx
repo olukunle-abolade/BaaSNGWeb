@@ -9,6 +9,9 @@ import { AuthProvider } from '@/contexts/AuthContext'
 import { store } from '@/store'
 import { Provider } from 'react-redux'
 
+// ** Third Party
+import { Toaster } from 'react-hot-toast'
+
 // export const metadata = {
 //   title: 'Baas',
 //   description: 'Fintech Application',
@@ -29,6 +32,7 @@ export default function RootLayout({
       <AuthProvider>
         <html lang="en">
           <body>
+            <Toaster />
             <main>{children}</main>
           </body>
         </html>
