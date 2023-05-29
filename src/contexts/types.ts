@@ -6,6 +6,11 @@ export type LoginParams = {
   rememberMe?: boolean
 }
 
+export type SignupOtp = {
+  email: string
+  rememberMe?: boolean
+}
+
 export type UserDataType = {
   _id: number
   permission: string[]

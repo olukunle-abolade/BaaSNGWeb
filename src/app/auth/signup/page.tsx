@@ -70,12 +70,6 @@ const Signup = () => {
               required={true}
               {...register('email', { required: true })}
             />
-            <PasswordField
-              label="Password"
-              required={true}
-              placeholder="Enter your password"
-              {...register('password', { required: true })}
-            />
 
             <div className="flex justify-between items-center">
               {/* <Checkbox label = ""  /> */}

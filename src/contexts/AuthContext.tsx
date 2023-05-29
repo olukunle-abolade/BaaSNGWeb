@@ -15,7 +15,7 @@ import { CookieJar } from 'tough-cookie';
 import authConfig from '../../src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupOtp } from './types'
 import { toast } from 'react-hot-toast';
 
 
@@ -136,7 +136,40 @@ const AuthProvider = ({ children }: Props) => {
     }
   }
 
-  const handleSignup = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+  const handleSignup = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
+    console.log(params)
+    try {
+      setLoading(true)
+      await axios
+        .post(authConfig.otpEndpoint, 
+        {
+          email: params.email
+        },{
+          headers: headers,
+        })
+        .then(async response => {
+          // params.rememberMe
+          //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
+          //   : null
+          console.log(response);
+          response.status === 200 && router.push("/auth/email-verify")
+         
+
+          setLoading(false)
+        })
+
+        .catch(err => {
+          if (errorCallback) errorCallback(err)
+          toast.error(err.response.data.message);
+          console.log(err.response.data.message)
+          setLoading(false)
+        })
+    } catch (err) {
+      console.log(err)
+    }
+  }
+
+  const handleOtp = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
     console.log(params)
     try {
       setLoading(true)
@@ -154,7 +187,7 @@ const AuthProvider = ({ children }: Props) => {
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
           console.log(response.status);
-          response.status === 200 && router.push("/auth/auth-verify")
+          response.status === 200 && router.push("/auth/email-verify")
          
 
           setLoading(false)
@@ -170,6 +203,7 @@ const AuthProvider = ({ children }: Props) => {
       console.log(err)
     }
   }
+
 
   const handleLogout = () => {
     console.log('dfdfd')

@@ -21,7 +21,7 @@ const EmailVerify = () => {
       backToLogin
     >
       <div>
-        <CustomButton title='Enter OTP' onClick={() =>router.push('/auth/set-password')}/>
+        <CustomButton title='Enter OTP' onClick={() =>router.push('/auth/otp')}/>
       </div>
     </AuthFlowLayout>
   )
