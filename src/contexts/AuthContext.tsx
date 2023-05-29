@@ -153,7 +153,9 @@ const AuthProvider = ({ children }: Props) => {
           // params.rememberMe
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
-          console.log(response);
+          console.log(response.status);
+          response.status === 200 && router.push("/auth/auth-verify")
+         
 
           setLoading(false)
         })
