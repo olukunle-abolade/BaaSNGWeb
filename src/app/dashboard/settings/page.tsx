@@ -1,10 +1,21 @@
 "use client"
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+// ** Hooks 
+import { useAuth } from '@/hooks/useAuth';
 
 // ** MUI
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
+
+// ** Third Party 
+import { toast } from 'react-hot-toast'
+
+//** RTQ
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { MyData, fetchAsyncProfile, postAsyncProfile, updateAsyncProfile } from '@/store/app/profile'
 
 // ** Components
 import Password from '@/view/settings/password/Password';
@@ -49,12 +60,53 @@ function a11yProps(index: number) {
 }
 
 
+export interface UserData {
+  firstname: string
+  gender: string
+  dateofbirth: string
+  country: string
+  phonenumber: string
+  address: any
+  idtype: any
+  occupation: string
+}
+
+
 const Settings = () => {
   const [value, setValue] = useState(0);
+  const [data, setData] = useState<UserData[]>([])
+
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+
+  // ** Context
+  const auth = useAuth()
+  const userId = auth.user?.id
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
+
+  useEffect(() => {
+    const profileInfo = {
+      url: `/records/profile/?filter=userid,eq,${userId}`,
+    }
+    dispatch(fetchAsyncProfile(profileInfo))
+      .unwrap()
+      .then(originalPromiseResult => {
+        // console.log(originalPromiseResult.status)
+        // originalPromiseResult.status === 200 &&
+
+        setData(originalPromiseResult.records)
+      })
+      .catch(rejectedValueorSerializedError => {
+        console.log(rejectedValueorSerializedError.message)
+        {
+          rejectedValueorSerializedError && toast.error(rejectedValueorSerializedError.message)
+        }
+      })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>

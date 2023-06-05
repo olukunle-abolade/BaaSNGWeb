@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 // ** Images
-import ProfileImage from '@/assets/images/profile.svg'
+import PImage from '@/assets/images/profile.svg'
 
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
@@ -11,6 +11,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 import { fetchAsyncBusinessIndustry, fetchAsyncBusinessType, getMiscellaneousCountries, getMiscellaneousGender, getMiscellaneousIdType, getMiscellaneousOccupation } from '@/store/app/miscellaneous'
+import { MyData, fetchAsyncProfile, postAsyncProfile, updateAsyncProfile } from '@/store/app/profile'
 
 // ** Third Party 
 import { useForm } from 'react-hook-form';
@@ -19,17 +20,28 @@ import { toast } from 'react-hot-toast'
 // ** Components
 import CustomButton from '@/components/CustomButton'
 import {  SelectField, TextField } from '@/components/FormComponent'
-import { fetchAsyncProfile } from '@/store/app/profile'
+import ProfileImage from '@/components/profile-image';
 
-interface UserData {
-  firstname: string
-  gender: string
-  dateofbirth: string
-  country: string
-  phonenumber: string
-  address: any
-  idtype: any
-  occupation: string
+export interface UserData {
+  id?: number
+  firstname?: string
+  gender?: string
+  dateofbirth?: string
+  country?: string
+  phonenumber?: string
+  address?: any
+  idtype?: any
+  occupation?: string
+  businessname?: string
+  businessregnumber?: string
+  businessphonenumber?: string
+  businessemail?: string
+  website?: string
+  businessaddress?: string
+  businesstype?: string
+  businessindustry?: string
+  sourceoffund?: string
+  purposeofaccount?: string
 }
 
 const defaultValues: UserData = {
@@ -44,7 +56,7 @@ const defaultValues: UserData = {
 }
 
 const Profile = () => {
-  const { control, setValue, reset, handleSubmit, register } = useForm({
+  const {  setValue, handleSubmit, register } = useForm({
     defaultValues,
     mode: 'onChange'
   })
@@ -61,9 +73,35 @@ const Profile = () => {
   const auth = useAuth()
   const userId = auth.user?.id
 
-  console.log(userId)
+  const url = `/records/profile/${data[0]?.id}`
 
   const onSubmit = (data: UserData) => {
+    const formData = {
+      url: url,
+      firstname: data.firstname,
+      dateofbirth: data.dateofbirth,
+      address: data.address,
+      phone: data.phonenumber,
+      country: data.country,
+      idtype: data.idtype,
+      occupation: data.occupation
+    }
+
+    console.log(formData)
+    dispatch(updateAsyncProfile(formData))
+      .unwrap()
+      .then((originalPromiseResult: MyData) => {
+        // originalPromiseResult.code === 1012 || 1021 ?
+        //   toast.error(originalPromiseResult.message)
+        // :
+        toast.success("Profile Update Successful")
+      }) 
+      .catch(rejectedValueorSerializedError => {
+        {
+          rejectedValueorSerializedError && toast.error(rejectedValueorSerializedError.message)
+
+        }
+      })
   }
 
   // Get Gender
@@ -165,7 +203,7 @@ const Profile = () => {
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  console.log(data[0]?.occupation)
+
   useEffect(() => {
     setValue('firstname', data[0]?.firstname )
     setValue('address', data[0]?.address)
@@ -181,89 +219,84 @@ const Profile = () => {
 
   return (
     <div className='h-full'>
-    {/*  */}
-    <div className="flex items-center justify-between mt-8">
-      <div className="space-y-1">
-        <h3 className='text-[#2D2D2D] text-xl font-semibold'>Profile Settings</h3>
-        <p className='text-[#2D2D2D] text-sm font-normal'>Update your photo and personal details here.</p>
-      </div>
-      <div className="grid grid-cols-2 gap-3">
-        <CustomButton title='Cancel' textStyle={{color: "#4A4A4A"}} buttonColor='transparent' buttonStyle={{borderWidth: 1, borderColor: '#DEDEDE'}} />
-        <CustomButton title='Save Changes' buttonStyle={{width: 147}} />
-      </div>
-    </div>
+      {/* Form Field */}
+      <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+        {/*  */}
+        <div className="flex items-center justify-between mt-8">
+          <div className="space-y-1">
+            <h3 className='text-[#2D2D2D] text-xl font-semibold'>Profile Settings</h3>
+            <p className='text-[#2D2D2D] text-sm font-normal'>Update your photo and personal details here.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <CustomButton title='Cancel' textStyle={{color: "#4A4A4A"}} buttonColor='transparent' buttonStyle={{borderWidth: 1, borderColor: '#DEDEDE'}} />
+            <CustomButton title='Save Changes' buttonStyle={{width: 147}} />
+          </div>
+        </div>
 
-    {/* profie picture */}
-    <div className='flex items-center space-x-4 mt-5'>
-      {/* image */}
-      <div className="flex items-center justify-center w-[111.11px] h-[111.11px] rounded-full bg-white shadow-[0px_4px_8px_rgba(0,0,0,0.1)]">
-        <Image
-          src = {ProfileImage}
-          alt = ""
-          width = {100}
-          height = {100}
-          className = "rounded-full"
-        />
-      </div>
-      {/* button */}
-      <div className="grid grid-cols-2 gap-3">
-        <CustomButton title='Change Image' textStyle={{color: "#4730A3"}} buttonColor='#E9E6F4' buttonStyle={{width: 130}} />
-        <CustomButton title='Delete' textStyle={{color: "#4A4A4A"}} buttonColor='transparent' buttonStyle={{borderWidth: 1, borderColor: '#DEDEDE'}} />
-      </div>
-    </div>
+        <ProfileImage image = {PImage} />
 
-    {/* Form Field */}
-    <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <div className="grid grid-cols-2 gap-24 mt-10 w-fit">
-        <div className='w-[340px]'>
-          <TextField label="Full name" type="text"  {...register('firstname', { required: true })}/>
-          <TextField label="DOB" type="date"  {...register('dateofbirth', { required: true })} />
-          <TextField label="phone" type="text"  {...register('phonenumber', { required: true })} />
-          <SelectField label='ID type' {...register('idtype', { required: true })}  >
-            <option value="" disabled>Select ID type</option>
-              {idType && idType.length > 0
-                ? idType.map((item, index) => {
-                    return (
-                      <option value={item.id} key={index}>
-                        {item.idname}
-                      </option>
-                    );
-                  })
-              : ''}
-          </SelectField>
-          <SelectField label='Occupation' {...register('occupation', { required: true })} >
-            <option value="" disabled>Select Occupation</option>
-              {occupation && occupation.length > 0
-                ? occupation.map((item, index) => {
-                    return (
-                      <option value={item.id} key={index}>
-                        {item.occupation}
-                      </option>
-                    );
-                  })
+    
+        <div className="grid grid-cols-2 gap-24 mt-10 w-fit">
+          <div className='w-[340px]'>
+            <TextField label="Full name" type="text"  {...register('firstname', { required: true })}/>
+            <TextField label="DOB" type="date"  {...register('dateofbirth', { required: true })} />
+            <TextField label="phone" type="text"  {...register('phonenumber', { required: true })} />
+            <SelectField label='ID type' {...register('idtype', { required: true })}  >
+              <option value="" disabled>Select ID type</option>
+                {idType && idType.length > 0
+                  ? idType.map((item, index) => {
+                      return (
+                        <option value={item.id} key={index}>
+                          {item.idname}
+                        </option>
+                      );
+                    })
                 : ''}
-          </SelectField>
+            </SelectField>
+            <SelectField label='Occupation' {...register('occupation', { required: true })} >
+              <option value="" disabled>Select Occupation</option>
+                {occupation && occupation.length > 0
+                  ? occupation.map((item, index) => {
+                      return (
+                        <option value={item.id} key={index}>
+                          {item.occupation}
+                        </option>
+                      );
+                    })
+                  : ''}
+            </SelectField>
+          </div>
+          <div className=''>
+            <SelectField label='Gender' {...register('gender', { required: true })} >
+              <option value="" disabled>Select Gender</option>
+                {gender && gender.length > 0
+                  ? gender.map((item, index) => {
+                      return (
+                        <option value={item.id} key={index}>
+                          {item.gender}
+                        </option>
+                      );
+                    })
+                : ''}
+            </SelectField>
+            <SelectField label='Country' {...register('country', { required: true })} >
+              <option value="" disabled>Select Country</option>
+                {countries && countries.length > 0
+                  ? countries.map((item, index) => {
+                      return (
+                        <option value={item.id} key={index}>
+                          {item.countryname}
+                        </option>
+                      );
+                    })
+                : ''}
+            </SelectField>
+            <TextField label="Address" type="text" {...register('address', { required: true })}  />
+            <TextField label="ID Number" type="text" placeholder='345-558-377.' />
+          </div>
         </div>
-        <div className=''>
-          <SelectField label='Gender' {...register('gender', { required: true })} >
-            <option value="" disabled>Select Gender</option>
-              {gender && gender.length > 0
-                ? gender.map((item, index) => {
-                    return (
-                      <option value={item.id} key={index}>
-                        {item.gender}
-                      </option>
-                    );
-                  })
-              : ''}
-          </SelectField>
-          <TextField label="Address" type="text" {...register('country', { required: true })}  />
-          <TextField label="Address" type="text" {...register('address', { required: true })}  />
-          <TextField label="ID Number" type="text" placeholder='345-558-377.' />
-        </div>
-      </div>
-    </form>
-  </div>
+      </form>
+    </div>
   )
 }
 

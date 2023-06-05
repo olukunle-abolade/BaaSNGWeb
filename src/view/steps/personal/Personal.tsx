@@ -185,7 +185,7 @@ const Personal = () => {
             {countries && countries.length > 0
               ? countries.map((item, index) => {
                   return (
-                    <option value={item.countryname} key={index}>
+                    <option value={item.id} key={index}>
                       {item.countryname}
                     </option>
                   );

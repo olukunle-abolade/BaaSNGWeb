@@ -28,8 +28,8 @@ const Password = () => {
   // Context
   const auth = useAuth()
 
-  // ** Hooks
-  const dispatch = useDispatch<AppDispatch>()
+    // ** Hooks
+    const dispatch = useDispatch<AppDispatch>()
 
   // ** Email Address
   const email = auth.user?.email
