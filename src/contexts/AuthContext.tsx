@@ -17,6 +17,7 @@ import authConfig from '../../src/configs/auth'
 // ** Types
 import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupOtp } from './types'
 import { toast } from 'react-hot-toast';
+import { PassThrough } from 'stream';
 
 
 // Enable cookie handling in Axios
@@ -37,6 +38,8 @@ const defaultProvider: AuthValuesType = {
   setLoading: () => Boolean,
   login: () => Promise.resolve(),
   signup: () => Promise.resolve(),
+  pass: () => Promise.resolve(),
+  otp: () => Promise.resolve(),
   logout: () => Promise.resolve()
 }
 
@@ -115,9 +118,9 @@ const AuthProvider = ({ children }: Props) => {
 
            // Retrieve all stored cookies
           const cookies = cookieJar.getCookiesSync('https://sandbox-api.baas.ng/login');
-          console.log(cookies);
+          console.log(response?.data);
 
-          // setUser({ ...response?.data?.data?.user })
+          setUser({ ...response?.data })
           // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
 
           const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard'
@@ -132,12 +135,12 @@ const AuthProvider = ({ children }: Props) => {
           setLoading(false)
         })
     } catch (err) {
-      console.log(err)
+      setLoading(false)
+      toast.error("net::ERR_INTERNET_DISCONNECTED");
     }
   }
 
   const handleSignup = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
-    console.log(params)
     try {
       setLoading(true)
       await axios
@@ -151,6 +154,7 @@ const AuthProvider = ({ children }: Props) => {
           // params.rememberMe
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
+          setUser({...params})
           console.log(response);
           response.status === 200 && router.push("/auth/email-verify")
          
@@ -165,12 +169,40 @@ const AuthProvider = ({ children }: Props) => {
           setLoading(false)
         })
     } catch (err) {
-      console.log(err)
+      setLoading(false)
+      toast.error("net::ERR_INTERNET_DISCONNECTED");
     }
   }
 
-  const handleOtp = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
-    console.log(params)
+  const handleOtp = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
+    try {
+      setLoading(true)
+      await axios
+        .get( `${authConfig.otpEndpoint}?filter=${params.email}&filter=${params.otp}`, 
+        {
+          headers: headers,
+          withCredentials: true, // Enable sending cookies
+        })
+        .then(async response => {
+
+          console.log(response);
+          response.status === 200 && router.push("/auth/email-success")
+          setLoading(false)
+        })
+
+        .catch(err => {
+          if (errorCallback) errorCallback(err)
+          toast.error(err.response.data.message);
+          console.log(err.response.data.message)
+          setLoading(false)
+        })
+    } catch (err) {
+      setLoading(false)
+      toast.error("net::ERR_INTERNET_DISCONNECTED");
+    }
+  }
+
+  const handlePass = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
     try {
       setLoading(true)
       await axios
@@ -183,24 +215,27 @@ const AuthProvider = ({ children }: Props) => {
           withCredentials: true, // Enable sending cookies
         })
         .then(async response => {
-          // params.rememberMe
-          //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
-          //   : null
-          console.log(response.status);
-          response.status === 200 && router.push("/auth/email-verify")
-         
+          console.log(response)
+          
+          // const returnUrl = searchParams.toString()
+
+          // const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard'
+          // router.replace(redirectURL as string)
+          setUser({...response.data})
+          response.status === 200 && router.push("/auth/profile")
 
           setLoading(false)
         })
 
         .catch(err => {
           if (errorCallback) errorCallback(err)
-          toast.error(err.response.data.message);
-          console.log(err.response.data.message)
+          toast.error(err.response.data.message)
+          console.log(err)
           setLoading(false)
         })
     } catch (err) {
-      console.log(err)
+      setLoading(false)
+      toast.error("net::ERR_INTERNET_DISCONNECTED");
     }
   }
 
@@ -221,6 +256,8 @@ const AuthProvider = ({ children }: Props) => {
     token,
     login: handleLog,
     signup: handleSignup,
+    otp: handleOtp,
+    pass: handlePass,
     logout: handleLogout
   }
 

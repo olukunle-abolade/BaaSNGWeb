@@ -33,7 +33,6 @@ interface UserData {
 
 const defaultValues = {
   email: 'ab3sure@gmail.com',
-  password: 'P@ssword88283'
 }
 
 const Signup = () => {
@@ -47,8 +46,8 @@ const Signup = () => {
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
-    const { email, password, setError } = data
-    auth.signup({ email, password }, () => {
+    const { email, setError } = data
+    auth.signup({ email }, () => {
       
     })
   };

@@ -1,10 +1,14 @@
-import { FC, useState } from 'react';
+import { FC, useState, useContext } from 'react';
 
 // ** Third Party
 import { AiOutlineFile } from 'react-icons/ai'
 
+// ** Context
+import { StepperContext } from '@/contexts/StepperContext'
+
 // ** Components
 import { ProgressBar } from '@/styles/widget.style';
+
 
 interface IProgress {
   done: string;
@@ -37,6 +41,12 @@ const Progress: FC<IProgress> = ({ done, days }) => {
 };
 
 const SDocument = ( ) => {
+  const {userData, setUserData} = useContext(StepperContext)
+
+  const handleChange = (e: any) => {
+    const {name , value} = e.target
+    setUserData({...userData, [name]: value})
+  }
   return (
     <div className="space-y-2">
       {/* title */}
@@ -57,7 +67,7 @@ const SDocument = ( ) => {
                 <p className='text-n100 text-xm font-normal'>200 KB</p>
               </div>
             </div>
-            <input id="default-checkbox" type="checkbox" checked value="" className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+            <input id="default-checkbox" type="checkbox" defaultChecked={true} value="" onChange={handleChange} className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
           </div>
           {/* progressive part */}
           <Progress done='100' days='100' />

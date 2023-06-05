@@ -1,5 +1,16 @@
+import { useContext } from 'react'
+
+// ** Context
+import { StepperContext } from '@/contexts/StepperContext'
 
 const Kyc = () => {
+  const {userData, setUserData} = useContext(StepperContext)
+
+  const handleChange = (e: any) => {
+    const {name , value} = e.target
+    setUserData({...userData, [name]: value})
+  }
+
   return (
     <div>
       {/* Form Field */}
@@ -9,11 +20,11 @@ const Kyc = () => {
       </div>
       <div className="grid grid-cols-1 gap-x-4 gap-y-6 w-[74%]  h-fit">
         <div className='flex items-center border border-n50 rounded-lg h-20 px-8 space-x-4'>
-          <input id="default-checkbox" type="checkbox" checked value="" className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+          <input id="default-checkbox" type="checkbox" defaultChecked={true} value="" onChange={handleChange} className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
           <p className='text-n800 text-lg font-medium'>Consent for verification of personal and business information</p>
         </div>
         <div className='flex items-center border border-n50 rounded-lg h-20 px-8 space-x-4'>
-          <input id="default-checkbox" type="checkbox" checked value="" className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+          <input id="default-checkbox" type="checkbox" defaultChecked={true} value=""  onChange={handleChange} className="w-4 h-4 text-kprimary bg-gray-100 border-gray-300 rounded-full focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
           <p className='text-n800 text-lg font-medium'>Consent for verification of personal and business information</p>
         </div>
       </div>

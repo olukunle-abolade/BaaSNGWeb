@@ -6,6 +6,10 @@ import { useState } from 'react';
 // ** Third Party
 import { FaRegEnvelope } from 'react-icons/fa';
 import OtpInput from 'react-otp-input';
+import { ThreeDots } from 'react-loading-icons';
+
+// ** Hooks
+import { useAuth } from '@/hooks/useAuth';
 
 // ** Component
 import CustomButton from '@/components/CustomButton'
@@ -16,10 +20,17 @@ const OTP = () => {
   // ** State
   const [otp, setOtp] = useState('');
 
+  // ** Context
+  const auth = useAuth()
+
+  // ** Email Address
+  const email = auth.user?.email
+
+
   // ** Hooks
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(otp);
+    auth.otp({ otp, email })
   }
 
   return (
@@ -41,7 +52,11 @@ const OTP = () => {
               inputStyle ={{height: 80, width: 80, borderWidth: 1, borderColor: '#210590', borderRadius: 8}}
             />
           </div>
-          <CustomButton title='Verify Email' type="submit"/>
+          {auth.loading ? (
+                <ThreeDots width={30} className='loading-circle mx-auto' stroke='#210590' fill='#210590' />
+              ) : (
+                <CustomButton title="Verify Email" type ="submit"  />
+              )}
         </div>
       </form>
       

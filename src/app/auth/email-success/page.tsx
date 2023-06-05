@@ -21,7 +21,7 @@ const AuthVerify = () => {
       iconComponent={<FaCheck color='white' size={22}/>}
     >
       <div>
-        <CustomButton title='Go to Dashboard' onClick={() =>router.push('/dashboard')}/>
+        <CustomButton title='Continue' onClick={() =>router.push('/auth/set-password')}/>
       </div>
     </AuthFlowLayout>
   )

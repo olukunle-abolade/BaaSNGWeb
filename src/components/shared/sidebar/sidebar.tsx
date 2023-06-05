@@ -11,7 +11,9 @@ import { TopNavNotificationItem, TopnavUser } from '@/components/topnav/style-to
 
 // icons
 import {MdKeyboardArrowDown} from "react-icons/md"
-import { FiSettings} from "react-icons/fi"
+import { useAppSelector } from '@/hooks/useTypedSelector';
+import { getDashboardInfoData } from '@/store/app/dashboard';
+
 
 
 const renderUserProfile = (item: { buttonFunc: React.MouseEventHandler<HTMLDivElement> | undefined | any; icon: JSX.IntrinsicAttributes; content: string | number | boolean | React.ReactElement<any, string | React.JSXElementConstructor<any>> | React.ReactFragment | React.ReactPortal | null | undefined; }, index: number) => (
@@ -27,6 +29,9 @@ const renderUserProfile = (item: { buttonFunc: React.MouseEventHandler<HTMLDivEl
 )
 
 const RenderUserToggle = (item: any, index: number) =>{
+  const getDashboardInfo = useAppSelector(getDashboardInfoData)
+console.log(getDashboardInfo)
+
   return (
     <TopnavUser>
         <div className='flex items-center h-10 space-x-1 mr-4' key={index}>
@@ -37,7 +42,7 @@ const RenderUserToggle = (item: any, index: number) =>{
             />
           </div>
           <div className='flex flex-col items-start'>
-            <p className="text-black text-xs font-semibold">Opeoluwa Samuel</p>
+            <p className="text-black text-xs font-semibold">{getDashboardInfo?.firstname}</p>
             <p className="text-n100 font-normal text-[10px] uppercase">Admin</p>
           </div>
             

@@ -15,15 +15,16 @@ export const TextField = React.forwardRef(function TextField(
     type,
     name,
     defaultValue,
+    value,
     onChange,
     className,
-    errors,
     placeholder,
   }: {
     label?: string;
     type?: any;
     name?: string;
     defaultValue?: any;
+    value?: any;
     onChange?: any;
     className?: any;
     errors?: any;
@@ -40,6 +41,7 @@ export const TextField = React.forwardRef(function TextField(
           rows = {4}
           id={name}
           defaultValue={defaultValue}
+          value={value}
           placeholder={placeholder}
           onChange={onChange}
           ref={ref}
@@ -61,6 +63,7 @@ export const TextField = React.forwardRef(function TextField(
           id={name}
           defaultValue={defaultValue}
           onChange={onChange}
+          value={value}
           ref={ref}
           placeholder={placeholder}
           className={className}
@@ -72,7 +75,7 @@ export const TextField = React.forwardRef(function TextField(
 });
 
 export const SelectField = React.forwardRef(
-  function SelectField({name, label, className,onChange, children, props}: {
+  function SelectField({name, label, className,onChange, value, children, props}: {
     label?: string;
     type?: any;
     name?: string;
@@ -80,6 +83,7 @@ export const SelectField = React.forwardRef(
     className?: any;
     errors?: any;
     placeholder?: any;
+    value?: any;
     props?: any
     children?: ReactNode
   }, ref: React.ForwardedRef<any>){
@@ -107,6 +111,7 @@ export const SelectField = React.forwardRef(
                   name = {name}
                   ref = {ref}
                   id={name}
+                  value={value}
                   onChange={onChange}
                   {...props}
                 >

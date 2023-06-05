@@ -7,18 +7,19 @@ export type LoginParams = {
 }
 
 export type SignupOtp = {
-  email: string
+  email: string 
   rememberMe?: boolean
+  otp?: string 
 }
 
 export type UserDataType = {
-  _id: number
-  permission: string[]
-  role: string
+  id?: number
+  permission?: string[]
+  role?: string
   email: string
-  fullName: string
-  username: string
-  password: string
+  fullName?: string
+  username?: string
+  password?: string
 }
 
 export type AuthValuesType = {
@@ -28,7 +29,8 @@ export type AuthValuesType = {
   user: UserDataType | null
   setLoading: (value: boolean) => void
   setUser: (value: UserDataType | null) => void
+  pass: (params: LoginParams, errorCallback?: ErrCallbackType) => void
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
-  signup: (params: LoginParams, errorCallback?: ErrCallbackType) => void
-
+  signup: (params: SignupOtp, errorCallback?: ErrCallbackType) => void
+  otp: (params: SignupOtp, errorCallback?: ErrCallbackType) => void
 }
