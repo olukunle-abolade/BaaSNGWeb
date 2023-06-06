@@ -16,20 +16,30 @@ import { MyData, postAsyncPasswordChange } from '@/store/app/password-change';
 import { toast } from 'react-hot-toast';
 
 interface IPasswordData {
+  email: string;
   password: string;
-  newpassword: string;
+  newPassword: string;
+  confirmPassword?: string;
+}
+
+const defaultValues = {
+  email: '',
+  password: '',
+  newPassword: '',
+  confirmPassword: '' 
 }
 
 const Password = () => {
   const { handleSubmit, register } = useForm({
+    defaultValues,
     mode: 'onChange',
   });
 
   // Context
   const auth = useAuth()
 
-    // ** Hooks
-    const dispatch = useDispatch<AppDispatch>()
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
 
   // ** Email Address
   const email = auth.user?.email
@@ -37,12 +47,12 @@ const Password = () => {
 
   const errors = ['At least 8 characters', 'At least 1 upper case letter (A-Z)', 'At least 1 number (0-9)', 'At least 1 symbol (!&#)']
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async (data: IPasswordData) => {
     const url = "/password"
     console.log(data)
     const formData = {
       url: url,
-      ab3sure: email,
+      email: email,
       password: data.password,
       newPassword: data.newPassword
     }
@@ -52,7 +62,7 @@ const Password = () => {
         originalPromiseResult.code === 1012 || 1021 ?
           toast.error(originalPromiseResult.message)
         :
-        toast.success(originalPromiseResult.message)
+        toast.success("Password Update Successful")
       })
     }
 

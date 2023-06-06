@@ -80,6 +80,7 @@ const MENU_OPTIONS2 = [
   }
 ]
 
+// @ts-ignore
 function makeMenuLevel(options: any[] | string, depth = 0) {
    if(Array.isArray(options)){
     return options.map((option: { subItems: string | any[]; }, idx: { toString: () => any; }) => ({

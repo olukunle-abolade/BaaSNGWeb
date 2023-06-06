@@ -79,7 +79,7 @@ const Financial = () => {
             label='Source of Fund'
             onChange={handleChange}
             name='sounces'
-            value = {userData["sources"] || ""}
+            value = {userData?.sounces || ""}
           >
             <option value="" disabled>Select Sources</option>
             {source && source.length > 0
@@ -98,7 +98,7 @@ const Financial = () => {
             label='Purpose of account'
             onChange={handleChange}
             name='purpose_of_account'
-            value = {userData["purpose_of_account"] || ""}
+            value = {userData?.purpose_of_account || ""}
           >
             <option value="" disabled>Select Account Purpose</option>
             {purpose && purpose.length > 0

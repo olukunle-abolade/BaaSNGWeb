@@ -149,13 +149,13 @@ const Personal = () => {
             type="text" 
             placeholder='Ogunmdede Opeoluwa' 
             onChange={handleChange}
-            value = {userData["fullName"] || ""}
+            value = {userData?.fullName || ""}
           />
           <SelectField 
             label='Gender'
             name='gender'
             onChange={handleChange}
-            value = {userData["gender"] || ""}
+            value = {userData?.gender || ""}
           >
             <option value="" disabled>Select Gender</option>
             {gender && gender.length > 0
@@ -174,13 +174,13 @@ const Personal = () => {
             name='dob' 
             placeholder='Enter date of birth'
             onChange={handleChange}
-            value = {userData["dob"] || ""}
+            value = {userData?.dob || ""}
           />
           <SelectField 
             label='Nationality'
             name='nationality'
             onChange={handleChange}
-            value = {userData["nationality"] || ""}
+            value = {userData?.nationality || ""}
           >
             {countries && countries.length > 0
               ? countries.map((item, index) => {
@@ -198,7 +198,7 @@ const Personal = () => {
             type="text" 
             placeholder='000-000-000-00'
             onChange={handleChange}
-            value = {userData["phone"] || ""}
+            value = {userData?.phone || ""}
           />
           <TextField 
             label="Address" 
@@ -206,13 +206,13 @@ const Personal = () => {
             type="text" 
             placeholder='Enter address' 
             onChange={handleChange}
-            value = {userData["address"] || ""}
+            value = {userData?.address || ""}
           />
           <SelectField 
             label='ID type'
             name='idtype'
             onChange={handleChange}
-            value = {userData["idtype"] || ""}
+            value = {userData?.idtype || ""}
           >
              <option value="" disabled>Select ID type</option>
              {idType && idType.length > 0
@@ -231,13 +231,13 @@ const Personal = () => {
             type="text" 
             placeholder='345-558-377.' 
             onChange={handleChange}
-            value = {userData["idno"] || ""}
+            value = {userData?.idno || ""}
           />
           <SelectField 
             label='Occupation'
             name='occupation'
             onChange={handleChange}
-            value = {userData["occupation"] || ""}
+            value = {userData?.occupation || ""}
           >
             <option value="" disabled>Select Occupation</option>
             {occupation && occupation.length > 0

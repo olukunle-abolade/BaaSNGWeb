@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 
 // ** Third Pary
 import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast'
+import { Renderable, Toast, ValueFunction, toast } from 'react-hot-toast'
 
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
@@ -21,6 +21,7 @@ import { MyData } from '@/store/app/preferences';
 import { fetchAsyncBusinessIndustry } from '@/store/app/miscellaneous';
 
 export interface IPreference {
+  id?:number;
   currency?: string;
   language?: string
   timezone?: string
@@ -64,7 +65,7 @@ const Preferences = () => {
   const userId = auth.user?.id
 
   console.log(data)
-  const url = `/records/notifications/${data[0]?.id}`
+  const url = `/records/preferences/${data[0]?.id}`
 
   const onSubmit = (data: IPreference) => {
     const formData = {
@@ -87,7 +88,7 @@ const Preferences = () => {
       .then((originalPromiseResult: MyData) => {
         toast.success("Notification Update Successful")
       }) 
-      .catch(rejectedValueorSerializedError => {
+      .catch((rejectedValueorSerializedError: { message: Renderable | ValueFunction<Renderable, Toast>; }) => {
         {
           rejectedValueorSerializedError && toast.error(rejectedValueorSerializedError.message)
 
@@ -136,12 +137,15 @@ const Preferences = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  console.log(data[0]?.timezone)
+
   useEffect(() => {
     setValue('currency', data[0]?.currency)
-    setValue('language', data[0]?.language)
+    // setValue('language', data[0]?.language)
     setValue('timezone', data[0]?.timezone)
     setValue('transreceipt_sendtome', data[0]?.transreceipt_sendtome)
     setValue('transreceipt_sendtorecipient', data[0]?.transreceipt_sendtorecipient)
+    setValue('OTP_sendviaemail', data[0]?.OTP_sendviaemail)
     setValue('paymethod_banktransfer', data[0]?.paymethod_banktransfer)
     setValue('paymethod_card', data[0]?.paymethod_card)
     setValue('paymethod_ussd', data[0]?.paymethod_ussd)
@@ -173,8 +177,8 @@ const Preferences = () => {
               {countries && countries.length > 0
                 ? countries.map((item, index) => {
                     return (
-                      <option value={item.id} key={index}>
-                        {item.countryname}
+                      <option value={`${item.countryname} - ${item.currencycode}`} key={index}>
+                        {`${item.countryname} - ${item.currencycode}`}
                       </option>
                     );
                   })
@@ -188,13 +192,15 @@ const Preferences = () => {
             </SelectField>
           </div>
           <div className=''>
-            <SelectField label='Time Zone' {...register('timezone')}>
+            <TextField label="Time Zone" type="text" {...register('timezone', { required: true })}/>
+
+            {/* <SelectField label='Time Zone' {...register('timezone')}>
               <option value="GMT+1">Select Time Zone</option>
               <option value="GMT+1">GMT +01 (Nigeria)</option>
-            </SelectField>
+            </SelectField> */}
           </div>
           <div className=''>
-            <SelectField label='Financial Year' {...register('timezone')}>
+            <SelectField label='Financial Year'>
               <option value="">Select Final Year</option>
               <option value="">January - December</option>
             </SelectField>

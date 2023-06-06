@@ -13,6 +13,7 @@ import { TopNavNotificationItem, TopnavUser } from '@/components/topnav/style-to
 import {MdKeyboardArrowDown} from "react-icons/md"
 import { useAppSelector } from '@/hooks/useTypedSelector';
 import { getDashboardInfoData } from '@/store/app/dashboard';
+import { MyData } from '@/store/app/dashboard'
 
 
 
@@ -21,7 +22,7 @@ const renderUserProfile = (item: { buttonFunc: React.MouseEventHandler<HTMLDivEl
     <Link href = "/"  >
         <TopNavNotificationItem>
           {/* {item.icon} */}
-          <item.icon/>
+          {/* <item.icon/> */}
           <span style={{marginLeft: 10}}>{item.content}</span>
         </TopNavNotificationItem>
     </Link>
@@ -42,7 +43,7 @@ console.log(getDashboardInfo)
             />
           </div>
           <div className='flex flex-col items-start'>
-            <p className="text-black text-xs font-semibold">{getDashboardInfo?.firstname}</p>
+            <p className="text-black text-xs font-semibold">{ (getDashboardInfo as unknown as MyData)?.firstname}</p>
             <p className="text-n100 font-normal text-[10px] uppercase">Admin</p>
           </div>
             

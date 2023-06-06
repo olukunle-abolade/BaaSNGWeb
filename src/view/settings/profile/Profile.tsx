@@ -1,8 +1,6 @@
-import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
-// ** Images
-import PImage from '@/assets/images/profile.svg'
+
 
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
@@ -233,7 +231,7 @@ const Profile = () => {
           </div>
         </div>
 
-        <ProfileImage image = {PImage} />
+        <ProfileImage />
 
     
         <div className="grid grid-cols-2 gap-24 mt-10 w-fit">

@@ -101,7 +101,7 @@ const Bussiness = () => {
             name='business_name'
             placeholder='Ninja Creative Studio' 
             onChange={handleChange}
-            value = {userData["business_name"] || ""}
+            value = {userData?.business_name || ""}
           />
         </div>
         <div className=''>
@@ -111,7 +111,7 @@ const Bussiness = () => {
             name='reg_number'
             placeholder='345-558-377' 
             onChange={handleChange}
-            value = {userData["reg_number"] || ""}
+            value = {userData?.reg_number || ""}
           />
         </div>
         <div className=''>
@@ -121,7 +121,7 @@ const Bussiness = () => {
             placeholder='345-558-377' 
             name='business_number'
             onChange={handleChange}
-            value = {userData["business_number"] || ""}
+            value = {userData?.business_number || ""}
           />
         </div>
         <div className=''>
@@ -131,7 +131,7 @@ const Bussiness = () => {
             name='business_email' 
             placeholder='ninjacreativestudio@gmail.com' 
             onChange={handleChange}
-            value = {userData["business_email"] || ""}
+            value = {userData?.business_email || ""}
           />
         </div>
         <div className=''>
@@ -141,7 +141,7 @@ const Bussiness = () => {
             name='business_website'
             placeholder='www.baas.com' 
             onChange={handleChange}
-            value = {userData["business_website"] || ""}
+            value = {userData?.business_website || ""}
           />
         </div>
         <div className=''>
@@ -151,7 +151,7 @@ const Bussiness = () => {
             name='business_address'
             placeholder='12 Jame John close, Ikoji Lagos.' 
             onChange={handleChange}
-            value = {userData["business_address"] || ""}
+            value = {userData?.business_address || ""}
           />
         </div>
         <div className=''>
@@ -159,7 +159,7 @@ const Bussiness = () => {
             label='Business type'
             name='business_type'
             onChange={handleChange}
-            value = {userData["business_type"] || ""}
+            value = {userData?.business_type || ""}
           >
             <option value="" disabled>Select Business Type</option>
             {idType && idType.length > 0
@@ -178,7 +178,7 @@ const Bussiness = () => {
             label='Business industry'
             name='business_industry'
             onChange={handleChange}
-            value = {userData["business_industry"] || ""}
+            value = {userData?.business_industry || ""}
           >
             <option value="" disabled>Select Business Industry</option>
               {bussinessIndustry && bussinessIndustry.length > 0

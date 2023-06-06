@@ -11,10 +11,11 @@ export interface MyData {
   data: any[]
 }
 
-// SIGN UP
-// interface ProfileAttributes {
-//   token?: string
-// }
+interface PasswordAttributes {
+  email: string,
+  password: string,
+  newPassword: string
+}
 
 interface MyKnownError {
   errorMessage: string
@@ -27,16 +28,23 @@ const headers = {
 
 export const postAsyncPasswordChange = createAsyncThunk<
   MyData,
-  { url: string },
+  { url: string } & Partial<PasswordAttributes>,
   {
     rejectValue: MyKnownError
   }
 >('postPasswordChange/postAsyncThunk', async (formData, { rejectWithValue }) => {
   const { url, ...data } = formData
+  console.log(data)
   try {
-    const response = await axios.post(config.baseUrl + url, data, {
+    const response = await axios.post(config.baseUrl + url, 
+      {
+        email: data.email,
+        password: data.password,
+        newPassword: data.newPassword
+      }, 
+      {
       headers: headers,
-      withCredentials: true, // Enable sending cookies
+      withCredentials: true,
       validateStatus: () => {
         return true
       }
@@ -65,7 +73,7 @@ const initialState = {
 } as IPasswordChange
 
 const PasswordChangeSlice = createSlice({
-  name: 'password-change',
+  name: 'passwordchange',
   initialState,
   reducers: {},
   extraReducers: builder => {

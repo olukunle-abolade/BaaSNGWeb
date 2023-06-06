@@ -27,18 +27,17 @@ import CustomButton from '@/components/CustomButton'
 import { TextField } from '@/components/FormComponent'
 
 // ** Slice
-import { fetchAsyncProfile } from '@/store/app/profile'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
-import { fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
+import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
 import Greeting from '@/components/Greeting'
 import { useAppSelector } from '@/hooks/useTypedSelector'
 
 const RightDasboard= () => {
-  const [userData, setUserData] = useState<any[]>([])
+  const [userData, setUserData] = useState<MyData[]>([])
   const [cardData, setCardData] = useState<any[]>([])
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -78,7 +77,8 @@ const RightDasboard= () => {
       .unwrap()
       .then(originalPromiseResult => {
         console.log(originalPromiseResult)
-        setUserData({...originalPromiseResult})
+        // setUserData(originalPromiseResult)
+        setUserData(prevState => [...prevState, originalPromiseResult]);
       })
   }, [dispatch, url])
 
@@ -98,7 +98,7 @@ const RightDasboard= () => {
   return (
       <>
         {/* <h3 className='text-black text-2xl font-normal mb-6'>Good Morning, <span className='font-semibold capitalize'>!</span></h3> */}
-        <Greeting name= {userData?.firstname}/>
+        <Greeting name= {userData[0]?.firstname}/>
         <Box>
           <div className="grid grid-cols-4 gap-4">
             <div className='py-6 px-3 space-y-2 bg-kpsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
@@ -107,7 +107,7 @@ const RightDasboard= () => {
                 <Image src={FolderIcon} alt='' width={25} height={25} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kprimary text-lg font-bold'>₦ {userData?.actualbalance === null ? 0 : NumberFormat(userData?.actualbalance)}</p>
+                <p className='text-kprimary text-lg font-bold'>₦ {userData[0]?.actualbalance === null ? 0 : NumberFormat(userData[0]?.actualbalance)}</p>
                 <BiHide className='text-n100 text-lg'/>
               </div>
               <p className='text-n100 text-sm font-normal'>Account Balance</p>
@@ -118,7 +118,7 @@ const RightDasboard= () => {
                 <Image src={DownChartIcon} alt='' width={20} height={20} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kgreen text-lg font-bold'>₦ {userData?.totalamountfunded === null ? 0 : NumberFormat(userData?.totalamountfunded)}</p>
+                <p className='text-kgreen text-lg font-bold'>₦ {userData[0]?.totalamountfunded === null ? 0 : NumberFormat(userData[0]?.totalamountfunded)}</p>
               </div>
               <p className='text-n100 text-sm font-normal'>Amount Funded</p>
             </div>
@@ -128,7 +128,7 @@ const RightDasboard= () => {
                 <Image src={UpChartIcon} alt='' width={20} height={20} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kred text-lg font-bold'>₦ {userData?.totalexpenses=== null ? 0 : NumberFormat(userData?.totalexpenses)}</p>
+                <p className='text-kred text-lg font-bold'>₦ {userData[0]?.totalexpenses=== null ? 0 : NumberFormat(userData[0]?.totalexpenses)}</p>
               </div>
               <p className='text-n100 text-sm font-normal'>Total Expenses</p>
             </div>
@@ -153,7 +153,7 @@ const RightDasboard= () => {
               </div>
               <div className="flex flex-col space-y-2 ml-4">
                 {/*  */}
-                <h2 className='text-kprimary text-lg font-bold'>{userData?.totaltransactions}</h2>
+                <h2 className='text-kprimary text-lg font-bold'>{userData[0]?.totaltransactions}</h2>
                 {/*  */}
                 <p className='text-n100 text-sm font-normal'>Total Transactions</p>
               </div>
@@ -165,7 +165,7 @@ const RightDasboard= () => {
               </div>
               <div className="flex flex-col space-y-2 ml-4">
                 {/*  */}
-                <h2 className='text-kprimary text-lg font-bold'>{userData.totalusersadded}</h2>
+                <h2 className='text-kprimary text-lg font-bold'>{userData[0]?.totalusersadded}</h2>
                 {/*  */}
                 <p className='text-n100 text-sm font-normal'>Total Users added</p>
                 </div>

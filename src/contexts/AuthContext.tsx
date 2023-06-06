@@ -15,7 +15,7 @@ import { CookieJar } from 'tough-cookie';
 import authConfig from '../../src/configs/auth'
 
 // ** Types
-import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupOtp } from './types'
+import { AuthValuesType, LoginParams, ErrCallbackType, UserDataType, SignupOtp, StepperValuesType } from './types'
 import { toast } from 'react-hot-toast';
 import { PassThrough } from 'stream';
 
@@ -30,7 +30,7 @@ axios.defaults.jar = cookieJar;
 axios.defaults.withCredentials = true;
 
 // ** Defaults
-const defaultProvider: AuthValuesType = {
+export const defaultProvider: AuthValuesType = {
   user: null,
   loading: false,
   token: '',
@@ -43,7 +43,12 @@ const defaultProvider: AuthValuesType = {
   logout: () => Promise.resolve()
 }
 
-const AuthContext = createContext(defaultProvider)
+export const StepperProvider: StepperValuesType = {
+  userData: null,
+  setUserData: () => null,
+}
+
+ const AuthContext = createContext(defaultProvider)
 
 type Props = {
   children: ReactNode

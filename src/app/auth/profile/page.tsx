@@ -31,8 +31,9 @@ import Bussiness from '@/view/steps/business/Business';
 import Financial from '@/view/steps/financial/Financial';
 import Kyc from '@/view/steps/kyc/Kyc';
 import Document from '@/view/steps/document/Document';
+import { AuthValuesType, ProfileDataType, StepperValuesType } from '@/contexts/types';
 
-interface IUserData {
+export  interface IUserData {
   fullName: string;
   gender: string;
   dob: string;
@@ -54,10 +55,29 @@ interface IUserData {
   purpose_of_account: string;
 }
 
+// ** Defaults
+const defaultProvider: AuthValuesType = {
+  user: null,
+  loading: false,
+  token: '',
+  setUser: () => null,
+  setLoading: () => Boolean,
+  login: () => Promise.resolve(),
+  signup: () => Promise.resolve(),
+  pass: () => Promise.resolve(),
+  otp: () => Promise.resolve(),
+  logout: () => Promise.resolve()
+}
+
+const StepperProvider: StepperValuesType = {
+  userData: null,
+  setUserData: () => null,
+}
+
 const Profile = () => {
   const [currentStep, setCurrentStep] = useState(1)
-  const [userData, setUserData] = useState<IUserData | undefined>([])
-  const [finalData, setFinalData] = useState([])
+  const [userData, setUserData] = useState<ProfileDataType | null>(StepperProvider.userData)
+  // const [finalData, setFinalData] = useState([])
 
   
   const updateFormData = (newData: any) => {
@@ -188,9 +208,9 @@ const Profile = () => {
           <StepperContext.Provider value={{
             userData ,
             setUserData,
-            updateFormData,
-            finalData,
-            setFinalData
+            // updateFormData,
+            // finalData,
+            // setFinalData
           }} >
             {displayStep(currentStep)}
           </StepperContext.Provider>
