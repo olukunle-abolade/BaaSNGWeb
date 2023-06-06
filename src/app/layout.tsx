@@ -11,6 +11,10 @@ import { Provider } from 'react-redux'
 
 // ** Third Party
 import { Toaster } from 'react-hot-toast'
+import StyledComponentsRegistry from '@/lib/registry'
+
+//
+
 
 // export const metadata = {
 //   title: 'Baas',
@@ -33,7 +37,7 @@ export default function RootLayout({
         <html lang="en">
           <body>
             <Toaster />
-            <main>{children}</main>
+            <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
           </body>
         </html>
        </AuthProvider>
