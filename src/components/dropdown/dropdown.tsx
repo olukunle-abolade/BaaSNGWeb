@@ -1,7 +1,7 @@
 "use client"
 
 import React, {useRef} from 'react'
-import { DropDownContent, DropDownFooter, DropDownToggle, DropDownToggleBadge, DropDownWrapper } from './style-dropdown';
+import { DropDownContent, DropDownFooter, DropDownHeader, DropDownToggle, DropDownToggleBadge, DropDownWrapper } from './style-dropdown';
 import {IoNotificationsOutline} from "react-icons/io5"
 import { COLORS } from '../../assets/theme/theme';
 
@@ -57,6 +57,15 @@ const Dropdown: React.FC<IDropdown> = ({icon, customToggle, badge, ...props})=> 
                     }
                 </DropDownToggle>
                 <DropDownContent ref = {dropdown_content_el}>
+                  {
+                        props.renderHeader ? (
+                            <DropDownHeader>
+                                {
+                                    props.renderHeader()
+                                }
+                            </DropDownHeader>
+                        ) : ""
+                    }
                     {
                         props.contentData && props.renderData ? props.contentData.map((item: any, index: any) =>
                             props.renderData(item, index)

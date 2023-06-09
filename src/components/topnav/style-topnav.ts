@@ -81,6 +81,7 @@ export const TopnavUser = styled.div`
 export const TopNavNotificationItem = styled.div`
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 15px;
   cursor: pointer;
 

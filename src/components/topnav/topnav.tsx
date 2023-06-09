@@ -15,18 +15,52 @@ import { Controller, useForm } from 'react-hook-form'
 import Dropdown from '../dropdown/dropdown'
 import CustomButton from '../CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
+import Badge from '../badge/badge';
 
 // ** Styles
 import { TopNavNotificationItem, TopNavWrapper} from './style-topnav'
 import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 
 
+const claimStatus: any = {
+  "deactivated" : "fail",
+  "active": "success",
+}
+
 const renderNotification = (item: any, index: any) => (
   <TopNavNotificationItem key = {index}>
-    <ImNotification className= "mr-2"/>
-    <span className = "text-sm font-semibold text-[#2D2D2D]">{item.note}</span>
+    <div className='flex items-center space-x-3'>
+      <div className="w-12 h-12 rounded-full border border-n40"></div>
+      {/* <ImNotification className= ""/> */}
+      <div className='space-y-1'>
+        {/*  */}
+        <h3 className='text-[#2D2D2D] text-sm font-semibold'>Send Money</h3>
+        {/*  */}
+        <p className='text-n100 '>Receiver : David Ogun...( WEMA...0987)</p>
+        {/* Badge */}
+        <Badge content = "success" type="success" />
+      </div>
+    </div>
+
+    <div className=''>
+      {/* date */}
+      <p className='text-n50 text-xs font-normal'>Mar 02, 2023. 10:53</p>
+      {/* amount */}
+      <h3 className='text-sm text-[#2D2D2D] font-semibold'>₦ 5,000.00</h3>
+    </div>
+
+    {/* <span className = "text-sm font-semibold text-[#2D2D2D]">{item.note}</span> */}
   </TopNavNotificationItem>
 )
+
+const renderHeader = () => (
+  <div className='flex justify-between items-center'>
+    {/*  */}
+    <h3 className='text-n400 text-xs font-semibold'>Notifications</h3>
+    <button className='text-kprimary text-xs font-semibold'>Mark all as read</button>
+  </div>
+)
+
 
 const defaultValues = {
   name: '',
@@ -116,7 +150,8 @@ const Topnav = () => {
               badge
               contentData = {notification}
               renderData = {(item: any, index: number) => renderNotification(item, index)}
-              renderFooter = {() => <Link href= "#"> View All </Link>}
+              renderHeader = {() => renderHeader()}
+              // renderFooter = {() => <Link href= "#"> View All </Link>}
             />
           </div>
         </div>

@@ -40,8 +40,9 @@ export const DropDownContent = styled.div `
     top: calc(100% + 5px);
     z-index: 9999 !important;
     right: 0;
-    width: max-content;
-    max-width: 400px;
+    // width: max-content;
+    // max-width: 550px;
+    width: 552px;
     background-color: ${COLORS.kwhite}; //
     box-shadow: rgba(149, 157, 165, .2) 0px 8px 24px; //
     border-radius: 2px; //
@@ -57,9 +58,15 @@ export const DropDownContent = styled.div `
     }
 `
 
+export const DropDownHeader = styled.div  `
+    padding: 20px;
+    color: ${COLORS.primary};
+`
+
 export const DropDownFooter = styled.div  `
     padding: 20px;
     text-align: center;
     color: ${COLORS.primary};
 `
+
 
