@@ -15,9 +15,9 @@ export const user_menu = [
   {
     icon: FiLogOut,
     content: 'Logout',
-    buttonFunc: () => {
-      console.log('test');
-    },
+    // buttonFunc: () => {
+    //   console.log('test');
+    // },
   },
 ];
 

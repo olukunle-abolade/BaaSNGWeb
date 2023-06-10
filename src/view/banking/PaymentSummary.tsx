@@ -5,7 +5,7 @@ import Link from 'next/link';
 import FolderIcon from '@/assets/icons/folder.png'
 
 //** Components
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 
 // ** Third Party
 import {FiArrowLeft} from 'react-icons/fi'

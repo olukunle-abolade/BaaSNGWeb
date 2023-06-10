@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { updateAsyncProfile } from '@/store/app/profile';
 
 export interface IPreference {

@@ -16,7 +16,7 @@ import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import {  SelectField, TextField } from '@/components/FormComponent'
 import ProfileImage from '@/components/profile-image';
 

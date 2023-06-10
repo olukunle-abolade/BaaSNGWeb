@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { PasswordField } from '@/components/FormComponent'
 import { MyData, postAsyncPasswordChange } from '@/store/app/password-change';
 import { toast } from 'react-hot-toast';

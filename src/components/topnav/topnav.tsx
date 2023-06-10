@@ -13,7 +13,7 @@ import { Controller, useForm } from 'react-hook-form'
 
 // ** Component
 import Dropdown from '../dropdown/dropdown'
-import CustomButton from '../CustomButton'
+import CustomButton from '../user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import Badge from '../badge/badge';
 

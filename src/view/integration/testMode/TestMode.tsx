@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { PasswordField, TextField } from '@/components/FormComponent'
 import { fetchAsyncTestId, updateAsyncTest } from '@/store/app/test-mode';
 
@@ -52,17 +52,26 @@ const TestMode = () => {
     const formData = {
       url: url,
       userid: userId,
-      firstname: data.callbackurl,
-      dateofbirth: data.webhookaddress,
+      callbackurl: data.callbackurl,
+      webhookaddress: data.webhookaddress,
     }
+
+    console.log(formData)
 
     dispatch(updateAsyncTest(formData))
     .unwrap()
-    .then((originalPromiseResult) => {
-      // originalPromiseResult.code === 1012 || 1021 ?
-      //   toast.error(originalPromiseResult.message)
-      // :
+    .then(() => {
       toast.success("URL Updated Successfully")
+      const url= `/records/urls/?filter=userid,eq,${userId}`
+    
+      dispatch(fetchAsyncTestId({url}))
+      .unwrap()
+      .then(originalPromiseResult => {
+        // console.log(originalPromiseResult.status)
+        // originalPromiseResult.status === 200 &&
+
+        setData(originalPromiseResult.records)
+      })
     }) 
     .catch(rejectedValueorSerializedError => {
       {

@@ -14,7 +14,7 @@ import MTN from "@/assets/images/MTN.svg"
 import Glo from "@/assets/images/GLO.svg"
 import Mobile from "@/assets/images/9MOBILE.svg"
 import { TextField } from '@/components/FormComponent'
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import OTP from '../otp/OTP';
 import Success from '../success/Success';
 

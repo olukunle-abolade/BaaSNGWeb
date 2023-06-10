@@ -15,7 +15,7 @@ import { AppDispatch } from '@/store'
 import { useAuth } from '@/hooks/useAuth';
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { TextField } from '@/components/FormComponent'
 import SidebarAddUser from '@/components/user/AddUserDrawer'
 import IpList from '../IpList/IpList';

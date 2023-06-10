@@ -4,7 +4,7 @@
 import { FaCheck } from 'react-icons/fa'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { AuthFlowLayout } from '@/layouts/AuthLayout'
 import { useRouter } from 'next/navigation';
 

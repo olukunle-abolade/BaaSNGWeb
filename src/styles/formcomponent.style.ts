@@ -41,7 +41,6 @@ export const FormField = styled.div`
   }
 
   ::placeholder {
-    color: red;
   }
 
   .file-input::-webkit-file-upload-button {

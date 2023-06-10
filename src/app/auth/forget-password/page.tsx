@@ -10,7 +10,7 @@ import { FiKey } from 'react-icons/fi';
 // ** Components 
 import { AuthFlowLayout } from '@/layouts/AuthLayout'
 import { TextField } from '@/components/FormComponent';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 
 
 

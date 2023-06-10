@@ -1,5 +1,5 @@
 import { FC } from "react";
-import CustomButton from "../CustomButton";
+import CustomButton from "../user/CustomButton";
 import { HiArrowCircleLeft } from "react-icons/hi";
 
 interface IStepperControl {

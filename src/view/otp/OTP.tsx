@@ -5,7 +5,7 @@ import OtpInput from 'react-otp-input';
 import {FiEyeOff} from 'react-icons/fi'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import Success from '../success/Success';
 

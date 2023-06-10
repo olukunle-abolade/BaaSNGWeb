@@ -4,7 +4,7 @@ import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 
 const Success = () => {
   return (

@@ -39,50 +39,50 @@ const Dropdown: React.FC<IDropdown> = ({icon, customToggle, badge, ...props})=> 
     clickOutsideRef(dropdown_content_el, dropdown_toggle_el)
 
     return (
-        <>
-            <DropDownWrapper>
-                <DropDownToggle ref = {dropdown_toggle_el}>
-                    {
-                        icon ? <IoNotificationsOutline style={{
-                            fontSize: 25,
-                            color: COLORS.kgrey,
-                            
-                        }} /> : ""
-                    }
-                    {
-                      badge && <DropDownToggleBadge ></DropDownToggleBadge> 
-                    }
-                    {
-                        customToggle ? customToggle() : ""
-                    }
-                </DropDownToggle>
-                <DropDownContent ref = {dropdown_content_el}>
-                  {
-                        props.renderHeader ? (
-                            <DropDownHeader>
-                                {
-                                    props.renderHeader()
-                                }
-                            </DropDownHeader>
-                        ) : ""
-                    }
-                    {
-                        props.contentData && props.renderData ? props.contentData.map((item: any, index: any) =>
-                            props.renderData(item, index)
-                        ) : ""
-                    }
-                    {
-                        props.renderFooter ? (
-                            <DropDownFooter>
-                                {
-                                    props.renderFooter()
-                                }
-                            </DropDownFooter>
-                        ) : ""
-                    }
-                </DropDownContent>
-            </DropDownWrapper>
-        </>
+      <>
+        <DropDownWrapper>
+          <DropDownToggle ref = {dropdown_toggle_el}>
+            {
+              icon ? <IoNotificationsOutline style={{
+                  fontSize: 25,
+                  color: COLORS.kgrey,
+                  
+              }} /> : ""
+            }
+            {
+              badge && <DropDownToggleBadge ></DropDownToggleBadge> 
+            }
+            {
+              customToggle && customToggle() 
+            }
+          </DropDownToggle>
+          <DropDownContent ref = {dropdown_content_el}>
+            {
+                  props.renderHeader ? (
+                      <DropDownHeader>
+                          {
+                              props.renderHeader()
+                          }
+                      </DropDownHeader>
+                  ) : ""
+              }
+              {
+                  props.contentData && props.renderData ? props.contentData.map((item: any, index: any) =>
+                      props.renderData(item, index)
+                  ) : ""
+              }
+              {
+                  props.renderFooter ? (
+                      <DropDownFooter>
+                          {
+                            props.renderFooter()
+                          }
+                      </DropDownFooter>
+                  ) : ""
+              }
+          </DropDownContent>
+        </DropDownWrapper>
+      </>
     )
 }
 

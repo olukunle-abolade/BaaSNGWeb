@@ -8,7 +8,7 @@ import PImage from '@/assets/images/profile.svg'
 import { convertToBase64 } from '@/helpers/convert';
 
 // ** Component
-import CustomButton from '../CustomButton'
+import CustomButton from '../user/CustomButton'
 
 
 const ProfileImage = (image: any) => {

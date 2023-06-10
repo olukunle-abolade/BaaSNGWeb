@@ -14,11 +14,12 @@ import { AppDispatch } from '@/store'
 import { fetchAsyncPreferences } from '@/store/app/preferences';
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import {  SelectField, TextField } from '@/components/FormComponent'
 import { updateAsyncPreferences } from '@/store/app/preferences';
 import { MyData } from '@/store/app/preferences';
 import { fetchAsyncBusinessIndustry } from '@/store/app/miscellaneous';
+import QR from './QR';
 
 export interface IPreference {
   id?:number;
@@ -51,6 +52,8 @@ const defaultValues: IPreference = {
 const Preferences = () => {
   const [data, setData] = useState<IPreference[]>([])
   const [countries, setCountries] = useState<any[]>([])
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   const {  setValue, handleSubmit, register } = useForm({
     defaultValues,
@@ -271,6 +274,8 @@ const Preferences = () => {
             </tr>
           </thead>  
         </table>
+        <button type='button' onClick={toggleAddUserDrawer} className="text-kprimary text-[16px] text-center font-normal">Display QR Code</button>
+        <QR addUserOpen={addUserOpen} toggleAddUserDrawer={toggleAddUserDrawer} />
         </div>
 
       </form>

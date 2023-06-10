@@ -15,7 +15,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { PasswordField, TextField } from '@/components/FormComponent'
 import { fetchAsyncTestId, updateAsyncTest } from '@/store/app/test-mode';
 
@@ -57,8 +57,8 @@ const LiveMode: FC<LiveMode> = ({toggleAddUserDrawer}) => {
     const formData = {
       url: url,
       userid: userId,
-      firstname: data.callbackurl,
-      dateofbirth: data.webhookaddress,
+      callbackurl: data.callbackurl,
+      webhookaddress: data.webhookaddress,
     }
 
     dispatch(updateAsyncTest(formData))
@@ -68,6 +68,18 @@ const LiveMode: FC<LiveMode> = ({toggleAddUserDrawer}) => {
       //   toast.error(originalPromiseResult.message)
       // :
       toast.success("URL Updated Successfully")
+      
+      const url= `/records/urls/?filter=userid,eq,${userId}`
+    
+      dispatch(fetchAsyncTestId({url}))
+      .unwrap()
+      .then(originalPromiseResult => {
+        // console.log(originalPromiseResult.status)
+        // originalPromiseResult.status === 200 &&
+
+        setData(originalPromiseResult.records)
+      })
+
     }) 
     .catch(rejectedValueorSerializedError => {
       {
@@ -98,6 +110,8 @@ const LiveMode: FC<LiveMode> = ({toggleAddUserDrawer}) => {
       })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  console.log(data[0]?.callbackurl)
 
   useEffect(() => {
     setValue('callbackurl', data[0]?.callbackurl )
@@ -148,7 +162,7 @@ const LiveMode: FC<LiveMode> = ({toggleAddUserDrawer}) => {
               <div className="mt-2">
                 <div className="flex rounded-md shadow-sm ring-1 ring-inset ring-gray-300  h-[44px]">
                   <span className="flex select-none items-center px-3 text-n100 text-[16px] font-normal sm:text-sm border-r border-[#D0D5DD]">http:// </span>
-                  <input type="text"  id="username"  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-n100 placeholder:text-n100 sm:text-sm sm:leading-6" placeholder="www.untitledui.com" {...register('webhookaddress', { required: true })}/>
+                  <input type="text"  id="username"  className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-n100 placeholder:text-n100 sm:text-sm sm:leading-6"  {...register('webhookaddress', { required: true })}/>
                 </div>
               </div>
             </div>

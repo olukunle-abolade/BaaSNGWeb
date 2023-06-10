@@ -8,7 +8,7 @@ import Logo from '@/assets/logo.png';
 import Reciept from "@/assets/images/receipt.png"
 
 // ** Components
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 
 
 const Receipt = () => {

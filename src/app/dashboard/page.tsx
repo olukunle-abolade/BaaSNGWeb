@@ -23,7 +23,7 @@ import Verve from '@/assets/icons/verve.svg'
 
 // ** Component
 import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import { TextField } from '@/components/FormComponent'
 
 // ** Slice

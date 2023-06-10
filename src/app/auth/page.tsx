@@ -23,7 +23,7 @@ import AuthLayout from '@/layouts/AuthLayout';
 import { useAuth } from '@/hooks/useAuth';
 
 // ** Componentas
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 import { PasswordField, TextField } from '@/components/FormComponent';
 
 interface UserData {

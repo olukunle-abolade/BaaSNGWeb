@@ -5,7 +5,7 @@ import { Divider } from '@mui/material'
 
 // ** Components
 import Badge from '@/components/badge/badge'
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 
 // ** Images
 import Wema from '@/assets/images/Wema-Bank.svg'

@@ -5,7 +5,7 @@ import Image from 'next/image'
 import ProfileImage from '@/assets/logo.png'
 
 // ** Components
-import CustomButton from '@/components/CustomButton'
+import CustomButton from '@/components/user/CustomButton'
 import {  SelectField, TextField } from '@/components/FormComponent'
 import { ProgressBar } from '@/styles/widget.style';
 

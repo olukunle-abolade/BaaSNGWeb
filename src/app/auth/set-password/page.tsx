@@ -13,7 +13,7 @@ import { ThreeDots } from 'react-loading-icons';
 // ** Component
 import { AuthFlowLayout } from '@/layouts/AuthLayout'
 import { PasswordField } from '@/components/FormComponent';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 
 const SetPassword = () => {
   const router = useRouter();

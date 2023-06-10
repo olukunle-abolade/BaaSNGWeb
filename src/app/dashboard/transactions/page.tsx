@@ -7,7 +7,7 @@ import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
 
 // **  Component
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/user/CustomButton';
 import Question  from '@/assets/images/question.png';
 import Utility from '@/view/bills/Utility';
 import Recharge from '@/view/bills/Recharge';
