@@ -223,7 +223,6 @@ export const CredentialBox = styled.div`
 export const ImageBox = styled.div<{ img: any }>`
   /** style side image container for login */
   background-image: url(${(props) => props.img});
-  background: white;
   display: flex;
   position: relative;
   align-items: center;
@@ -244,11 +243,13 @@ export const ImageBox = styled.div<{ img: any }>`
 
 export const Glass = styled.div`
   position: absolute;
+  // width: fit-content;
+  height: 335px;
   width: 450px;
-  right: 18.23%;
-  top: 56.83%;
-  bottom: 2.92%;
   padding: 45px 33px;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: linear-gradient(111.26deg, rgba(255, 255, 255, 0.6) 11.75%, rgba(255, 255, 255, 0.18) 88.07%);
   border: 1px solid rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(7.5px);

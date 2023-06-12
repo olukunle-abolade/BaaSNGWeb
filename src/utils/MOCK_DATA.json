@@ -1,6 +1,6 @@
-[{"id":1,"first_name":"Derrik","last_name":"Opeoluwa gunmodede (Admin)","status":"deactivated"},
-    {"id":2,"first_name":"Paxton","last_name":"Opeoluwa gunmodede (Admin)","status":"active"},
-    {"id":3,"first_name":"Josselyn","last_name":"Opeoluwa gunmodede (Admin)","status":"active"},
-    {"id":4,"first_name":"Mari","last_name":"Opeoluwa gunmodede (Admin)","status":"deactivated"},
-    {"id":5,"first_name":"Chalmers","last_name":"Opeoluwa gunmodede (Admin)","status":"deactivated"}]
+[{"id":1,"first_name":"Derrik","last_name":"Opeoluwa gunmodede (Admin)","data": "25-01-2022", "amount": "-₦5,000.00", "status":"deactivated"},
+    {"id":2,"first_name":"Paxton","last_name":"Opeoluwa gunmodede (Admin)","data": "25-01-2022", "amount": "-₦5,000.00", "status":"active"},
+    {"id":3,"first_name":"Josselyn","last_name":"Opeoluwa gunmodede (Admin)","data": "25-01-2022", "amount": "-₦5,000.00", "status":"active"},
+    {"id":4,"first_name":"Mari","last_name":"Opeoluwa gunmodede (Admin)","data": "25-01-2022", "amount": "-₦5,000.00", "status":"deactivated"},
+    {"id":5,"first_name":"Chalmers","last_name":"Opeoluwa gunmodede (Admin)","data": "25-01-2022", "amount": "-₦5,000.00", "status":"deactivated"}]
     

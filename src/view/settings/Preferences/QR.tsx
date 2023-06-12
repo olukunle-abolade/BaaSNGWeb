@@ -16,7 +16,9 @@ const QR: FC<ISideAdd> = ({addUserOpen, toggleAddUserDrawer}) => {
   return (
     <div>
        <SidebarAddUser title='QR Payment' open={addUserOpen} toggle={toggleAddUserDrawer} >
+        <div className='w-[651px] h-[365px] bg-'>
 
+        </div>
       </SidebarAddUser>
     </div>
   )

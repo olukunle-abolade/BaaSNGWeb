@@ -74,11 +74,11 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
             {/* content */}
             <div className='sliderContent'>
               {/* name */}
-              <h3 className='glassName'>Opeoluwa Adeyemi</h3>
+              <h3 className='glassName'>BaaS</h3>
               {/* description */}
               <div>
-                <p className='glassNameDescription '>Product Designer, Hourglass</p>
-                <p className='glassNameDescription'>Web Design Agency</p>
+                <p className='glassNameDescription '>Fintech Application World Wide</p>
+                <p className='glassNameDescription'>Global Application</p>
               </div>
             </div>
             {/* slider panel */}

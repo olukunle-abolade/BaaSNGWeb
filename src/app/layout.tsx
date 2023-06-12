@@ -35,6 +35,9 @@ export default function RootLayout({
     <Provider store={store}>
       <AuthProvider>
         <html lang="en">
+          <head>
+            <link rel="icon" href="/apple-icon.png" />
+          </head>
           <body>
             <Toaster />
             <StyledComponentsRegistry>{children}</StyledComponentsRegistry>

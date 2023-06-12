@@ -30,11 +30,18 @@ import { TextField } from '@/components/FormComponent'
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
+// ** Dummy
+import MOCK_DATA from '@/utils/MOCK_DATA.json'
+
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
 import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
 import Greeting from '@/components/Greeting'
 import { useAppSelector } from '@/hooks/useTypedSelector'
+import RTable from '@/components/react-table/table'
+import Badge from '@/components/badge/badge'
+
+
 
 const RightDasboard= () => {
   const [userData, setUserData] = useState<MyData[]>([])
@@ -50,6 +57,46 @@ const RightDasboard= () => {
   const userId = auth.user?.id
   const userEmail = auth.user?.email
   const url = `/records/userprofile/${userId}`
+
+  
+  
+  // ** Status Color
+  const claimStatus: any = {
+    "deactivated" : "fail",
+    "active": "success",
+  }
+
+
+  //** Table Column
+  const columns = useMemo(
+    () => [
+        {
+          Header: 'Name',
+          accessor: 'first_name'
+        },
+        {
+          Header: 'Date',
+          accessor: "data"
+        },
+        {
+          Header: 'Amount',
+          accessor: "amount"
+        },
+        {
+          Header: 'Status',
+          accessor: "status",
+            Cell: ({ cell:{ value}}:{cell: any}) => <Badge
+            type = {claimStatus[value]}
+            content = {value}
+          />
+        }
+      ],
+    []
+  )
+
+  // ** Demo Data
+  const data = useMemo(() => MOCK_DATA, [])
+
   
   // Get the last obeject in array of objects
   // function getLastObject<T>(array: T[]): T | undefined {
@@ -176,7 +223,7 @@ const RightDasboard= () => {
           </div>
         </Box>
         <Grid item xs={12} mt={10}>
-          <h1 className='text-black'>Table Components</h1>
+          <RTable columnsData={columns} data={data}/>
         </Grid>
       </>
   )
