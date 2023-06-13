@@ -18,7 +18,7 @@ import { MyData } from '@/store/app/dashboard'
 
 
 const renderUserProfile = (item: any, index: number) => (
-  <div onClick = {item.buttonFunc} key={index}>
+  <div key={index}>
     <Link href = "/"  >
         <TopNavNotificationItem>
           {/* {item.icon} */}
@@ -39,7 +39,7 @@ const renderUserToggle = (getDashboardInfo: any) => (
             />
           </div>
           <div className='flex flex-col items-start'>
-            {/* <p className="text-black text-xs font-semibold">{(getDashboardInfo as unknown as MyData)?.firstname}</p> */}
+            <p className="text-black text-xs font-semibold">{(getDashboardInfo as unknown as MyData)?.firstname}</p>
             <p className="text-n100 font-normal text-[10px] uppercase">Admin</p>
           </div>
             
@@ -79,9 +79,9 @@ export const Sidebar = () => {
     <>
       <SidebarWrapper>
         {/* <SidebarWrapper> */}
-        <div className='relative flex flex-col justify-between  h-full'>
+        <div className='relative flex flex-col justify-between  h-[80vh]'>
           {/* HMO LOGO */}
-          <div className="hmo_logo mb-12">
+          <div className="hmo_logo">
             {/* icon */}
             <Image
               src={Logo}
@@ -98,7 +98,7 @@ export const Sidebar = () => {
           <MenuItemsList options={MENU_ITEMS2} />
           {/* <MenuItemsList options={MENU_ITEMS} />             */}
           {/* Right Hand side nav */}
-          <div className = "relative flex items-center justify-center right_Topnav z-50 mb-20">
+          <div className = "relative flex items-center justify-center  z-50  ">
             <Dropdown
               customToggle = {() => renderUserToggle(getDashboardInfo)}
               contentData = {user_menu}

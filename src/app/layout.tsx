@@ -36,7 +36,7 @@ export default function RootLayout({
       <AuthProvider>
         <html lang="en">
           <head>
-            <link rel="icon" href="/apple-icon.png" />
+            <link rel="apple-touch-icon" href="/apple-icon.png" sizes="32x32" />
           </head>
           <body>
             <Toaster />

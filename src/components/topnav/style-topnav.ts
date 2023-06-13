@@ -1,4 +1,6 @@
-import { COLORS, FONTS, SIZES } from '@/assets';
+'use client'
+
+import { COLORS,  SIZES } from '@/assets';
 import styled from 'styled-components';
 
 export const TopNavWrapper = styled.div`
@@ -69,7 +71,7 @@ export const TopNavWrapper = styled.div`
 
 `;
 
-export const TopnavUser = styled.div`
+export const TopnavUser = styled.button`
     display: flex;
     align-items: center;
   }
