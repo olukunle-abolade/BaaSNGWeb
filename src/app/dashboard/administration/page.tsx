@@ -60,7 +60,7 @@ const RolesnPri = () => {
 
   return (
     <div>
-      <RTable columnsData={columns} data={data}/>
+      <RTable isCheckBox columnsData={columns} data={data}/>
     </div>
   )
 }

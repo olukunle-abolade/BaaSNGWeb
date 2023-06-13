@@ -72,7 +72,7 @@ const Transaction = () => {
 
   return (
     <div className = "mt-10">
-      <RTable columnsData={columns} data={data}/>
+      <RTable isCheckBox columnsData={columns} data={data}/>
     </div>
   )
 }
