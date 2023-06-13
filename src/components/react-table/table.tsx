@@ -131,11 +131,12 @@ const RenderClaimsToggle = () => (
 interface IRTable {
   columnsData: any
   data: any;
+  isCheckBox?: boolean;
 }
 
 const RTable = (props: IRTable) => {
 
-  const { columnsData, data } = props
+  const { columnsData, data, isCheckBox } = props
  // ***
  const columns = columnsData
 
@@ -146,15 +147,13 @@ const RTable = (props: IRTable) => {
     headerGroups,
     rows,
     prepareRow,
-    state,
-    preGlobalFilteredRows,
-    setGlobalFilter,
   } = useTable({
     columns,
     data,
   }, useGlobalFilter,useFilters, usePagination,useRowSelect, (hooks: any) => {
     hooks.visibleColumns.push((columns: any) => {
-      return [
+      return isCheckBox ?
+       [
         {
           id: 'selection',
           Header: ({
@@ -167,7 +166,7 @@ const RTable = (props: IRTable) => {
           )
         },
         ...columns
-      ]
+      ] : [...columns]
     })
   });
 
@@ -180,7 +179,7 @@ const RTable = (props: IRTable) => {
   return (
     <TableCard>
       <TableWrapper>
-        <Box/>
+        {/* {isCheckBox && <Box/> } */}
         {/* {children} */}
 
         {/* <p className='px-4 text-kblackCom font-semibold text-body5 mb-4' >Recent Visit</p> */}

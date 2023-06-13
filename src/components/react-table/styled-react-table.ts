@@ -37,14 +37,15 @@ export const TableWrapper = styled.div`
             th,  td {
                 text-transform: capitalize;
                 padding: 15px 10px;
-                color:  #4A4A4A;
-                font-size: ${SIZES.h4};
+                color:  #757575;
+                font-weight: 500;
+                font-size: 12px;
                 margin-top: 5rem;
                 font-weight: 400;
             }
 
             &:hover{
-                background: ${COLORS.lightGray};
+                background: #E9E6F4;
             }
         }
 

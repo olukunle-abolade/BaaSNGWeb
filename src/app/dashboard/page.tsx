@@ -31,7 +31,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 
 // ** Dummy
-import MOCK_DATA from '@/utils/MOCK_DATA.json'
+import MOCK_DATA3 from '@/utils/MOCK_DATA3.json'
 
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
@@ -63,7 +63,7 @@ const RightDasboard= () => {
   // ** Status Color
   const claimStatus: any = {
     "deactivated" : "fail",
-    "active": "success",
+    "success": "success",
   }
 
 
@@ -72,15 +72,20 @@ const RightDasboard= () => {
     () => [
         {
           Header: 'Name',
-          accessor: 'first_name'
+          accessor: 'name'
+        },
+        {
+          Header: 'Time',
+          accessor: "time"
         },
         {
           Header: 'Date',
-          accessor: "data"
+          accessor: "date"
         },
         {
           Header: 'Amount',
-          accessor: "amount"
+          accessor: "amount",
+          Cell: ({ cell:{ value}}:{cell: any}) => <div className='text-kgreen'>{value}</div>
         },
         {
           Header: 'Status',
@@ -95,7 +100,7 @@ const RightDasboard= () => {
   )
 
   // ** Demo Data
-  const data = useMemo(() => MOCK_DATA, [])
+  const data = useMemo(() => MOCK_DATA3, [])
 
   
   // Get the last obeject in array of objects
@@ -223,7 +228,7 @@ const RightDasboard= () => {
           </div>
         </Box>
         <Grid item xs={12} mt={10}>
-          <RTable columnsData={columns} data={data}/>
+          <RTable  columnsData={columns} data={data}/>
         </Grid>
       </>
   )

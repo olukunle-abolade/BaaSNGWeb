@@ -42,14 +42,14 @@ const MenuItem = ({menuItem: { name, icon: Icon, url, depth, subItems }}: IMenuI
 
           :
 
-          <div className="menu-item">
-            {Icon ? <Icon className="text-xl text-kblack2 "/> : ""}
+          <div onClick = {onClick} className="menu-item">
+            {Icon ? <Icon className="text-xl text-kblack2  "/> : ""}
             <span className="text-kblack2 hover:opacity-100 -ml-1">{name}</span>
           </div>
 
         }
         {isNested ? (
-          <ExpandIcon isExpanded={isExpanded} handleClick={onClick} />
+          <ExpandIcon isExpanded={isExpanded}  />
         ) : null}
       </MenuItemContainer>
       {isExpanded && isNested ? <MenuItemsList options={subItems} /> : null}

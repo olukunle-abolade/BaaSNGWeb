@@ -4,11 +4,10 @@ import { IoIosArrowDown, IoIosArrowUp } from "react-icons/io";
 
 export default function ExpandIcon({
   isExpanded,
-  handleClick,
-}: {isExpanded: any, handleClick: any}) {
+}: {isExpanded: boolean}) {
   return isExpanded ? (
-    <IoIosArrowUp onClick={handleClick} />
+    <IoIosArrowUp/>
   ) : (
-    <IoIosArrowDown onClick={handleClick} />
+    <IoIosArrowDown  />
   );
 }

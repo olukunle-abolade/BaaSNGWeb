@@ -64,7 +64,6 @@ const MENU_OPTIONS2 = [
   {
     name: "Administration",
     icon: FaUserCog,
-    url: "#",
     subItems: [
       {
           name: "Roles & Privileges",

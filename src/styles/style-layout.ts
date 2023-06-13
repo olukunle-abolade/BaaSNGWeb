@@ -16,9 +16,9 @@ export const LayoutContent = styled.div `
   min-height: 100vh !important;
 `
 
-export const LayoutContentMain = styled.div<{active?: boolean}> `
+export const LayoutContentMain = styled.div `
   min-height: 100vh;
-  padding: ${props => props.active ? `1.2rem 2rem` : ""};
+  padding: 1.2rem 0rem;
   padding-top: 10vh;
   background: #F7F7F7;
 `
