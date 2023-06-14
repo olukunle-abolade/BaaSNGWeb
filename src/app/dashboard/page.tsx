@@ -115,8 +115,8 @@ const RightDasboard= () => {
 
   // console.log(lastObject)
 
-// Memoize the userInfo object
-// const memoizedUserInfo = useMemo(() => userInfos, [userInfos]);
+  // Memoize the userInfo object
+  // const memoizedUserInfo = useMemo(() => userInfos, [userInfos]);
 
   // const userInfo = useMemo(() => userInfos, [userInfos])
   const NumberFormat = (number: any) => {
@@ -144,8 +144,6 @@ const RightDasboard= () => {
         // setUserData({...originalPromiseResult})
       })
   }, [dispatch, url, userEmail])
-
-  console.log(userData)
 
   return (
       <>
@@ -227,8 +225,17 @@ const RightDasboard= () => {
             </div>
           </div>
         </Box>
-        <Grid item xs={12} mt={10}>
-          <RTable  columnsData={columns} data={data}/>
+        <Grid item xs={12} mt={3} bgcolor="#FFFFFF" borderRadius= "10px">
+          <div className="flex items-center justify-between px-6 py-6">
+            <div className='space-y-1'>
+              <h2 className='text-lg text-n600  font-medium '>History</h2>
+              <p className='text-n50 text-xs font-normal'>Transaction from last 3 days</p>
+            </div>
+            <p className='text-p200 text-sm font-semibold '>View all</p>
+          </div>
+          <div className="px-6">
+            <RTable  columnsData={columns} data={data}/>
+          </div>
         </Grid>
       </>
   )

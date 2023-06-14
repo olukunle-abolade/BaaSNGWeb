@@ -23,9 +23,9 @@ export const TableWrapper = styled.div`
                     th, td {
                         text-transform: capitalize;
                         padding: 15px 10px;
-                        color:  ${COLORS.black};
-                        font-size: ${SIZES.body5};
-                        font-weight : 600;
+                        color: #4A4A4A;
+                        font-weight: 500;
+                        font-size: 12px;
                     }
             }
         }

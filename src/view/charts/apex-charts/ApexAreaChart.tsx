@@ -1,16 +1,11 @@
 // ** React Imports
-import { forwardRef, useState } from 'react'
 
 // ** MUI Imports
 import Card from '@mui/material/Card'
-import TextField from '@mui/material/TextField'
 import { useTheme } from '@mui/material/styles'
-import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import InputAdornment from '@mui/material/InputAdornment'
 
 // ** Third Party Imports
-import format from 'date-fns/format'
 import { ApexOptions } from 'apexcharts'
 import ReactApexcharts from '@/components/react-apexcharts'
 
@@ -33,11 +28,13 @@ interface PickerProps {
 const series = [
   {
     name: 'Income',
-    data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280]
+    data: [10, 12, 9, 17, 13, 16, 14, 24, 22, 18, 27, 28],
+    color: '#FF0000'
   },
   {
     name: 'Expenses',
-    data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+    data: [6, 8, 7, 11, 8, 10, 9, 18, 16, 14, 20, 22],
+    color: '#00FF00'
   }
 ]
 
@@ -50,14 +47,17 @@ const ApexAreaChart = () => {
 
   const options: ApexOptions = {
     chart: {
-      parentHeightOffset: 0,
-      toolbar: { show: false }
+      height: 240,
+      id: 'line-chart',
+      zoom: {
+        enabled: false
+      }
     },
     tooltip: { shared: false },
     dataLabels: { enabled: false },
     stroke: {
       show: false,
-      curve: 'straight'
+      curve: 'smooth'
     },
     legend: {
       position: 'top',
@@ -75,13 +75,13 @@ const ApexAreaChart = () => {
     colors: [ areaColors.series2, areaColors.series1],
     fill: {
       opacity: 1,
-      type: 'solid'
+      type: 'line'
     },
     grid: {
       show: true,
       borderColor: theme.palette.divider,
       xaxis: {
-        lines: { show: false }
+        lines: { show: true }
       }
     },
     yaxis: {
@@ -90,7 +90,7 @@ const ApexAreaChart = () => {
       }
     },
     xaxis: {
-      axisBorder: { show: false },
+      axisBorder: { show: true },
       axisTicks: { color: theme.palette.divider },
       crosshairs: {
         stroke: { color: theme.palette.divider }

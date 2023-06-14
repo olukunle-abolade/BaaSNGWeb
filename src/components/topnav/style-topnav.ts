@@ -71,7 +71,7 @@ export const TopNavWrapper = styled.div`
 
 `;
 
-export const TopnavUser = styled.button`
+export const TopnavUser = styled.div`
     display: flex;
     align-items: center;
   }

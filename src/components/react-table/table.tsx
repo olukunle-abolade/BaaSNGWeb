@@ -212,8 +212,8 @@ const RTable = (props: IRTable) => {
           {/* {children} */}
         </div>
         {/* <Box sx={{marginTop: 3}}/> */}
-        <table className='table-spacing' {...getTableProps()}>
-          <thead>
+        <table className='table-spacing ' {...getTableProps()}>
+          <thead className='hidden'>
             {
               headerGroups.map((headerGroup: { getHeaderGroupProps: () => JSX.IntrinsicAttributes & React.ClassAttributes<HTMLTableRowElement> & React.HTMLAttributes<HTMLTableRowElement>; headers: any[] }) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
