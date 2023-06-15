@@ -40,6 +40,7 @@ import Greeting from '@/components/Greeting'
 import { useAppSelector } from '@/hooks/useTypedSelector'
 import RTable from '@/components/react-table/table'
 import Badge from '@/components/badge/badge'
+import BeneficiarySelect from '@/components/BeneficiarySelect/BeneficiarySelect'
 
 
 
@@ -70,6 +71,13 @@ const RightDasboard= () => {
   //** Table Column
   const columns = useMemo(
     () => [
+        {
+          Header: 'Image',
+          accessor: "image",
+          Cell: ({ cell:{ value}}:{cell: any}) => <div className='w-9 h-9 flex items-center justify-center rounded-full border border-n40'>
+            <Image src={UpChartIcon} alt='' width={20} height={20} />
+          </div>
+        },
         {
           Header: 'Name',
           accessor: 'name'
@@ -220,7 +228,7 @@ const RightDasboard= () => {
                 <p className='text-n100 text-sm font-normal'>Total Users added</p>
                 </div>
             </div>
-            <div className="row-span-4 col-span-2 bg-white shadow-kpshadow rounded-[10px] h-[247px]">
+            <div className="row-span-4 col-span-2 shadow-kpshadow rounded-[10px] h-[247px]">
               <ApexAreaChart />
             </div>
           </div>
@@ -241,7 +249,39 @@ const RightDasboard= () => {
   )
 }
 
+const beneficiaries = [
+  {
+    id: '1',
+    bankLogo: '/bank1-logo.png',
+    bankName: 'Bank 1',
+    accountName: 'John Doe',
+    accountNumber: '1234567890',
+  },
+  {
+    id: '2',
+    bankLogo: '/bank2-logo.png',
+    bankName: 'Bank 2',
+    accountName: 'Jane Smith',
+    accountNumber: '9876543210',
+  },
+];
+
+interface Beneficiary {
+  id: string;
+  bankLogo: string;
+  bankName: string;
+  accountName: string;
+  accountNumber: string;
+}
+
+
 const LeftDashAppointment = () => {
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState<Beneficiary[]>([]);
+
+  const handleBeneficiarySelect = (beneficiary: any) => {
+    setSelectedBeneficiary(beneficiary);
+  };
+  
   return (
     <div className='px-4 py-6'>
       <p className='text-n600 text-lg font-medium'>Payment Methods</p>
@@ -355,7 +395,19 @@ const LeftDashAppointment = () => {
         <p className='text-n80 text-xs font-normal'>Send To Beneficiaries</p>
 
         <form>
+          <BeneficiarySelect beneficiaries={beneficiaries} onSelectBeneficiary={handleBeneficiarySelect} />
+          <TextField type="text" placeholder="Total Amount" />
           <TextField type="textarea" placeholder="Add notes..." />
+
+          {/* {selectedBeneficiary && (
+            <div className="flex items-center space-x-1">
+              <div className="w-9 h-9 rounded bg-black"></div>
+              <div className='flex flex-col space-x-2'>
+                <span className='text-black'>{selectedBeneficiary.accountName}</span>
+                <span className='text-black'>{selectedBeneficiary.accountNumber}</span>
+              </div>
+            </div>
+          )} */}
           <CustomButton title='Send Money' />
         </form>
       </div>
@@ -377,7 +429,7 @@ const Dashboard = () => {
         <RightDasboard />
       </div>
       <div style={{
-        width: "326px",
+        width: "30%",
         height: 900,            
         background: "#FFFFFF",
       }} 

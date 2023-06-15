@@ -1,3 +1,4 @@
+import "./globals.css"
 import { Sidebar } from "@/components/shared/sidebar/sidebar";
 import Topnav from "@/components/topnav/topnav";
 import { LayoutContent, LayoutContentMain, LayoutWrapper } from "@/styles/style-layout";

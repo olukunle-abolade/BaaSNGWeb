@@ -62,4 +62,5 @@ export type AuthValuesType = {
   login: (params: LoginParams, errorCallback?: ErrCallbackType) => void
   signup: (params: SignupOtp, errorCallback?: ErrCallbackType) => void
   otp: (params: SignupOtp, errorCallback?: ErrCallbackType) => void
+  signinOtp: (params: SignupOtp, errorCallback?: ErrCallbackType) => void
 }

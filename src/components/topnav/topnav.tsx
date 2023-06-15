@@ -19,7 +19,8 @@ import Badge from '../badge/badge';
 
 // ** Styles
 import { TopNavNotificationItem, TopNavWrapper} from './style-topnav'
-import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { SelectField, TextField } from '../FormComponent';
 
 
 const claimStatus: any = {
@@ -158,83 +159,17 @@ const Topnav = () => {
       </TopNavWrapper>
       <SidebarAddUser title='Create Role & Privileges' open={addUserOpen} toggle={toggleAddUserDrawer} >
         <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl fullWidth sx={{ mb: 6 }}>
-            <InputLabel
-              id='validation-billing-select'
-              error={Boolean(errors.name)}
-              htmlFor='validation-billing-select'
-            >
-              Role Name
-            </InputLabel>
-            <Controller
-              name='name'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  value={value}
-                  label='Billing'
-                  onChange={onChange}
-                  error={Boolean(errors.name)}
-                  labelId='validation-billing-select'
-                  aria-describedby='validation-billing-select'
-                >
-                  <MenuItem value='Customer'>Customer</MenuItem>
-                  <MenuItem value='Developmer'>Developer</MenuItem>
-                  <MenuItem value='Teller'>Teller</MenuItem>
-                </Select>
-              )}
-            />
-            {errors.name && (
-              <FormHelperText sx={{ color: 'error.main' }} id='validation-billing-select'>
-                This field is required
-              </FormHelperText>
-            )}
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: 6 }}>
-            <Controller
-              name='email'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <TextField
-                  type='number'
-                  value={value}
-                  label='Contact'
-                  onChange={onChange}
-                  placeholder='(+234) 294-5153'
-                  error={Boolean(errors.email)}
-                />
-              )}
-            />
-          </FormControl>
-          <FormControl fullWidth sx={{ mb: 6 }}>
-            <InputLabel id='role-select'>Status</InputLabel>
-            <Controller
-              name='status'
-              control={control}
-              rules={{ required: true }}
-              render={({ field: { value, onChange } }) => (
-                <Select
-                  fullWidth
-                  value={value}
-                  id='select-role'
-                  label='Select Role'
-                  labelId='role-select'
-                  inputProps={{ placeholder: 'Select Role' }}
-                  onChange={onChange}
-                >
-                  <MenuItem value='admin'>Activate</MenuItem>
-                  <MenuItem value='author'>Deactivate</MenuItem>
-                </Select>
-              )}
-            />
-          </FormControl>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {/* <Button size='large' type='submit' variant='contained' sx={{ mr: 3 }}>
-              Submit
-            </Button>
-            <Button size='large' variant='outlined' color='secondary' onClick={handleClose}>
+          <SelectField label='Role Name' >
+            <option value="">Choose...</option>
+          </SelectField>
+          <TextField label='Email Address' type="text" placeholder="Enter Email Address" />
+          <SelectField label='Status' >
+            <option value="">Choose...</option>
+          </SelectField>
+
+          <Box sx={{ marginTop: 10 }}>
+            <CustomButton title='Save' />
+             {/* <<Button size='large' variant='outlined' color='secondary' onClick={handleClose}>
               Cancel
             </Button> */}
           </Box>

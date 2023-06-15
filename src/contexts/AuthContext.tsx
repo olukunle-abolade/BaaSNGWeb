@@ -40,6 +40,7 @@ export const defaultProvider: AuthValuesType = {
   signup: () => Promise.resolve(),
   pass: () => Promise.resolve(),
   otp: () => Promise.resolve(),
+  signinOtp: () => Promise.resolve(),
   logout: () => Promise.resolve()
 }
 
@@ -128,7 +129,7 @@ const AuthProvider = ({ children }: Props) => {
           setUser({ ...response?.data })
           // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
 
-          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/dashboard'
+          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/auth/signin-verification'
           console.log(user)
           router.replace(redirectURL as string)
           console.log(redirectURL)
@@ -161,9 +162,8 @@ const AuthProvider = ({ children }: Props) => {
           //   : null
           setUser({...params})
           console.log(response);
-          response.status === 200 && router.push("/auth/email-verify")
+          response.status === 200 && router.push("/auth/signin-verification")
          
-
           setLoading(false)
         })
 
@@ -192,6 +192,34 @@ const AuthProvider = ({ children }: Props) => {
 
           console.log(response);
           response.status === 200 && router.push("/auth/email-success")
+          setLoading(false)
+        })
+
+        .catch(err => {
+          if (errorCallback) errorCallback(err)
+          toast.error(err.response.data.message);
+          console.log(err.response.data.message)
+          setLoading(false)
+        })
+    } catch (err) {
+      setLoading(false)
+      toast.error("net::ERR_INTERNET_DISCONNECTED");
+    }
+  }
+
+  const handleSigninOtp = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
+    try {
+      setLoading(true)
+      await axios
+        .get( `${authConfig.otpEndpoint}?filter=${params.email}&filter=${params.otp}`, 
+        {
+          headers: headers,
+          withCredentials: true, // Enable sending cookies
+        })
+        .then(async response => {
+
+          console.log(response);
+          response.status === 200 && router.push("/auth/signin-email-success")
           setLoading(false)
         })
 
@@ -262,6 +290,7 @@ const AuthProvider = ({ children }: Props) => {
     login: handleLog,
     signup: handleSignup,
     otp: handleOtp,
+    signinOtp: handleSigninOtp,
     pass: handlePass,
     logout: handleLogout
   }

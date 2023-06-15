@@ -24,16 +24,43 @@ import Preferences from '@/view/settings/Preferences/Preferences';
 import Notification from '@/view/settings/Notification/Notification';
 import Account from '@/view/settings/Account/Account';
 import Integrations from '@/view/settings/Integrations/Integrations';
+import { makeStyles } from '@mui/styles';
+import { styled } from '@mui/system';
 
 
 interface TabPanelProps {
   children?: React.ReactNode;
   index: number;
   value: number;
+  active: boolean;
 }
 
+const useStyles = makeStyles((theme) => ({
+  tabIndicator: {
+    backgroundColor: 'red', // Customize the color of the tab indicator
+  },
+}));
+
+
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+  '& .MuiTabs-indicator': {
+    backgroundColor: 'red', // Customize the color of the active line
+  },
+}));
+
+const StyledTab = styled(Tab)(({ theme }) => ({
+  '&.Mui-selected': {
+    color: 'red', // Customize the color of the active tab label
+  },
+}));
+
 function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+  const { children, value, index, active, ...other } = props;
+  const tabPanelStyle = {
+    display: active ? 'block' : 'none',
+    color: active ? 'red' : 'black',
+    padding: '16px',
+  };
 
   return (
     <div
@@ -41,6 +68,7 @@ function TabPanel(props: TabPanelProps) {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
+      style = {tabPanelStyle}
       {...other}
     >
       {value === index && (
@@ -71,10 +99,14 @@ export interface UserData {
   occupation: string
 }
 
+const tabIndicatorStyle = {
+  backgroundColor: 'red', // Customize the color of the tab indicator
+};
 
 const Settings = () => {
   const [value, setValue] = useState(0);
   const [data, setData] = useState<UserData[]>([])
+  const classes = useStyles();
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -113,7 +145,12 @@ const Settings = () => {
       {/* <TransactionDetails /> */}
       <div className='w-full px-5 bg-white py-8'>
         <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-          <Tabs sx={{textTransform: 'capitalize'}} value={value} onChange={handleChange} aria-label="basic tabs example">
+          <Tabs  
+            value={value}
+            onChange={handleChange} 
+            aria-label="basic tabs example" 
+            classes={{ indicator: classes.tabIndicator }}
+          >
             <Tab sx={{textTransform: 'capitalize'}} label="Account Details" {...a11yProps(0)} />
             <Tab sx={{textTransform: 'capitalize'}} label="Profile" {...a11yProps(1)} />
             <Tab sx={{textTransform: 'capitalize'}} label="Password" {...a11yProps(2)} />
@@ -122,22 +159,22 @@ const Settings = () => {
             <Tab sx={{textTransform: 'capitalize'}} label="API Integrations" {...a11yProps(5)} />
           </Tabs>
         </Box>
-        <TabPanel value={value} index={0}>
+        <TabPanel value={value} index={0} active={value === 0}>
           <Account />
         </TabPanel>
-        <TabPanel value={value} index={1}>
+        <TabPanel value={value} index={1} active={value === 1}>
           <Profile />
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        <TabPanel value={value} index={2} active={value === 2}>
           <Password />
         </TabPanel>
-        <TabPanel value={value} index={3}>
+        <TabPanel value={value} index={3} active={value === 3}>
           <Preferences />
         </TabPanel>
-        <TabPanel value={value} index={4}>
+        <TabPanel value={value} index={4} active={value === 4}>
           <Notification />
         </TabPanel>
-        <TabPanel value={value} index={5}>
+        <TabPanel value={value} index={5} active={value === 5}>
           <Integrations />
         </TabPanel>
       </div>

@@ -28,12 +28,12 @@ interface PickerProps {
 const series = [
   {
     name: 'Income',
-    data: [10, 12, 9, 17, 13, 16, 14, 24, 22, 18, 27, 28],
+    data: [10, 12, 9, 17, 13, 16],
     color: '#FF0000'
   },
   {
     name: 'Expenses',
-    data: [6, 8, 7, 11, 8, 10, 9, 18, 16, 14, 20, 22],
+    data: [6, 8, 7, 11, 8, 10],
     color: '#00FF00'
   }
 ]
@@ -47,10 +47,13 @@ const ApexAreaChart = () => {
 
   const options: ApexOptions = {
     chart: {
-      height: 240,
+      height: 400,
       id: 'line-chart',
       zoom: {
         enabled: false
+      },
+      toolbar: {
+        show: false, // Hide the toolbar (including the download SVG button)
       }
     },
     tooltip: { shared: false },
@@ -61,7 +64,7 @@ const ApexAreaChart = () => {
     },
     legend: {
       position: 'top',
-      horizontalAlign: 'left',
+      horizontalAlign: 'right',
       labels: { colors: '#000000' },
       markers: {
         offsetY: 1,
@@ -81,10 +84,11 @@ const ApexAreaChart = () => {
       show: true,
       borderColor: theme.palette.divider,
       xaxis: {
-        lines: { show: true }
+        lines: { show: false }
       }
     },
     yaxis: {
+      show: false, // Hide the Y-axis
       labels: {
         style: { colors: '#000000' }
       }
@@ -100,17 +104,11 @@ const ApexAreaChart = () => {
       },
       categories: [
         'Jan',
-        'Feb',
         'Mar',
-        'Apr',
         'May',
-        'Jun',
         'Jul',
-        'Aug',
         'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
+        'Nov'
       ]
     }
   }
@@ -141,7 +139,32 @@ const ApexAreaChart = () => {
         }
       /> */}
       <CardContent>
-        <ReactApexcharts type='area' height={240} options={options} series={series} />
+        <div className='flex justify-between items-center mb-3'>
+          <h3>HightLights</h3>
+          <div className="w-50 md:w-1/8 mb-6 md:mb-0">
+            <div className="">
+              <select
+                className="block appearance-none w-full bg-white border border-n40 text-n400 text-sm py-1 px-4 pr-4 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500 font-semibold"
+                id="grid-state"
+              >
+                <option>Month</option>
+                <option>Jan</option>
+                <option>Feb</option>
+              </select>
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                <svg
+                  className="fill-current h-4 w-4 text-black"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <ReactApexcharts type='line' height="100%" width={510} options={options} series={series} />
       </CardContent>
     </Card>
   )

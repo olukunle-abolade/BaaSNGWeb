@@ -29,3 +29,9 @@ input[type="checkbox"]:checked  {
 .MuiTabs-indicator {
   background-color: #210590 !important; /* Customize the color of the active tab indicator */
 }
+
+.MuiTabs-root .Mui-selected {
+  color: #4A4A4A !important; /* Customize the color of the active tab label */
+  font-size: 600;
+  font-size: 14px
+}
