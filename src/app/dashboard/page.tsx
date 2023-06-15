@@ -242,7 +242,7 @@ const RightDasboard= () => {
             <p className='text-p200 text-sm font-semibold '>View all</p>
           </div>
           <div className="px-6">
-            <RTable  columnsData={columns} data={data}/>
+            <RTable containerStyle={{display: "none"}} columnsData={columns} data={data}/>
           </div>
         </Grid>
       </>

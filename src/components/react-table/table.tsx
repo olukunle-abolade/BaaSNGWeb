@@ -132,11 +132,12 @@ interface IRTable {
   columnsData: any
   data: any;
   isCheckBox?: boolean;
+  containerStyle?: any
 }
 
 const RTable = (props: IRTable) => {
 
-  const { columnsData, data, isCheckBox } = props
+  const { columnsData, data, containerStyle, isCheckBox } = props
  // ***
  const columns = columnsData
 
@@ -213,7 +214,9 @@ const RTable = (props: IRTable) => {
         </div>
         {/* <Box sx={{marginTop: 3}}/> */}
         <table className='table-spacing ' {...getTableProps()}>
-          <thead className='hidden'>
+          <thead  style={{
+            ...containerStyle
+          }}>
             {
               headerGroups.map((headerGroup: { getHeaderGroupProps: () => JSX.IntrinsicAttributes & React.ClassAttributes<HTMLTableRowElement> & React.HTMLAttributes<HTMLTableRowElement>; headers: any[] }) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
