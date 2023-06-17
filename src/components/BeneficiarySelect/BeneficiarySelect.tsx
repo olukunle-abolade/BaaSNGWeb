@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image';
 import { ChangeEvent } from 'react';
 import { SelectField } from '../FormComponent';

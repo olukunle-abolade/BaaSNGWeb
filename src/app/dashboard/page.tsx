@@ -2,7 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
-
+import { useRouter } from 'next/navigation'
 // ** MUI
 import { Box } from '@mui/material'
 import Grid from '@mui/material/Grid'
@@ -196,7 +196,7 @@ const RightDasboard= () => {
                 <Image src={PendIcon} alt='' width={20} height={20} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kyellow text-lg font-bold'>₦ 1,607.00</p>
+                <p className='text-kyellow text-lg font-bold'>₦ 0.00</p>
               </div>
               <p className='text-n100 text-sm font-normal'>Pending Transaction</p>
             </div>
@@ -277,6 +277,8 @@ interface Beneficiary {
 
 const LeftDashAppointment = () => {
   const [selectedBeneficiary, setSelectedBeneficiary] = useState<Beneficiary[]>([]);
+
+  const router = useRouter();
 
   const handleBeneficiarySelect = (beneficiary: any) => {
     setSelectedBeneficiary(beneficiary);
@@ -361,12 +363,12 @@ const LeftDashAppointment = () => {
         </div>
 
         {/*  */}
-        <div className="flex flex-col items-center space-y-3">
+        <button onClick={() => router.push("/dashboard/transactions")} className="flex flex-col items-center space-y-3">
           <div className="h-12 w-12 rounded-lg bg-white border border-n50 shadow-[0px 1px 2px rgba(16, 24, 40, 0.05)] flex items-center justify-center">
             <FiArrowUp className='text-n400' />
           </div>  
           <p className='text-n100 text-sm font-normal'>Transfer</p>
-        </div>
+        </button>
 
         {/*  */}
         <div className="flex flex-col items-center space-y-3">
@@ -377,7 +379,7 @@ const LeftDashAppointment = () => {
         </div>
 
         {/*  */}
-        <div className="flex flex-col items-center space-y-3">
+        <div onClick={() => router.push("/dashboard/transactions")} className="flex flex-col items-center space-y-3">
           <div className="h-12 w-12 rounded-lg bg-white border border-n50 shadow-[0px 1px 2px rgba(16, 24, 40, 0.05)] flex items-center justify-center">
             <FiMoreHorizontal className='text-n400'/>
           </div>

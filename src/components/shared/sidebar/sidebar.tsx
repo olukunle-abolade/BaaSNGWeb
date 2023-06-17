@@ -23,7 +23,7 @@ const renderUserProfile = (item: any, index: number) => (
         <TopNavNotificationItem>
           {/* {item.icon} */}
           {/* <item.icon/> */}
-          <span className="text-black" style={{marginLeft: 10}}>{item.content}</span>
+          <span className="text-n100 text-sm font-normal" style={{marginLeft: 10}}>{item.content}</span>
         </TopNavNotificationItem>
     </Link>
   </div>

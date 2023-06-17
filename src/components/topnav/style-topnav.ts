@@ -89,7 +89,7 @@ export const TopNavNotificationItem = styled.div`
   colr: black;
 
   &:hover {
-    background: #fafafb;
+    background: #E9E6F4;
   }
 
   i {

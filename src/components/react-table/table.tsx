@@ -17,7 +17,7 @@ const Genres = () => {
   // Loop through the array and create a badge-like component instead of a comma-separated string
   return (
     <>
-      <button  >Details</button>
+      <button>Details</button>
     </>
   );
 };

@@ -161,7 +161,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
       variant='temporary'
       onClose={handleClose}
       ModalProps={{ keepMounted: true }}
-      sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 450 } } }}
+      sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 450 }, zIndex: 1000 } }}
     >
       <Header>
         <h3 className='text-lg text-[#2D2D2D font-medium]'>{title}</h3>

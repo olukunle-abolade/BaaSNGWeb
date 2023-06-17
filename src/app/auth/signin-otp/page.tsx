@@ -36,7 +36,7 @@ const OTP = () => {
   return (
     <AuthFlowLayout
       title='Check your email'
-      desc='We sent a verification link to oopeoluwa@gmail.com'
+      desc={`We sent a verification link to ${email}`}
       iconComponent={<FaRegEnvelope color='white' size={22}/>}
       backToLogin
     >

@@ -103,6 +103,32 @@ const AuthProvider = ({ children }: Props) => {
   //   initAuth()
   // }, [])
 
+
+  useEffect(() => {
+    const initAuth = async (): Promise<void> => {
+      setLoading(true)
+    if (!user) {
+        // const userData = JSON.parse(window.localStorage.getItem(authConfig.storageDatekeyName)!)
+
+        setLoading(false)
+        // setUser(userData)
+        // setToken(storedToken)
+        router.push('/')
+
+        console.log(user)
+      } else {
+        // setUser(null)
+        // setLoading(false)
+        // if (user === null) {
+        //   router.push('/')
+        // }
+        setLoading(false)
+      }
+    }
+
+    initAuth()
+  }, [])
+
   const handleLog = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
     try {
       setLoading(true)
@@ -183,8 +209,8 @@ const AuthProvider = ({ children }: Props) => {
     try {
       setLoading(true)
       await axios
-        .get( `${authConfig.otpEndpoint}?filter=${params.email}&filter=${params.otp}`, 
-        {
+      .get( `${authConfig.otpEndpoint}?filter=email,eq,${params.email}&filter=token,eq,${params.otp}`, 
+      {
           headers: headers,
           withCredentials: true, // Enable sending cookies
         })
@@ -208,18 +234,30 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const handleSigninOtp = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
+    console.log(params.otp)
+    if( params.otp === '') {
+      toast.error("OTP cannot be empty")
+      return
+    }
+    if(typeof params.email === "undefined") {
+      toast.error("Email not defined, go back to Login and Try again")
+      return
+    }
     try {
       setLoading(true)
       await axios
-        .get( `${authConfig.otpEndpoint}?filter=${params.email}&filter=${params.otp}`, 
+        .get( `${authConfig.otpEndpoint}?filter=email,eq,${params.email}&filter=token,eq,${params.otp}`, 
         {
           headers: headers,
-          withCredentials: true, // Enable sending cookies
+          withCredentials: true, 
         })
         .then(async response => {
+         const data = response.data?.records
+         !data.length ? toast.error("Incorrect OTP, Try again")
+         : router.push("/auth/signin-email-success")
 
-          console.log(response);
-          response.status === 200 && router.push("/auth/signin-email-success")
+          console.log(response.data?.records);
+          // response.status === 200 
           setLoading(false)
         })
 

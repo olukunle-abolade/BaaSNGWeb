@@ -6,11 +6,7 @@ import {FaUserCog} from 'react-icons/fa';
 export const user_menu = [
   {
     icon: FiUser,
-    content: 'Profile',
-  },
-  {
-    icon: FiSettings,
-    content: 'Settings',
+    content: 'My Profile',
   },
   {
     icon: FiLogOut,
