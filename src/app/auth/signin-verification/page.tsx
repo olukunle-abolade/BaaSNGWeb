@@ -16,11 +16,11 @@ import { AuthFlowLayout } from '@/layouts/AuthLayout'
 const EmailVerify = () => {
   const router = useRouter();
 
-    // ** Context
-    const auth = useAuth()
+  // ** Context
+  const auth = useAuth()
 
-    // ** Email Address
-    const email = auth.user?.email
+  // ** Email Address
+  const email = auth.user?.email
 
   return (
     <AuthFlowLayout
@@ -29,9 +29,7 @@ const EmailVerify = () => {
       iconComponent={<FaRegEnvelope color='white' size={22}/>}
       backToLogin
     >
-      <div>
-        <CustomButton title='Enter OTP' onClick={() =>router.push('/auth/signin-otp')}/>
-      </div>
+      <CustomButton title='Enter OTP' onClick={() =>router.push('/auth/signin-otp')}/>
     </AuthFlowLayout>
   )
 }

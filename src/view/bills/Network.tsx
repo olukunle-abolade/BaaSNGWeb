@@ -1,3 +1,5 @@
+'use client'
+
 import Image from 'next/image'
 import React, { useState } from 'react'
 
@@ -20,8 +22,8 @@ import Success from '../success/Success';
 
 const Network = () => {
   const [phone, setPhone] = useState("");
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  const [otpOpen, setOtpOpen] = useState<boolean>(false)
+  const toggleOtpDrawer = () => setOtpOpen(!otpOpen)
 
   return (
     <div>
@@ -108,9 +110,9 @@ const Network = () => {
       <TextField label='Amount' type="text" placeholder="₦ 10.00 - ₦ 5,000,000.00" />
 
       {/* button */}
-      <CustomButton title='Pay' onClick={toggleAddUserDrawer} buttonStyle={{marginTop: 40}} />
+      <CustomButton title='Pay' onClick={toggleOtpDrawer} buttonStyle={{marginTop: 40}} />
 
-      <SidebarAddUser title='Transaction PIN' open={addUserOpen} toggle={toggleAddUserDrawer} >
+      <SidebarAddUser title='Transaction PIN' open={otpOpen} toggle={toggleOtpDrawer} >
         <OTP />
       </SidebarAddUser>
     </div>

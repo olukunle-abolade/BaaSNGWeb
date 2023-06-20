@@ -1,4 +1,5 @@
 'use client'
+
 import { useState } from "react"
 
 // ** Component
@@ -17,18 +18,17 @@ const utils = [
 ]
 
 const Recharge = () => {
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  const [addCardOpen, setAddCardOpen] = useState<boolean>(false)
+  const toggleAddCardDrawer = () => setAddCardOpen(!addCardOpen)
 
   return (
     <div>
       {/*  */}
-      <div className="flex space-x-5">
+    <div className="flex space-x-5">
         {
-          utils.map((util, index) => {
+          utils?.map((util, index) => {
             return (
-              <div className="flex items-center pl-3 space-x-2 w-[200px] h-[70px] border border-n40 rounded-[20px]" key={index}  onClick={toggleAddUserDrawer}>
-                {/*  */}
+              <div className="flex items-center pl-3 space-x-2 w-[200px] h-[70px] border border-n40 rounded-[20px]" key={index}  onClick={toggleAddCardDrawer}>
                 <div className='flex items-center justify-center w-[50px] h-[50px] rounded-full bg-kysec'></div>
                 <h2 className="text-[14px] text-black font-medium">{util.name}</h2>
               </div>
@@ -37,9 +37,9 @@ const Recharge = () => {
         }
       </div>
 
-      <SidebarAddUser title='Top Up Airtime' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <Network />
-      </SidebarAddUser>
+        <SidebarAddUser title='Top Up Airtime' open={addCardOpen} toggle={toggleAddCardDrawer} >
+          <Network />
+        </SidebarAddUser>
     </div>
   )
 }

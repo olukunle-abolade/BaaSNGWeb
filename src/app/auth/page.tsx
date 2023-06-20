@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 // ** MUI
-import { Checkbox, FormControlLabel } from '@mui/material';
+// import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
 import { useForm } from 'react-hook-form';
@@ -80,11 +80,11 @@ const Login = () => {
 
             <div className="flex justify-between items-center">
               {/* <Checkbox label = ""  /> */}
-              <FormControlLabel
+              {/* <FormControlLabel
                 control={<Checkbox />}
                 label="Remember me for 30days"
                 className="text-kblackCom text-sm font-normal "
-              />
+              /> */}
 
               <Link
                 href="/auth/forget-password"

@@ -1,11 +1,12 @@
-"use client"
+'use client';
 
-import Link from 'next/link'
+import Image from 'next/image';
+
+
 import { SidebarWrapper } from './style-sidebar';
 import MenuItemsList from '@/components/MenuItemsList';
 import { MENU_ITEMS, MENU_ITEMS2, user_menu } from '@/utils/ui-data';
 import Logo from "@/assets/logo.png"
-import Image from 'next/image';
 import Dropdown from '@/components/dropdown/dropdown';
 import { TopNavNotificationItem, TopnavUser } from '@/components/topnav/style-topnav';
 
@@ -19,13 +20,11 @@ import { MyData } from '@/store/app/dashboard'
 
 const renderUserProfile = (item: any, index: number) => (
   <div key={index}>
-    <Link href = "/"  >
-        <TopNavNotificationItem>
-          {/* {item.icon} */}
-          {/* <item.icon/> */}
-          <span className="text-n100 text-sm font-normal" style={{marginLeft: 10}}>{item.content}</span>
-        </TopNavNotificationItem>
-    </Link>
+    <TopNavNotificationItem>
+      {/* {item.icon} */}
+      {/* <item.icon/> */}
+      <span className="text-n100 text-sm font-normal" style={{marginLeft: 10}}>{item.content}</span>
+    </TopNavNotificationItem>
   </div>
 )
 

@@ -35,24 +35,9 @@ interface TabPanelProps {
   active: boolean;
 }
 
-const useStyles = makeStyles((theme) => ({
-  tabIndicator: {
-    backgroundColor: 'red', // Customize the color of the tab indicator
-  },
-}));
 
 
-const StyledTabs = styled(Tabs)(({ theme }) => ({
-  '& .MuiTabs-indicator': {
-    backgroundColor: 'red', // Customize the color of the active line
-  },
-}));
 
-const StyledTab = styled(Tab)(({ theme }) => ({
-  '&.Mui-selected': {
-    color: 'red', // Customize the color of the active tab label
-  },
-}));
 
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, active, ...other } = props;
@@ -106,7 +91,6 @@ const tabIndicatorStyle = {
 const Settings = () => {
   const [value, setValue] = useState(0);
   const [data, setData] = useState<UserData[]>([])
-  const classes = useStyles();
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -149,7 +133,6 @@ const Settings = () => {
             value={value}
             onChange={handleChange} 
             aria-label="basic tabs example" 
-            classes={{ indicator: classes.tabIndicator }}
           >
             <Tab sx={{textTransform: 'capitalize'}} label="Account Details" {...a11yProps(0)} />
             <Tab sx={{textTransform: 'capitalize'}} label="Profile" {...a11yProps(1)} />

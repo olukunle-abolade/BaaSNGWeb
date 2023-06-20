@@ -1,15 +1,13 @@
 "use client"
 
 import  { useState } from 'react'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation';
 
 // ** Third Party
 import {IoSearch} from "react-icons/io5"
 import { IoMdNotificationsOutline } from 'react-icons/io'
-import {ImNotification} from "react-icons/im"
 import { notification } from '@/utils/ui-data'
-import { Controller, useForm } from 'react-hook-form'
+import {  useForm } from 'react-hook-form'
 
 // ** Component
 import Dropdown from '../dropdown/dropdown'
@@ -19,14 +17,9 @@ import Badge from '../badge/badge';
 
 // ** Styles
 import { TopNavNotificationItem, TopNavWrapper} from './style-topnav'
-import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
+import { Box } from '@mui/material';
 import { SelectField, TextField } from '../FormComponent';
 
-
-const claimStatus: any = {
-  "deactivated" : "fail",
-  "active": "success",
-}
 
 const renderNotification = (item: any, index: any) => (
   <TopNavNotificationItem key = {index}>
@@ -76,10 +69,6 @@ const Topnav = () => {
 
   // ** Hooks
   const {
-    reset,
-    control,
-    setValue,
-    setError,
     handleSubmit,
     formState: { errors }
   } = useForm({

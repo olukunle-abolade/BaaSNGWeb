@@ -31,15 +31,15 @@ const BeneficiarySelect: React.FC<BeneficiarySelectProps> = ({ beneficiaries, on
       <option value="">Select a beneficiary</option>
       {beneficiaries.map((beneficiary) => (
         <option key={beneficiary.id} value={beneficiary.id}>
-          <div className='flex items-center space-x-2'>
+          {/* <div className='flex items-center space-x-2'> */}
             {/* <Image src={beneficiary.bankLogo} alt={beneficiary.bankName}  width={20} height={20} /> */}
-            <div className="w-9 h-9 rounded bg-black"></div>
+            {/* <div className="w-9 h-9 rounded bg-black"></div> */}
 
-            <div className='flex flex-col space-x-2'>
+            {/* <div className='flex flex-col space-x-2'> */}
               <p className='mx-2'>{beneficiary.accountName}</p>
               <p>{beneficiary.accountNumber}</p>
-            </div>
-          </div>
+            {/* </div> */}
+          {/* </div> */}
         </option>
       ))}
     </SelectField>

@@ -6,13 +6,20 @@ import FolderIcon from '@/assets/icons/folder.png'
 
 //** Components
 import CustomButton from '@/components/user/CustomButton';
+import SidebarAddUser from '@/components/user/AddUserDrawer';
 
 // ** Third Party
 import {FiArrowLeft} from 'react-icons/fi'
 import { IoIosArrowForward } from 'react-icons/io';
+import { useState } from 'react';
+import OTP from '../otp/OTP';
 
 
 const PaymentSummary = () => {
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
+
+  const toggleModalDrawer = () => setModalOpen(!modalOpen)
+
   return (
     <div>
         <div className="flex items-center  text-center mt-8 space-x-2 ">
@@ -87,8 +94,12 @@ const PaymentSummary = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <CustomButton title='Pay ₦5,000.00' buttonStyle={{width: 320}} />
+          <CustomButton title='Pay ₦5,000.00' buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
         </div>
+
+        <SidebarAddUser title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} >
+          <OTP />
+        </SidebarAddUser>
     </div>
   )
 }

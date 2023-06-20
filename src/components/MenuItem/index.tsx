@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import MenuItemsList from "../MenuItemsList";
 import ExpandIcon from "../ExpandIcon";
@@ -19,7 +19,6 @@ interface IMenuItem {
 const MenuItem = ({menuItem: { name, icon: Icon, url, depth, subItems }}: IMenuItem) => {
   const [isExpanded, toggleExpanded] = useState(false);
   const pathname = usePathname();
-  const router = useRouter();
   // const selected = router.aspather === url
   const selected = pathname === url;
   const isNested = subItems && subItems?.length > 0;

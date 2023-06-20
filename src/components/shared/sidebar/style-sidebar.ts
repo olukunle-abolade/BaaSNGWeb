@@ -1,5 +1,3 @@
-"use client"
-
 import { SIZES } from "@/assets";
 import styled  from "styled-components";
 

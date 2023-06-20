@@ -7,12 +7,12 @@ import {FiEyeOff} from 'react-icons/fi'
 // ** Components
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
-import Success from '../success/Success';
+import OtpVerification from './OtpVerification';
 
 const OTP = () => {
   const [otp, setOtp] = useState('');
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  const [otpVerifyOpen, setOtpVerifyOpen] = useState<boolean>(false)
+  const toggleOtpVerifyDrawer = () => setOtpVerifyOpen(!otpVerifyOpen)
 
   return (
     <div className='flex flex-col items-center'>
@@ -36,13 +36,13 @@ const OTP = () => {
         </div>
       </div>
 
-      <p className='text-kprimary text-sm font-normal mb-14 mb-10'>Forgot PIN?</p>
+      <p className='text-kprimary text-sm font-normal mb-14'>Forgot PIN?</p>
 
       {/* button */}
-      <CustomButton title='Confirm' onClick={toggleAddUserDrawer} />
+      <CustomButton title='Confirm' onClick={toggleOtpVerifyDrawer} />
 
-      <SidebarAddUser title='' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <Success />
+      <SidebarAddUser title='OTP verification' open={otpVerifyOpen} toggle={toggleOtpVerifyDrawer} >
+        <OtpVerification/>
       </SidebarAddUser>
     </div>
   )

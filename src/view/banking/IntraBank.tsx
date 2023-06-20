@@ -11,9 +11,9 @@ import PaymentSummary from './PaymentSummary';
 import { FiEdit3 } from 'react-icons/fi'
 
 const IntraBank = () => {
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const [modalOpen, setModalOpen] = useState<boolean>(false)
 
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  const toggleModalDrawer = () => setModalOpen(!modalOpen)
   return (
     <div>
       {/* chip */}
@@ -31,9 +31,7 @@ const IntraBank = () => {
         <TextField label='Account Number' type="text" placeholder="Enter 10 - digit Account Number" />
         <TextField label='Amount' type="text" placeholder="₦ 10.00-₦ 5,000,000.00" />
 
-        <SelectField label='Beneficiaries'>
-          <option value="">Select Beneficiaries</option>
-        </SelectField>
+       
 
         <div className="relative mt-6">
           <input className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Add a note"></input>
@@ -41,15 +39,18 @@ const IntraBank = () => {
         </div>
 
         <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
-
+        
+        <SelectField label='Beneficiaries'>
+          <option value="">Select Beneficiaries</option>
+        </SelectField>
         <SelectField label='Transfer Type'>
           <option value="">Select Transfer Type</option>
         </SelectField>
 
-        <CustomButton title='Next' onClick={toggleAddUserDrawer}  buttonStyle={{marginTop: 10}} />
+        <CustomButton title='Next' onClick={toggleModalDrawer}  buttonStyle={{marginTop: 10}} />
       </div>
 
-      <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} >
+      <SidebarAddUser title='Payment summary' open={modalOpen} toggle={toggleModalDrawer} >
         <PaymentSummary />
       </SidebarAddUser>
     </div>
