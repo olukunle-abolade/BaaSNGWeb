@@ -10,7 +10,7 @@ export const metadata = {
   description: 'Fintech Application',
   icons: {
     icon: {
-      url: "/favicon.png",
+      url: "/apple-icon.png",
     },
   }
 }
@@ -21,17 +21,16 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-        <html lang="en">
-          <head>
-            <link rel="apple-touch-icon" href="/apple-icon.png" sizes="32x32" />
-          </head>
-          <body>
-            <Providers>
-              <Toaster />
-              <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
-            </Providers>
-          </body>
-        </html>
-
+    <html lang="en">
+      <head>
+        <link rel="apple-touch-icon" href="/apple-icon.png" sizes="32x32" />
+      </head>
+      <body>
+        <Providers>
+          <Toaster />
+          <StyledComponentsRegistry>{children}</StyledComponentsRegistry>
+        </Providers>
+      </body>
+    </html>
   )
 }

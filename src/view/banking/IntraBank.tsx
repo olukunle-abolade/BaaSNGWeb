@@ -11,9 +11,9 @@ import PaymentSummary from './PaymentSummary';
 import { FiEdit3 } from 'react-icons/fi'
 
 const IntraBank = () => {
-  const [modalOpen, setModalOpen] = useState<boolean>(false)
+  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
 
-  const toggleModalDrawer = () => setModalOpen(!modalOpen)
+  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
   return (
     <div>
       {/* chip */}
@@ -47,10 +47,10 @@ const IntraBank = () => {
           <option value="">Select Transfer Type</option>
         </SelectField>
 
-        <CustomButton title='Next' onClick={toggleModalDrawer}  buttonStyle={{marginTop: 10}} />
+        <CustomButton title='Next' onClick={toggleAddUserDrawer}  buttonStyle={{marginTop: 10}} />
       </div>
 
-      <SidebarAddUser title='Payment summary' open={modalOpen} toggle={toggleModalDrawer} >
+      <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} >
         <PaymentSummary />
       </SidebarAddUser>
     </div>

@@ -34,7 +34,7 @@ const OtpVerification = () => {
   }
 
   return (
-    <div className='flex flex-col items-center'>
+    <div className=''>
       <AuthFlowLayout
         title='Check your email'
         desc={`We sent an OTP code to ${email}`}

@@ -56,18 +56,18 @@ export  interface IUserData {
 }
 
 // ** Defaults
-const defaultProvider: AuthValuesType = {
-  user: null,
-  loading: false,
-  token: '',
-  setUser: () => null,
-  setLoading: () => Boolean,
-  login: () => Promise.resolve(),
-  signup: () => Promise.resolve(),
-  pass: () => Promise.resolve(),
-  otp: () => Promise.resolve(),
-  logout: () => Promise.resolve()
-}
+// const defaultProvider: AuthValuesType = {
+//   user: null,
+//   loading: false,
+//   token: '',
+//   setUser: () => null,
+//   setLoading: () => Boolean,
+//   login: () => Promise.resolve(),
+//   signup: () => Promise.resolve(),
+//   pass: () => Promise.resolve(),
+//   otp: () => Promise.resolve(),
+//   logout: () => Promise.resolve()
+// }
 
 const StepperProvider: StepperValuesType = {
   userData: null,

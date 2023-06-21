@@ -5,4 +5,16 @@ const nextConfig = {
   },
 };
 
+// next.config.js
+// module.exports = withPlugins([], {
+//   webpack(config) {
+//     config.externals = [
+//       ...config.externals,
+//       { reactapexcharts: 'react-apexcharts' },
+//     ];
+
+//     return config;
+//   },
+// });
+
 module.exports = nextConfig;
