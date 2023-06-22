@@ -60,9 +60,6 @@ const headers = {
   'X-API-Key': process.env.NEXT_PUBLIC_BAAS_API_KEY
 }
 
-console.log(headers)
-console.log(process.env.NEXT_PUBLIC_BAAS_API_KEY)
-
 const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)

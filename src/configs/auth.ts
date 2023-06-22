@@ -1,9 +1,9 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
   meEndpoint: '/auth/me',
-  loginEndpoint: 'https://sandbox-api.baas.ng/login',
-  registerEndpoint: 'https://sandbox-api.baas.ng/register',
-  otpEndpoint: 'https://sandbox-api.baas.ng/records/validateotp',
+  loginEndpoint: `${process.env.NEXT_PUBLIC_BAAS_BASE_URL_KEY}/login`,
+  registerEndpoint: `${process.env.NEXT_PUBLIC_BAAS_BASE_URL_KEY}/register`,
+  otpEndpoint: `${process.env.NEXT_PUBLIC_BAAS_BASE_URL_KEY}/records/validateotp`,
   storageTokenKeyName: 'accessToken',
   storageDatekeyName: 'userData',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
