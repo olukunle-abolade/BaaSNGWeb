@@ -49,7 +49,7 @@ const OTP = () => {
               numInputs={4}
               renderSeparator={<span className='invisible'>-</span>}
               renderInput={(props) => <input {...props} />}
-              inputStyle ={{height: 80, width: 80, borderWidth: 1, borderColor: '#210590', borderRadius: 8}}
+              inputStyle ={{height: 80, width: 80, borderWidth: 1, borderColor: '#210590', borderRadius: 8, color: "#210590", fontWeight: 600}}
             />
           </div>
           {auth.loading ? (

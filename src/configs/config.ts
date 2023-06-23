@@ -11,7 +11,7 @@ const settings = {
   apiUrl: '',
   appName: 'BaaS Platform',
   subject: 'BaaS Platform',
-  baseUrl: 'https://sandbox-api.baas.ng'
+  baseUrl: process.env.NEXT_PUBLIC_BAAS_BASE_URL_KEY
 } as ISettings
 
 export default settings
