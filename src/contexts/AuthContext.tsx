@@ -146,7 +146,7 @@ const AuthProvider = ({ children }: Props) => {
           console.log(response.headers);
 
            // Retrieve all stored cookies
-          const cookies = cookieJar.getCookiesSync('https://sandbox-api.baas.ng/login');
+          // const cookies = cookieJar.getCookiesSync('https://sandbox-api.baas.ng/login');
           console.log(response?.data);
 
           setUser({ ...response?.data })

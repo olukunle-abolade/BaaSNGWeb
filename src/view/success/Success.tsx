@@ -6,11 +6,17 @@ import { FaCheck } from 'react-icons/fa'
 // ** Components
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
+import TrasactionModal from '@/components/Modal/Modal';
 
 
 const Success = () => {
   const [reciept, setReceipt] = useState<boolean>(false)
   const toggleReceiptDrawer = () => setReceipt(!reciept)
+
+  // Modal Toggller
+  const [open, setOpen] = useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   return (
     <div className='flex flex-col items-center w-full'>
@@ -58,12 +64,15 @@ const Success = () => {
 
       {/* button */}
       <div className="grid grid-cols-2 gap-4 w-full mt-14">
-        <CustomButton title='Complete' buttonStyle={{backgroundColor: "#E9E6F4"}} titleColor="#4730A3" />
+        <CustomButton title='Complete' onClick={handleOpen} buttonStyle={{backgroundColor: "#E9E6F4"}} titleColor="#4730A3" />
         <CustomButton title='View Receipt' />
       </div>
       <SidebarAddUser title='' open={reciept} toggle={toggleReceiptDrawer} >
         {/* <Success /> */}
       </SidebarAddUser>
+
+      {/* Modal */}
+      <TrasactionModal open = {open} btitle1='No' btitle2='Yes' handleModal={() => null} handleClose={handleClose} title='Save last recipients as a beneficiary' subtitle='Do you confirm to this ?'  />
     </div>
   )
 }
