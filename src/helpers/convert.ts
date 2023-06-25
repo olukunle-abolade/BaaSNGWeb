@@ -11,3 +11,9 @@ export function convertToBase64(file: Blob) {
     fileReader.onerror = (error) => reject(error);
   });
 }
+
+
+export const NumberFormat = (number: any) => {
+  const formattedNumber = number?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+return formattedNumber
+}

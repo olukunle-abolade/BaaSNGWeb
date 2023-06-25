@@ -9,6 +9,11 @@ interface IProps {
   // ... other properties
 }
 
+interface DashboardInfo {
+  actualbalance: number;
+  // Add other properties if needed
+}
+
 export interface MyData {
   message: string
   data: any[]
@@ -91,9 +96,11 @@ export const fetchAsyncDashboardInfo = createAsyncThunk<
   }
 })
 
+
+
 export interface IDashboard {
   data: any[] | null
-  info: any[] | null
+  info: DashboardInfo | null
   loading: string
   error: null | string
 }

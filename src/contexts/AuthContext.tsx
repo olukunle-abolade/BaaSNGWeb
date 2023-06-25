@@ -60,6 +60,7 @@ const headers = {
   'X-API-Key': process.env.NEXT_PUBLIC_BAAS_API_KEY
 }
 
+
 const AuthProvider = ({ children }: Props) => {
   // ** States
   const [user, setUser] = useState<UserDataType | null>(defaultProvider.user)
@@ -127,6 +128,7 @@ const AuthProvider = ({ children }: Props) => {
   }, [])
 
   const handleLog = async (params: LoginParams, errorCallback?: ErrCallbackType) => {
+    console.log(headers)
     try {
       setLoading(true)
       await axios

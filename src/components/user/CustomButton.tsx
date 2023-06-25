@@ -14,10 +14,11 @@ interface ButtonType {
   iconName? : any;
   iconImage? : any;
   iconColor? : any;
+  disabled? : boolean;
   type? : any;
 }
 
-const CustomButton: React.FC<ButtonType> = ({title, type, buttonStyle,titleColor, buttonColor, textStyle,iconName, iconColor,iconImage, onClick=()=>{}, ...props}) => {
+const CustomButton: React.FC<ButtonType> = ({title, type, buttonStyle,titleColor, buttonColor, disabled, textStyle,iconName, iconColor,iconImage, onClick=()=>{}, ...props}) => {
   return (
     <button
       // onPress={onPress}
@@ -28,6 +29,7 @@ const CustomButton: React.FC<ButtonType> = ({title, type, buttonStyle,titleColor
       }}
       onClick={onClick}
       type={type}
+      disabled = {disabled}
     >
       {
         iconImage &&

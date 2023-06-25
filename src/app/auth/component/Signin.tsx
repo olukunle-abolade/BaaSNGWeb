@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 // import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ThreeDots } from 'react-loading-icons';
 
 // ** Images
@@ -21,7 +21,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 // ** Componentas
 import CustomButton from '@/components/user/CustomButton';
-import { PasswordField, TextField } from '@/components/FormComponent';
+import { CustomTextField, PasswordField, TextField } from '@/components/FormComponent';
 
 interface UserData {
   email: string
@@ -34,10 +34,8 @@ const defaultValues = {
 }
 
 const Signin = () => {
-  const { handleSubmit, register } = useForm({
-    defaultValues,
-    mode: 'onChange',
-  });
+  const methods = useForm();
+
 
   // ** Hooks
   const auth = useAuth()
@@ -54,53 +52,69 @@ const Signin = () => {
   };
 
   return (
-    <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-      <TextField
-        label="Email "
-        type="email"
-        placeholder="Enter  your email address"
-        required={true}
-        {...register('email', { required: true })}
-      />
-      <PasswordField
-        label="Password"
-        required={true}
-        placeholder="Enter your password"
-        {...register('password', { required: true })}
-      />
+    <FormProvider {...methods}>
+      <form noValidate autoComplete='off' onSubmit={methods.handleSubmit(onSubmit)}>
+        <CustomTextField
+          label="Email "
+          type="email"
+          name='email'
+          placeholder="Enter  your email address"
+          rules={{
+            required: 'Email is required',
+            pattern: {
+              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+              message: 'Invalid email address'
+            }
+          }}
+        />
 
-      <div className="flex justify-between items-center">
-        {/* <Checkbox label = ""  /> */}
-        {/* <FormControlLabel
-          control={<Checkbox />}
-          label="Remember me for 30days"
-          className="text-kblackCom text-sm font-normal "
-        /> */}
+        <CustomTextField
+          label="Password"
+          name='password'
+          placeholder="Enter your password"
+          // rules={{
+          //   required: 'Email is required',
+          //   pattern: {
+          //     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+          //     message: 'Invalid email address'
+          //   }
+          // }}
+        />
 
-        <Link
-          href="/auth/forget-password"
-          className="text-kprimary text-sm font-normal "
-        >
-          Forget Password
-        </Link>
-      </div>
+        <div className="flex justify-between items-center">
+          {/* <Checkbox label = ""  /> */}
+          {/* <FormControlLabel
+            control={<Checkbox />}
+            label="Remember me for 30days"
+            className="text-kblackCom text-sm font-normal "
+          /> */}
 
-      <div className='space-y-4 mt-8'>
-          {auth.loading ? (
-              <ThreeDots width={30} className='loading-circle mx-auto' stroke='#210590' fill='#210590' />
-            ) : (
-              <CustomButton title="Sign In" type ="submit"  />
-            )}
-        <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
-      </div>
+          <Link
+            href="/auth/forget-password"
+            className="text-kprimary text-sm font-normal "
+          >
+            Forget Password
+          </Link>
+        </div>
 
-      <div className='flex flex-row space-x-1 items-center justify-center mt-10'>
-        {/* text */}
-        <h3 className='text-n100 text-sm font-normal'>Don’t have an account?</h3>
-        {/* link */}
-        <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
-      </div>
-    </form>
+        <div className='space-y-4 mt-8'>
+            {auth.loading ? (
+                <ThreeDots width={30} className='loading-circle mx-auto' stroke='#210590' fill='#210590' />
+              ) : (
+                <CustomButton title="Sign In" type ="submit"  />
+              )}
+          <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
+        </div>
+
+        <div className='flex flex-row space-x-1 items-center justify-center mt-10'>
+          {/* text */}
+          <h3 className='text-n100 text-sm font-normal'>Don’t have an account?</h3>
+          {/* link */}
+          <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
+        </div>
+      </form>
+    
+    </FormProvider>
   )
 }
 

@@ -29,6 +29,9 @@ import { AppDispatch } from '@/store'
 // ** Dummy
 import MOCK_DATA3 from '@/utils/MOCK_DATA3.json'
 
+// ** Helpers
+import { NumberFormat } from '@/helpers/convert'
+
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
 import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
@@ -103,11 +106,6 @@ const RightDasboard= () => {
   // ** Demo Data
   const data = useMemo(() => MOCK_DATA3, [])
 
-  
-  const NumberFormat = (number: any) => {
-      const formattedNumber = number?.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    return formattedNumber
-  }
 
   useEffect(() => {
     dispatch(fetchAsyncDashboardInfo({url}))
