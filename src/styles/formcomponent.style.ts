@@ -14,7 +14,7 @@ export const FormField = styled.div`
   width: 100%;
   margin: 20px 0;
   color: ${COLORS.kblackCom};
-
+  position: relative;
   input,
   select,
   textarea {
@@ -61,6 +61,16 @@ export const FormField = styled.div`
     text-shadow: 1px 1px #fff;
     font-weight: 700;
     font-size: 10pt;
+  }
+
+  .p_visible {
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: center;
+    cursor: pointer;
+    font-size: 16px;
   }
 `;
 

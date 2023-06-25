@@ -72,6 +72,15 @@ const Signin = () => {
           label="Password"
           name='password'
           placeholder="Enter your password"
+          type="password"
+          password
+          rules={{
+            required: 'Password is required',
+            pattern: {
+              value: /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+              message: 'Password must contain at least 8 characters, one uppercase letter, one number, and one special character'
+            }
+          }}
           // rules={{
           //   required: 'Email is required',
           //   pattern: {

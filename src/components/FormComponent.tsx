@@ -21,6 +21,7 @@ type ICustomInputProps = {
   placeholder?: string;
   type?: string;
   maxLength?: number;
+  password?: boolean;
   rules?: Partial<FieldValues>;
   formatAmountInput?: boolean
 } 
@@ -38,11 +39,12 @@ export const CustomTextField = forwardRef(function CustomTextField(
     maxLength,
     rules,
     formatAmountInput,
+    password,
     ...rest
   }: ICustomInputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-
+  const [show, setShow] = useState(false);
   const { register, formState: { errors }, watch, setValue, trigger } = useFormContext<FieldValues>();
   const watchedValue = watch(name);
 
@@ -79,13 +81,17 @@ export const CustomTextField = forwardRef(function CustomTextField(
         id={name}
         defaultValue={defaultValue}
         placeholder={placeholder}
-        type={type}
+        type={show ? 'text' : type}
         value={formatAmountInput ? formatValue(watchedValue): watchedValue}
         onChange={handleChange}
         maxLength={maxLength}
         style={{ borderColor: hasError && 'red' }}
         {...rest}
       />
+      {password &&
+      <span className="p_visible absolute right-2 top-10 mr-2" onClick={() => setShow(!show)}>
+            {!show ? <FiEye /> : <FiEyeOff />}
+          </span>}
       {errors[name] && (
         <span role="alert" className='text-kred text-xs font-normal'>{String(errors[name]?.message)}</span>
       )}
