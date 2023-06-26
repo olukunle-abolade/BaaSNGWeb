@@ -7,6 +7,7 @@ import miscellaneousReducer from '@/store/app/miscellaneous'
 import dashboardReducer from '@/store/app/dashboard'
 import passwordReducer from '@/store/app/password-change'
 import ipReducer from '@/store/app/ipwhitelist'
+import intrabankReducer from '@/store/app/intrabank'
 import testmodeReducer from '@/store/app/test-mode'
 
 const rootReducer = combineReducers({
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   miscellaneous: miscellaneousReducer,
   password: passwordReducer,
   ipwhitelist: ipReducer,
+  intrabank: intrabankReducer,
   testmode: testmodeReducer
 })
 

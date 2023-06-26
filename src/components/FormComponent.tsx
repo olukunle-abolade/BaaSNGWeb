@@ -22,6 +22,7 @@ type ICustomInputProps = {
   type?: string;
   maxLength?: number;
   password?: boolean;
+  onChange?: (value: string) => void;
   rules?: Partial<FieldValues>;
   formatAmountInput?: boolean
 } 
@@ -40,11 +41,13 @@ export const CustomTextField = forwardRef(function CustomTextField(
     rules,
     formatAmountInput,
     password,
+    onChange,
     ...rest
   }: ICustomInputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const [show, setShow] = useState(false);
+  const [inputValue, setInputValue] = useState<string>(defaultValue || '');
   const { register, formState: { errors }, watch, setValue, trigger } = useFormContext<FieldValues>();
   const watchedValue = watch(name);
 
@@ -70,6 +73,10 @@ export const CustomTextField = forwardRef(function CustomTextField(
     const value = e.target.value;
     setValue(name, value); // Update the field value
     trigger(name); // Trigger validation for the field
+
+    if (onChange) {
+      onChange(value); // Call the onChange prop with the updated value
+    }
   };
 
   const hasError = errors[name] !== undefined;

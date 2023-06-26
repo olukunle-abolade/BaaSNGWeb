@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 // import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { ThreeDots } from 'react-loading-icons';
 
 // ** Images
@@ -36,7 +36,6 @@ const defaultValues = {
 const Signin = () => {
   const methods = useForm();
 
-
   // ** Hooks
   const auth = useAuth()
   const router = useRouter();
@@ -50,6 +49,7 @@ const Signin = () => {
       })
     })
   };
+
 
   return (
     <FormProvider {...methods}>

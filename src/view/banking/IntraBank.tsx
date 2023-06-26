@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
@@ -10,15 +10,20 @@ import { NumberFormat } from '@/helpers/convert';
 
 // ** Third Party
 import { FormProvider, useForm } from 'react-hook-form';
+import { useDebounce } from 'usehooks-ts';
 
 // ** Slice
 import { getDashboardInfoData } from '@/store/app/dashboard';
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { getIntraNameData } from '@/store/app/intrabank'
 
 // ** Components 
 import { CustomSelectField, CustomTextField, SelectField, TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import PaymentSummary from './PaymentSummary';
+import { fetchAsyncInterBankName } from '@/store/app/intrabank';
 
 interface FormData {
   accountNumber: string;
@@ -26,12 +31,36 @@ interface FormData {
 
 
 const IntraBank = () => {
+  const [value, setValue] = useState<string>('');
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const debouncedValue = useDebounce<string>(value, 2000)
+  const [nameData, setNameData] = useState([])
 
   const methods = useForm();
 
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+  // const getIntraName = useAppSelector(getIntraNameData)
+  // console.log(getIntraName)
+
   const onSubmit = (data: any) => {
-    console.log(data);
+    const formData = {
+      accountdetailsid: 1,
+      transactionref: "2323324452454525",
+      narration: "trf by Olukunle Abolade",
+      senderaccount: data?.accountNumber,
+      sendername:"Olukunle Abolade",
+      senderbankname: "Beak MFB",
+      senderbankcode: "058",
+      destinationaccountnumber: data?.accountNumber,
+      destinationaccountname: nameData[0]?.accountname,
+      destinationbankcode: "058",
+      polarity: "D",
+      amount: data.amount,
+      balance: "0"
+    }
+
+    console.log(formData)
   };
  
 
@@ -39,8 +68,34 @@ const IntraBank = () => {
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
-  // Watch Account Number Input Field
+  const handleChange = (value: string) => {
+    
+    if (value.length === 10) {
+      setValue(value);
+    }
+  };
 
+  // Fetch API (optional)
+  useEffect(() => {
+    const url = `/records/accountdetails?filter=accountnumber,eq,${value}`
+    // Do fetch here...
+    // Triggers when "debouncedValue" changes
+    if(value){
+      dispatch(fetchAsyncInterBankName({url}))
+      .unwrap()
+      .then(originalPromiseResult => {
+        console.log(originalPromiseResult)
+        setNameData(originalPromiseResult?.records)
+      })
+    }
+    
+    if (debouncedValue) {
+      console.log('Fetching data for debounced value:', debouncedValue);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue]);
+
+  console.log(nameData)
 
   return (
     <div>
@@ -70,7 +125,15 @@ const IntraBank = () => {
                   message: 'Account number must be a 10-digit number',
                 },
               }}
+              onChange={(value) => handleChange(value)}
             />  
+            {
+              nameData.length > 0 &&  <div className="flex items-center space-x-2 px-1 w-[237px] h-[30px] bg-kpsec rounded-2xl">
+              <p className='text-kprimary text-xs font-medium bg-white rounded-2xl py-1 px-2 w-fit '>Recipient:</p> 
+              <p className='text-kprimary text-xs font-medium'>{nameData[0]?.accountname} </p>
+            </div>
+            }
+           
 
             <CustomTextField 
               label='Amount' 
