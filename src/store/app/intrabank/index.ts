@@ -12,9 +12,6 @@ export interface MyData {
   code: number
 }
 
-interface IPAttributes {
-  ip: string,
-}
 
 interface MyKnownError {
   errorMessage: string
@@ -54,7 +51,7 @@ export const fetchAsyncInterBankName = createAsyncThunk<
 
 export const postAsyncInterBankName = createAsyncThunk<
   MyData,
-  { url: string } & Partial<IPAttributes>,
+  { url: string },
   {
     rejectValue: MyKnownError
   }
@@ -81,7 +78,7 @@ export const postAsyncInterBankName = createAsyncThunk<
 })
 
 
-export interface IP {
+export interface IIntrabank {
   data: any[] | null
   loading: string
   error: null | string
@@ -91,7 +88,7 @@ const initialState = {
   data: null,
   loading: 'IDLE',
   error: ''
-} as IP
+} as IIntrabank
 
 const Intrabank = createSlice({
   name: 'intrabank',
@@ -104,7 +101,7 @@ const Intrabank = createSlice({
     })
     builder.addCase(fetchAsyncInterBankName.fulfilled, (state, { payload }) => {
       state.loading = HTTP_STATUS.FULFILLED
-      state.data = payload.data
+      state.data = payload.records
     })
     builder.addCase(fetchAsyncInterBankName.rejected, (state, action: PayloadAction<any>) => {
       if (action.payload) {

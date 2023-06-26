@@ -14,11 +14,24 @@ import { IoIosArrowForward } from 'react-icons/io';
 import { useState } from 'react';
 import OTP from '../otp/OTP';
 
+// ** Helpers
+import { NumberFormat } from '@/helpers/convert';
+
+//
+import { useAppSelector } from '@/hooks/useTypedSelector';
+import { RootState } from '@/store';
+import { getDashboardInfoData } from '@/store/app/dashboard';
+
 
 const PaymentSummary = () => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-
   const toggleModalDrawer = () => setModalOpen(!modalOpen)
+
+  const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
+
+  const getDashboardInfo = useAppSelector(getDashboardInfoData)
+
+  // console.log(getTransactionDetails)
 
   return (
     <div>
@@ -33,28 +46,28 @@ const PaymentSummary = () => {
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Account Number</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">123 456 7890</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.senderaccount}</h3>
           </div>
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Bank</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">WELLS FARGO</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.senderbankname}</h3>
           </div>
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Name</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">DAVID OGUNMODEDE</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.sendername}</h3>
           </div>
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Amount</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">₦5,000.00</h3>
+            <h3 className="text-black text-lg font-semibold">₦{getTransactionDetails?.amount}</h3>
           </div>
           {/*  */}
           <div className="flex items-center justify-between">
@@ -68,7 +81,7 @@ const PaymentSummary = () => {
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Transfer Type</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">One time</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.transferType}</h3>
           </div>
         </div>
 
@@ -85,7 +98,7 @@ const PaymentSummary = () => {
               {/* desc   */}
               <p className='text-n100 text-lg font-normal'>Available Balance</p>
               {/* price */}
-              <h2 className='text-kprimary text-2xl font-semibold'>₦ 1,340,040.00 </h2>
+              <h2 className='text-kprimary text-2xl font-semibold'>₦ {NumberFormat(getDashboardInfo?.actualbalance)} </h2>
             </div>
           </div>
 

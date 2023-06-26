@@ -1,6 +1,6 @@
 'use client'
 import { SetStateAction, useEffect, useState } from 'react'
-
+import {useRouter} from 'next/navigation'
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
 
@@ -25,6 +25,7 @@ import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import PaymentSummary from './PaymentSummary';
 import { fetchAsyncInterBankName } from '@/store/app/intrabank';
+import { setFormData } from '@/store/app/transaction';
 
 interface FormData {
   accountNumber: string;
@@ -38,11 +39,14 @@ const IntraBank = () => {
   const [nameData, setNameData] = useState([])
   const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
   const methods = useForm();
-  const { setValue, watch } = methods;
+  const { setValue } = methods;
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-  // const getIntraName = useAppSelector(getIntraNameData)
-  // console.log(getIntraName)
+  const getDashboardInfo = useAppSelector(getDashboardInfoData)
+  const getIntraName = useAppSelector(getIntraNameData)
+  // console.log(getIntraName, nameData)
+
+  const router = useRouter();
 
   const onSubmit = (data: any) => {
     const formData = {
@@ -53,8 +57,9 @@ const IntraBank = () => {
       sendername:"Olukunle Abolade",
       senderbankname: "Beak MFB",
       senderbankcode: "058",
+      transferType: data.transferType,
       destinationaccountnumber: data?.accountNumber,
-      destinationaccountname: nameData[0]?.accountname,
+      destinationaccountname: getIntraName?.[0]?.accountname ?? '',
       destinationbankcode: "058",
       polarity: "D",
       amount: data.amount,
@@ -62,17 +67,17 @@ const IntraBank = () => {
       benefit: data.beneficiaries
     }
 
-    console.log(formData)
+    dispatch(setFormData(formData))
+    toggleAddUserDrawer()
+    
   };
  
 
-  const getDashboardInfo = useAppSelector(getDashboardInfoData)
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   const handleChange = (value: string) => {
-    
-    if (values.length === 10) {
+    if (value.length === 10) {
       setValues(value);
     }
   };
@@ -83,12 +88,8 @@ const IntraBank = () => {
     // Do fetch here...
     // Triggers when "debouncedValue" changes
     if(values){
+      console.log("dispatched")
       dispatch(fetchAsyncInterBankName({url}))
-      .unwrap()
-      .then(originalPromiseResult => {
-        console.log(originalPromiseResult)
-        setNameData(originalPromiseResult?.records)
-      })
     }
     
     if (debouncedValue) {
@@ -106,7 +107,7 @@ const IntraBank = () => {
     setValue('beneficiaries', ''); // Reset the field value
   };
 
-  const beneficiaries = watch('beneficiaries');
+  // console.log(getIntraName?.[0]?.accountname ?? '')
 
   return (
     <div>
@@ -131,8 +132,7 @@ const IntraBank = () => {
                     label="Beneficiaries"
                     options={[
                       { value: '', label: 'Select' },
-                      { value: '1245678987654', label: '1245678987654' },
-                      { value: '4567923682323', label: '4567923682323' },
+                      { value: '2345678901', label: '2345678901' },
                       // Add more options as needed
                     ]}
                     defaultValue="Select Beneficiaries"
@@ -165,9 +165,10 @@ const IntraBank = () => {
                   onChange={(value) => handleChange(value)}
                 />  
                 {
-                  nameData.length > 0 &&  <div className="flex items-center space-x-2 px-1 w-[237px] h-[30px] bg-kpsec rounded-2xl">
+                  getIntraName?.[0]?.accountname  &&
+                  <div className="flex items-center space-x-2 px-1 w-[237px] h-[30px] bg-kpsec rounded-2xl">
                     <p className='text-kprimary text-xs font-medium bg-white rounded-2xl py-1 px-2 w-fit '>Recipient:</p> 
-                    <p className='text-kprimary text-xs font-medium'>{nameData[0]?.accountname} </p>
+                    <p className='text-kprimary text-xs font-medium'>{getIntraName?.[0]?.accountname ?? ''}</p>
                   </div>
                 }
               </>
@@ -202,8 +203,7 @@ const IntraBank = () => {
                     label="Beneficiaries"
                     options={[
                       { value: '', label: 'Select' },
-                      { value: '1245678987654', label: '1245678987654' },
-                      { value: '4567923682323', label: '4567923682323' },
+                      { value: '2345678901', label: '2345678901' },
                       // Add more options as needed
                     ]}
                     defaultValue="Select Beneficiaries"
@@ -219,10 +219,10 @@ const IntraBank = () => {
               </>
             )}
               <CustomSelectField
-                name="tranferType"
+                name="transferType"
                 label="Tranfer Type"
                 options={[
-                  { value: 'option1', label: 'One Time' },
+                  { value: 'option1', label: 'Choose ...' },
                   { value: 'Hourly', label: 'Hourly' },
                   { value: 'Daily', label: 'Daily' },
                   { value: 'Weekly', label: 'Weekly' },

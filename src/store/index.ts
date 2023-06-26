@@ -9,6 +9,8 @@ import passwordReducer from '@/store/app/password-change'
 import ipReducer from '@/store/app/ipwhitelist'
 import intrabankReducer from '@/store/app/intrabank'
 import testmodeReducer from '@/store/app/test-mode'
+import transactionReducer from '@/store/app/transaction'
+import beneficiariesReducer from '@/store/app/beneficiaries'
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
@@ -17,6 +19,8 @@ const rootReducer = combineReducers({
   password: passwordReducer,
   ipwhitelist: ipReducer,
   intrabank: intrabankReducer,
+  transaction: transactionReducer,
+  beneficiaries: beneficiariesReducer,
   testmode: testmodeReducer
 })
 

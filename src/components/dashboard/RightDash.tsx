@@ -42,7 +42,6 @@ import Badge from '@/components/badge/badge'
 
 const RightDasboard= () => {
   const [userData, setUserData] = useState<MyData[]>([])
-  const [cardData, setCardData] = useState<any[]>([])
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
