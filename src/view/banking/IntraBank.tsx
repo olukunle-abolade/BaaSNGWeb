@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { SetStateAction, useEffect, useState } from 'react'
 
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
@@ -11,6 +11,7 @@ import { NumberFormat } from '@/helpers/convert';
 // ** Third Party
 import { FormProvider, useForm } from 'react-hook-form';
 import { useDebounce } from 'usehooks-ts';
+import {RxCrossCircled} from 'react-icons/rx'
 
 // ** Slice
 import { getDashboardInfoData } from '@/store/app/dashboard';
@@ -31,13 +32,13 @@ interface FormData {
 
 
 const IntraBank = () => {
-  const [value, setValue] = useState<string>('');
+  const [values, setValues] = useState<string>('');
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
-  const debouncedValue = useDebounce<string>(value, 2000)
+  const debouncedValue = useDebounce<string>(values, 2000)
   const [nameData, setNameData] = useState([])
-
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
   const methods = useForm();
-
+  const { setValue, watch } = methods;
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   // const getIntraName = useAppSelector(getIntraNameData)
@@ -57,7 +58,8 @@ const IntraBank = () => {
       destinationbankcode: "058",
       polarity: "D",
       amount: data.amount,
-      balance: "0"
+      balance: "0",
+      benefit: data.beneficiaries
     }
 
     console.log(formData)
@@ -70,17 +72,17 @@ const IntraBank = () => {
 
   const handleChange = (value: string) => {
     
-    if (value.length === 10) {
-      setValue(value);
+    if (values.length === 10) {
+      setValues(value);
     }
   };
 
   // Fetch API (optional)
   useEffect(() => {
-    const url = `/records/accountdetails?filter=accountnumber,eq,${value}`
+    const url = `/records/accountdetails?filter=accountnumber,eq,${values}`
     // Do fetch here...
     // Triggers when "debouncedValue" changes
-    if(value){
+    if(values){
       dispatch(fetchAsyncInterBankName({url}))
       .unwrap()
       .then(originalPromiseResult => {
@@ -95,7 +97,16 @@ const IntraBank = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue]);
 
-  console.log(nameData)
+  const handleBeneficiaryChange = (value: SetStateAction<string>) => {
+    setSelectedBeneficiary(value);
+  };
+
+  const handleResetBeneficiary = () => {
+    setSelectedBeneficiary('');
+    setValue('beneficiaries', ''); // Reset the field value
+  };
+
+  const beneficiaries = watch('beneficiaries');
 
   return (
     <div>
@@ -112,28 +123,55 @@ const IntraBank = () => {
       <FormProvider {...methods}>
         <form noValidate autoComplete='off' onSubmit={methods.handleSubmit(onSubmit)}>
           <div className='mt-10'>
-            <CustomTextField 
-              label='Account Number' 
-              type="text" 
-              name='accountNumber'
-              placeholder="Enter 10 - digit Account Number" 
-              maxLength = {10}
-              rules={{
-                required: 'Account number is required',
-                pattern: {
-                  value: /^\d{10}$/, // Regular expression for accepting decimal numbers up to 2 decimal places
-                  message: 'Account number must be a 10-digit number',
-                },
-              }}
-              onChange={(value) => handleChange(value)}
-            />  
-            {
-              nameData.length > 0 &&  <div className="flex items-center space-x-2 px-1 w-[237px] h-[30px] bg-kpsec rounded-2xl">
-              <p className='text-kprimary text-xs font-medium bg-white rounded-2xl py-1 px-2 w-fit '>Recipient:</p> 
-              <p className='text-kprimary text-xs font-medium'>{nameData[0]?.accountname} </p>
-            </div>
-            }
-           
+          {selectedBeneficiary !== '' && (
+              <>
+                <div className="relative">
+                  <CustomSelectField
+                    name="beneficiaries"
+                    label="Beneficiaries"
+                    options={[
+                      { value: '', label: 'Select' },
+                      { value: '1245678987654', label: '1245678987654' },
+                      { value: '4567923682323', label: '4567923682323' },
+                      // Add more options as needed
+                    ]}
+                    defaultValue="Select Beneficiaries"
+                    onChange={(value) => handleBeneficiaryChange(value)}
+                  />
+                  {selectedBeneficiary !== '' && (
+                    <div className='absolute top-[50px] -right-5 cursor-pointer' onClick={handleResetBeneficiary}>
+                      <RxCrossCircled color = "#210590" />
+                    </div>
+                  )}
+                
+                </div>
+              </>
+            )}
+            {selectedBeneficiary === '' && (
+              <>
+                <CustomTextField 
+                  label='Account Number' 
+                  type="text" 
+                  name='accountNumber'
+                  placeholder="Enter 10 - digit Account Number" 
+                  maxLength = {10}
+                  rules={{
+                    // required: 'Account number is required',
+                    pattern: {
+                      value: /^\d{10}$/, // Regular expression for accepting decimal numbers up to 2 decimal places
+                      message: 'Account number must be a 10-digit number',
+                    },
+                  }}
+                  onChange={(value) => handleChange(value)}
+                />  
+                {
+                  nameData.length > 0 &&  <div className="flex items-center space-x-2 px-1 w-[237px] h-[30px] bg-kpsec rounded-2xl">
+                    <p className='text-kprimary text-xs font-medium bg-white rounded-2xl py-1 px-2 w-fit '>Recipient:</p> 
+                    <p className='text-kprimary text-xs font-medium'>{nameData[0]?.accountname} </p>
+                  </div>
+                }
+              </>
+            )}
 
             <CustomTextField 
               label='Amount' 
@@ -150,40 +188,55 @@ const IntraBank = () => {
               <input className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Add a note"></input>
               <FiEdit3 className='text-n100 absolute left-5 top-[14.5px]' size={15}/>
             </div>
-
-            <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
-            
-            <SelectField label='Beneficiaries'>
+            {selectedBeneficiary === '' && (
+              <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
+            )}
+            {/* <SelectField label='Beneficiaries'>
               <option value="">Select Beneficiaries</option>
-            </SelectField>
-
-            <CustomSelectField
-              name="tranferType"
-              label="Tranfer Type"
-              options={[
-                { value: 'option1', label: 'One Time' },
-                { value: 'Hourly', label: 'Hourly' },
-                { value: 'Daily', label: 'Daily' },
-                { value: 'Weekly', label: 'Weekly' },
-                { value: 'Monthly', label: 'Monthly' },
-                { value: 'Yearly', label: 'Yearly' },
-                // Add more options as needed
-              ]}
-              defaultValue="Select Transfer Type"
-              rules={{
-                required: 'This field is required',
-              }}
-            />
-            {/* <SelectField label='Transfer Type'>
-              <option value="">Select Transfer Type</option>
-              <option value="">One Time</option>
-              <option value="">Hourly</option>
-              <option value="">Daily</option>
-              <option value="">Weekly</option>
-              <option value="">Monthly</option>
-              <option value="">Yearly</option>
             </SelectField> */}
-
+            {selectedBeneficiary === '' && (
+              <>
+                <div className="relative">
+                  <CustomSelectField
+                    name="beneficiaries"
+                    label="Beneficiaries"
+                    options={[
+                      { value: '', label: 'Select' },
+                      { value: '1245678987654', label: '1245678987654' },
+                      { value: '4567923682323', label: '4567923682323' },
+                      // Add more options as needed
+                    ]}
+                    defaultValue="Select Beneficiaries"
+                    onChange={(value) => handleBeneficiaryChange(value)}
+                  />
+                  {selectedBeneficiary !== '' && (
+                    <div className='absolute top-[50px] -right-5 cursor-pointer' onClick={handleResetBeneficiary}>
+                      <RxCrossCircled color = "#210590" />
+                    </div>
+                  )}
+                
+                </div>
+              </>
+            )}
+              <CustomSelectField
+                name="tranferType"
+                label="Tranfer Type"
+                options={[
+                  { value: 'option1', label: 'One Time' },
+                  { value: 'Hourly', label: 'Hourly' },
+                  { value: 'Daily', label: 'Daily' },
+                  { value: 'Weekly', label: 'Weekly' },
+                  { value: 'Monthly', label: 'Monthly' },
+                  { value: 'Yearly', label: 'Yearly' },
+                  // Add more options as needed
+                ]}
+                defaultValue="Select Transfer Type"
+                rules={{
+                  required: 'This field is required',
+                }}
+              />
+              
+            
             <CustomButton title='Next'  buttonStyle={{marginTop: 10}} />
           </div>
         </form>

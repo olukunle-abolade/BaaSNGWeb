@@ -111,13 +111,15 @@ interface ICustomSelectProps {
   label: string;
   options: { value: string; label: string }[];
   defaultValue?: string;
+  onChange?: (value: string) => void;
   rules?: Partial<FieldValues>;
 }
 
 export const CustomSelectField = forwardRef(
-  function CustomSelectField({name, label, options, defaultValue, rules}: ICustomSelectProps, ref: React.ForwardedRef<HTMLSelectElement>){
+  function CustomSelectField({name, label, options,onChange, defaultValue, rules}: ICustomSelectProps, ref: React.ForwardedRef<HTMLSelectElement>){
 
-    const { register, formState: { errors }, setValue, trigger } = useFormContext<FieldValues>();
+    const { register, formState: { errors }, setValue, trigger, watch } = useFormContext<FieldValues>();
+    const watchedValue = watch(name);
 
     useEffect(() => {
       register(name, rules);
@@ -127,6 +129,10 @@ export const CustomSelectField = forwardRef(
       const value = e.target.value;
       setValue(name, value); // Update the field value
       trigger(name); // Trigger validation for the field
+
+      if (onChange) {
+        onChange(value); // Call the onChange prop with the updated value
+      }
     };
 
     return (
@@ -152,7 +158,7 @@ export const CustomSelectField = forwardRef(
               focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none" aria-label="Default select example"
                 name = {name}
                 id={name}
-                defaultValue={defaultValue}
+                value={watchedValue || defaultValue} // Use the watched value or the defaultValue if available                
                 onChange={handleChange}
                 ref={ref}        
               >

@@ -34,7 +34,7 @@ const defaultValues = {
 }
 
 const Signin = () => {
-  const methods = useForm();
+  const methods = useForm({defaultValues});
 
   // ** Hooks
   const auth = useAuth()
