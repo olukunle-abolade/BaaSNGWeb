@@ -61,7 +61,7 @@ const OTP = () => {
       <h3 className='text-n800 text-lg font-semibold mb-8'>Enter your transaction pin</h3>
 
       {/* price */}
-      <p className='text-black text-3xl font-semibold'>₦{NumberFormat(getTransactionDetails?.amount)}.00</p>
+      <p className='text-black text-3xl font-semibold'>₦{NumberFormat(parseFloat(getTransactionDetails?.amount ?? ""))}</p>
       <form noValidate onSubmit={handleSubmit}>
         <div className=" relative mt-10 ">
           <OtpInput

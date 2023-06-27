@@ -23,6 +23,7 @@ import { useAuth } from '@/hooks/useAuth';
 import { postAsyncInterBank } from '@/store/app/intrabank';
 import { useAppSelector } from '@/hooks/useTypedSelector';
 import { toast } from 'react-hot-toast';
+import TransactionSuccess from '../success/TrasactionSuccess';
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState('');
@@ -129,7 +130,7 @@ const OtpVerification = () => {
       </AuthFlowLayout>
 
     <SidebarAddUser title='' open={success} toggle={toggleSuccessDrawer} >
-      <Success />
+      <TransactionSuccess />
     </SidebarAddUser>
     </div>
   )

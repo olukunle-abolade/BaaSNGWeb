@@ -70,7 +70,7 @@ const PaymentSummary = () => {
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Amount</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">₦{getTransactionDetails?.amount}</h3>
+            <h3 className="text-black text-lg font-semibold">₦{NumberFormat(parseFloat(getTransactionDetails?.amount ?? ""))}</h3>
           </div>
           {/*  */}
           <div className="flex items-center justify-between">
@@ -110,7 +110,7 @@ const PaymentSummary = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <CustomButton title={`Pay ₦${NumberFormat(getTransactionDetails?.amount)}`} buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
+          <CustomButton title={`Pay ₦${NumberFormat(parseFloat(getTransactionDetails?.amount ?? ""))}`} buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
         </div>
 
         <SidebarAddUser title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} >
