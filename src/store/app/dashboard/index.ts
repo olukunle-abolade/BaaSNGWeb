@@ -11,6 +11,7 @@ interface IProps {
 
 interface DashboardInfo {
   actualbalance: number;
+  firstname: string;
   // Add other properties if needed
 }
 
@@ -24,6 +25,7 @@ export interface MyData {
   totalexpenses: string
   totaltransactions: string
   totalusersadded: string
+  pendingtransactions: string;
   payload: any
 }
 

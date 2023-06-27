@@ -109,14 +109,15 @@ export const CustomTextField = forwardRef(function CustomTextField(
 interface ICustomSelectProps {
   name: string;
   label: string;
-  options: { value: string; label: string }[];
+  setOptions: { value: string; label: string }[] | undefined;  // options: { value: string; label: string }[];
   defaultValue?: string;
   onChange?: (value: string) => void;
   rules?: Partial<FieldValues>;
 }
 
 export const CustomSelectField = forwardRef(
-  function CustomSelectField({name, label, options,onChange, defaultValue, rules}: ICustomSelectProps, ref: React.ForwardedRef<HTMLSelectElement>){
+  function CustomSelectField({name, label,onChange, defaultValue,setOptions, rules}: ICustomSelectProps, ref: React.ForwardedRef<HTMLSelectElement>){
+    const [options, setOptionsState] = useState<{ value: string; label: string }[]>([]);
 
     const { register, formState: { errors }, setValue, trigger, watch } = useFormContext<FieldValues>();
     const watchedValue = watch(name);
@@ -134,6 +135,14 @@ export const CustomSelectField = forwardRef(
         onChange(value); // Call the onChange prop with the updated value
       }
     };
+
+    useEffect(() => {
+      if(setOptions){
+        setOptionsState(setOptions);
+      }
+    }, [setOptions]);
+
+  
 
     return (
       <FormField>

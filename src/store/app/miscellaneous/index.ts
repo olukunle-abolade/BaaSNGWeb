@@ -240,6 +240,31 @@ export const fetchAsyncSourceOfFund= createAsyncThunk<
   }
 })
 
+export const fetchAsyncNigeriaBank= createAsyncThunk<
+  MyData,
+  { url: string },
+  {
+    rejectValue: MyKnownError
+  }
+>('nigeriaBank/fetchAsyncThunk', async (userInfo, { rejectWithValue }) => {
+  const { url } = userInfo
+  try {
+    const response = await axios.get(config.baseUrl + url, {
+      headers: headers,
+      validateStatus: () => {
+        return true
+      }
+    })
+
+    return response.data
+  } catch (err: any) {
+    console.log(err)
+
+    return rejectWithValue(err.response.data)
+  }
+})
+
+
 
 
 export interface IMiscellaneous {
@@ -252,12 +277,14 @@ export interface IMiscellaneous {
   gender: any[] | null
   states: any[] | null
   sources: any[] | null
+  bank:any[] | null
   loading: string
   error: null | string
 }
 
 const initialState = {
   idtype: null,
+  bank: null,
   businesstype: null,
   businessindustry: null,
   purposeofaccount: null,
@@ -403,6 +430,24 @@ const MiscellaneousSlice = createSlice({
         // state.error = action.error
       }
     })
+
+    builder.addCase(fetchAsyncNigeriaBank.pending, state => {
+      // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
+      state.loading = HTTP_STATUS.PENDING
+    })
+    builder.addCase(fetchAsyncNigeriaBank.fulfilled, (state, {payload}) => {
+      console.log(payload);
+      state.loading = HTTP_STATUS.FULFILLED
+      state.bank = payload.records
+    })
+    builder.addCase(fetchAsyncNigeriaBank.rejected, (state, action: PayloadAction<any>) => {
+      if (action.payload) {
+        // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
+        state.error = action.payload.errorMessage
+      } else {
+        // state.error = action.error
+      }
+    })
   }
 })
 
@@ -410,6 +455,7 @@ export const getMiscellaneousLoading = (state: RootState) => state.miscellaneous
 export const getMiscellaneousIdType = (state: RootState) => state.miscellaneous?.idtype
 export const getMiscellaneousBusinessType = (state: RootState) => state.miscellaneous?.businesstype
 export const getMiscellaneousIndustry = (state: RootState) => state.miscellaneous?.businessindustry
+export const getMiscellaneousNigerianBanks = (state: RootState) => state.miscellaneous?.bank
 export const getMiscellaneousPurposeOfAccout = (state: RootState) => state.miscellaneous?.purposeofaccount
 export const getMiscellaneousCountries = (state: RootState) => state.miscellaneous?.countries
 export const getMiscellaneousOccupation = (state: RootState) => state.miscellaneous?.occupation

@@ -6,15 +6,15 @@ type IFormData = {
   narration: string;
   senderaccount: string;
   sendername: string;
-  senderbankname: string;
+  senderbankname:  string;
   senderbankcode: string;
   destinationaccountnumber: string;
   destinationaccountname: string;
   destinationbankcode:string;
+  destinationbankname?: string;
   polarity: string;
   amount: string;
   balance:string;
-  benefit: string;
   transferType: string
 }
 

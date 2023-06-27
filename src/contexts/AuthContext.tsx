@@ -233,7 +233,7 @@ const AuthProvider = ({ children }: Props) => {
   }
 
   const handleSigninOtp = async (params: SignupOtp, errorCallback?: ErrCallbackType) => {
-    console.log(params.otp)
+    // console.log(params.otp)
     if( params.otp === '') {
       toast.error("OTP cannot be empty")
       return
@@ -255,7 +255,7 @@ const AuthProvider = ({ children }: Props) => {
          !data.length ? toast.error("Incorrect OTP, Try again")
          : router.push("/auth/signin-email-success")
 
-          console.log(response.data?.records);
+          // console.log(response.data?.records);
           // response.status === 200 
           setLoading(false)
         })

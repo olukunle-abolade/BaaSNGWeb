@@ -11,6 +11,7 @@ import intrabankReducer from '@/store/app/intrabank'
 import testmodeReducer from '@/store/app/test-mode'
 import transactionReducer from '@/store/app/transaction'
 import beneficiariesReducer from '@/store/app/beneficiaries'
+import otpReducer from '@/store/app/otp'
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   intrabank: intrabankReducer,
   transaction: transactionReducer,
   beneficiaries: beneficiariesReducer,
+  otp: otpReducer,
   testmode: testmodeReducer
 })
 

@@ -31,7 +31,7 @@ const PaymentSummary = () => {
 
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
 
-  // console.log(getTransactionDetails)
+  console.log(getDashboardInfo)
 
   return (
     <div>
@@ -48,20 +48,23 @@ const PaymentSummary = () => {
             {/* desc */}
             <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.senderaccount}</h3>
           </div>
-          {/*  */}
-          <div className="flex items-center justify-between">
-            {/* name */}
-            <p className='text-n800 text-lg font-medium'>Bank</p>
-            {/* desc */}
-            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.senderbankname}</h3>
-          </div>
+          {
+            getTransactionDetails?.destinationbankname &&
+            <div className="flex items-center justify-between">
+              {/* name */}
+              <p className='text-n800 text-lg font-medium'>Bank</p>
+              {/* desc */}
+              <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.destinationbankname}</h3>
+            </div>
+          }
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Name</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.sendername}</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.destinationaccountname}</h3>
           </div>
+          
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}
@@ -107,7 +110,7 @@ const PaymentSummary = () => {
         </div>
 
         <div className="flex justify-center mt-10">
-          <CustomButton title='Pay ₦5,000.00' buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
+          <CustomButton title={`Pay ₦${NumberFormat(getTransactionDetails?.amount)}`} buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
         </div>
 
         <SidebarAddUser title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} >

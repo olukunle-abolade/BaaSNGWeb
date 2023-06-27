@@ -170,7 +170,7 @@ const RightDasboard= () => {
                 <Image src={PendIcon} alt='' width={20} height={20} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kyellow text-lg font-bold'>₦ 0.00</p>
+                <p className='text-kyellow text-lg font-bold'>{userData[0]?.pendingtransactions=== null ? 0 : userData[0]?.pendingtransactions}</p>
               </div>
               <p className='text-n100 text-sm font-normal'>Pending Transaction</p>
             </div>

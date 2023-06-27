@@ -12,11 +12,14 @@ import IntraImage from '@/assets/images/intrabank.png'
 // ** Component
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import IntraBank from '../banking/IntraBank';
+import InterBank from '../banking/InterBank';
 
 const Fund = () => {
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const [interBankOpen, setInterBankOpen] = useState<boolean>(false)
 
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  const toggleInterBankDrawer = () => setInterBankOpen(!interBankOpen)
 
   return (
     <Box>
@@ -35,7 +38,7 @@ const Fund = () => {
             <p className='text-n100 text-sm font-normal '>Send money to people using Baas</p>
           </div>
         </div>
-        <div onClick={toggleAddUserDrawer} className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
+        <div onClick={toggleInterBankDrawer} className='flex flex-col items-center justify-center bg-p50 h-[182.55px] rounded-[10px]'>
           {/* circle  */}
           <div className='flex items-center justify-center w-[75px] h-[75px] rounded-full bg-white'>
             <Image 
@@ -66,6 +69,9 @@ const Fund = () => {
       </div>
       <SidebarAddUser title='Funds Transfer' open={addUserOpen} toggle={toggleAddUserDrawer} >
         <IntraBank />
+      </SidebarAddUser>
+      <SidebarAddUser title='Funds Transfer' open={interBankOpen} toggle={toggleInterBankDrawer} >
+        <InterBank />
       </SidebarAddUser>
      
     </Box>

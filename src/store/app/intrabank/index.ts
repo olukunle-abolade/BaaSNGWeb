@@ -49,13 +49,13 @@ export const fetchAsyncInterBankName = createAsyncThunk<
   }
 })
 
-export const postAsyncInterBankName = createAsyncThunk<
+export const postAsyncInterBank = createAsyncThunk<
   MyData,
   { url: string },
   {
     rejectValue: MyKnownError
   }
->('postInterBankName/postAsyncThunk', async (formData, { rejectWithValue }) => {
+>('postInterBan/postAsyncThunk', async (formData, { rejectWithValue }) => {
   const { url, ...data } = formData
   try {
     const response = await axios.post(config.baseUrl + url, data, {
@@ -90,10 +90,14 @@ const initialState = {
   error: ''
 } as IIntrabank
 
-const Intrabank = createSlice({
+const IntrabankSlice = createSlice({
   name: 'intrabank',
   initialState,
-  reducers: {},
+  reducers: {
+    clearInterBankName: (state) => {
+      state.data = null;
+    }
+  },
   extraReducers: builder => {
     builder.addCase(fetchAsyncInterBankName.pending, state => {
       // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
@@ -111,15 +115,15 @@ const Intrabank = createSlice({
         // state.error = action.error
       }
     }),
-    builder.addCase(postAsyncInterBankName.pending, state => {
+    builder.addCase(postAsyncInterBank.pending, state => {
       // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
       state.loading = HTTP_STATUS.PENDING
     })
-    builder.addCase(postAsyncInterBankName.fulfilled, (state, { payload }) => {
+    builder.addCase(postAsyncInterBank.fulfilled, (state, { payload }) => {
       state.loading = HTTP_STATUS.FULFILLED
       // state.data = payload.data
     })
-    builder.addCase(postAsyncInterBankName.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(postAsyncInterBank.rejected, (state, action: PayloadAction<any>) => {
       if (action.payload) {
         // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
         state.error = action.payload.errorMessage
@@ -131,6 +135,6 @@ const Intrabank = createSlice({
 })
 
 // export const getHelpDeskLoading = (state: RootState) => state?.loading
-
+export const { clearInterBankName } = IntrabankSlice.actions
 export const getIntraNameData = (state: RootState) => state.intrabank.data ;
-export default Intrabank.reducer
+export default IntrabankSlice.reducer
