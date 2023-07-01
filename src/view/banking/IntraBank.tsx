@@ -95,7 +95,7 @@ const IntraBank = () => {
         senderbankcode: "058",
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : "",
-        destinationaccountname: getIntraName?.[0]?.accountname ??  "",
+        destinationaccountname: data?.accountname ??  "",
         destinationbankcode: "058",
         polarity: "D",
         amount: data.amount,
