@@ -30,6 +30,7 @@ import SidebarAddUser from '@/components/user/AddUserDrawer';
 import PaymentSummary from './PaymentSummary';
 import { fetchAsyncInterBankName } from '@/store/app/intrabank';
 import { setFormData } from '@/store/app/transaction';
+import { fetchAsyncTransferType, getMiscellaneousTransferType } from '@/store/app/miscellaneous';
 
 interface FormData {
   accountNumber: string;
@@ -41,16 +42,22 @@ const IntraBank = () => {
   const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
   const debouncedValue = useDebounce<string>(values, 500)
   const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
-
+  const [isAvail, setIsAvail] = useState(false)
+  const [clearName, setClearName] = useState(true)
   // ** Use Form Hook
-  const methods = useForm();
-  const { setValue } = methods;
+  const methods = useForm({
+    mode: 'onChange'
+  });
+  const { setValue , formState} = methods;
 
+  const { isValid } = formState; // Get the validation status of the form
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
   const getIntraName = useAppSelector(getIntraNameData)
   const getBeneficiaries = useAppSelector(getBeneficiariesWithoutNameData)
+  const getTransferType = useAppSelector(getMiscellaneousTransferType)
+
   console.log("intra", getBeneficiaries)
 
   // ** Context
@@ -75,8 +82,8 @@ const IntraBank = () => {
         senderbankname: "Beak MFB",
         senderbankcode: "058",
         transferType: data.transferType,
-        destinationaccountnumber: data?.accountNumber ? data?.accountNumber : number.trim(),
-        destinationaccountname: getIntraName?.[0]?.accountname ??  name.trim(),
+        destinationaccountnumber: number.trim(),
+        destinationaccountname:  name.trim(),
         destinationbankcode: "058",
         polarity: "D",
         amount: data.amount,
@@ -95,7 +102,7 @@ const IntraBank = () => {
         senderbankcode: "058",
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : "",
-        destinationaccountname: data?.accountname ??  "",
+        destinationaccountname: getIntraName?.[0]?.accountname,
         destinationbankcode: "058",
         polarity: "D",
         amount: data.amount,
@@ -126,6 +133,10 @@ const IntraBank = () => {
     if(values){
       console.log("dispatched")
       dispatch(fetchAsyncInterBankName({url}))
+      .unwrap()
+      .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
+
+      // .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
     }
     
     if (debouncedValue) {
@@ -153,6 +164,14 @@ const IntraBank = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+   // Fetch API (optional)
+   useEffect(() => {
+    const url = `/records/transferfrequency`
+    dispatch(fetchAsyncTransferType({url}))
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Spread beneficiaries into option and values
   let convertedData: { value: string; label: string }[] = [];
 
@@ -166,7 +185,20 @@ const IntraBank = () => {
     ];
   }
 
-  // console.log(convertedData);
+  // Spread transfer type into value and label
+  let convertTransferType: { value: string; label: string }[] = [];
+
+  if (getTransferType) {
+    convertTransferType = [
+      { value: '', label: 'Select' }, // Default select option with empty value
+      ...getTransferType.map((item) => ({
+        value: item.frequency,
+        label: item.frequency
+      }))
+    ];
+  }
+
+  console.log(getTransferType);
 
 
   return (
@@ -198,8 +230,7 @@ const IntraBank = () => {
                     <div className='absolute top-[50px] -right-5 cursor-pointer' onClick={handleResetBeneficiary}>
                       <RxCrossCircled color = "#210590" />
                     </div>
-                  )}
-                
+                  )}  
                 </div>
               </>
             )}
@@ -228,6 +259,14 @@ const IntraBank = () => {
                     <p className='text-kprimary text-xs font-medium'>{getIntraName?.[0]?.accountname ?? ''}</p>
                   </div>
                 }
+                {isAvail  && (
+                 <div className="flex items-center space-x-2  py-2 px-3  bg-kpsec rounded-2xl">
+                      <p className='text-kred text-xs font-medium'>
+                        Account does not exist at the Beneficiary&apos;s bank.
+                        Please check the details and try again.
+                      </p>
+                    </div>
+                )}
               </>
             )}
 
@@ -270,33 +309,25 @@ const IntraBank = () => {
                 </div>
               </>
             )}
-              <CustomSelectField
-                name="transferType"
-                label="Tranfer Type"
-                setOptions={[
-                  { value: 'option1', label: 'Choose ...' },
-                  { value: 'Hourly', label: 'Hourly' },
-                  { value: 'Daily', label: 'Daily' },
-                  { value: 'Weekly', label: 'Weekly' },
-                  { value: 'Monthly', label: 'Monthly' },
-                  { value: 'Yearly', label: 'Yearly' },
-                  // Add more options as needed
-                ]}
-                defaultValue="Select Transfer Type"
-                rules={{
-                  required: 'This field is required',
-                }}
-              />
-              
-            
-            <CustomButton title='Next'  buttonStyle={{marginTop: 10}} />
+            <CustomSelectField
+              name="transferType"
+              label="Tranfer Type"
+              setOptions={convertTransferType}
+              defaultValue="Select Transfer Type"
+              rules={{
+                required: 'This field is required',
+              }}
+            />
+            <CustomButton title='Next' type="submit"  disabled={!isValid}  buttonStyle={ !isValid && {marginTop: 10, backgroundColor: "#A499D1"}} />
           </div>
         </form>
       </FormProvider>
-     
-      <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <PaymentSummary />
-      </SidebarAddUser>
+
+      {addUserOpen ? (
+        <SidebarAddUser header closeButton title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} clearName={clearName} >
+          <PaymentSummary />
+        </SidebarAddUser>
+      ) : null}
     </div>
   )
 }

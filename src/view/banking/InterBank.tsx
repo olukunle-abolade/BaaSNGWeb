@@ -23,7 +23,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 import { clearInterBankName, getIntraNameData } from '@/store/app/intrabank'
 import { fetchAsyncBeneficiariesWithName, getBeneficiariesWithNameData } from '@/store/app/beneficiaries';
-import { fetchAsyncNigeriaBank, getMiscellaneousNigerianBanks } from '@/store/app/miscellaneous';
+import { fetchAsyncNigeriaBank, getMiscellaneousNigerianBanks, getMiscellaneousTransferType } from '@/store/app/miscellaneous';
 
 // ** Components 
 import { CustomSelectField, CustomTextField, SelectField, TextField } from '@/components/FormComponent'
@@ -45,11 +45,12 @@ const InterBank = () => {
   const [isAvail, setIsAvail] = useState(false)
   const debouncedValue = useDebounce<string>(selectedBank, 500)
   const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
+  const getTransferType = useAppSelector(getMiscellaneousTransferType)
 
 
   // ** Use Form Hook
   const methods = useForm();
-  const { setValue } = methods;
+  const { setValue, reset } = methods;
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -207,6 +208,7 @@ const InterBank = () => {
       dispatch(fetchAsyncInterBankName({url}))
       .unwrap()
       .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
+      // .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
     }
     
     if (debouncedValue) {
@@ -214,6 +216,20 @@ const InterBank = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue, dispatch, values]);
+
+  // Spread transfer type into value and label
+  let convertTransferType: { value: string; label: string }[] = [];
+
+  if (getTransferType) {
+    convertTransferType = [
+      { value: '', label: 'Select' }, // Default select option with empty value
+      ...getTransferType.map((item) => ({
+        value: item.frequency,
+        label: item.frequency
+      }))
+    ];
+  }
+
 
 
   return (
@@ -343,15 +359,7 @@ const InterBank = () => {
             <CustomSelectField
               name="transferType"
               label="Tranfer Type"
-              setOptions={[
-                { value: 'option1', label: 'Choose ...' },
-                { value: 'Hourly', label: 'Hourly' },
-                { value: 'Daily', label: 'Daily' },
-                { value: 'Weekly', label: 'Weekly' },
-                { value: 'Monthly', label: 'Monthly' },
-                { value: 'Yearly', label: 'Yearly' },
-                // Add more options as needed
-              ]}
+              setOptions={convertTransferType}
               defaultValue="Select Transfer Type"
               rules={{
                 required: 'This field is required',
@@ -361,10 +369,14 @@ const InterBank = () => {
           </div>
         </form>
       </FormProvider>
-     
-      <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <PaymentSummary />
-      </SidebarAddUser>
+              
+      {
+        toggleAddUserDrawer &&
+        <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton>
+          <PaymentSummary />
+        </SidebarAddUser>
+      }
+      
     </div>
   )
 }

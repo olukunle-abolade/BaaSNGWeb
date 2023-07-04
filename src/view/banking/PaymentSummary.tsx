@@ -32,6 +32,7 @@ const PaymentSummary = () => {
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
 
   console.log(getDashboardInfo)
+  console.log(getTransactionDetails)
 
   return (
     <div>
@@ -46,7 +47,7 @@ const PaymentSummary = () => {
             {/* name */}
             <p className='text-n800 text-lg font-medium'>Account Number</p>
             {/* desc */}
-            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.senderaccount}</h3>
+            <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.destinationaccountnumber}</h3>
           </div>
           {
             getTransactionDetails?.destinationbankname &&
@@ -113,7 +114,7 @@ const PaymentSummary = () => {
           <CustomButton title={`Pay ₦${NumberFormat(parseFloat(getTransactionDetails?.amount ?? ""))}`} buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
         </div>
 
-        <SidebarAddUser title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} >
+        <SidebarAddUser header title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} clearName={true} closeButton>
           <OTP />
         </SidebarAddUser>
     </div>

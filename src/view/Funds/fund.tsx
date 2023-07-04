@@ -67,12 +67,20 @@ const Fund = () => {
           </div>
         </div>
       </div>
-      <SidebarAddUser title='Funds Transfer' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <IntraBank />
-      </SidebarAddUser>
-      <SidebarAddUser title='Funds Transfer' open={interBankOpen} toggle={toggleInterBankDrawer} >
-        <InterBank />
-      </SidebarAddUser>
+
+      {/* Render SidebarAddUser for Intrabank Transfer */}
+      {addUserOpen && (
+        <SidebarAddUser header closeButton title='Funds Transfer' open={addUserOpen} toggle={toggleAddUserDrawer} clearName={true}>
+          <IntraBank />
+        </SidebarAddUser>
+      )}
+
+       {/* Render SidebarAddUser for Interbank Transfer */}
+       {interBankOpen && (
+        <SidebarAddUser title='Funds Transfer' header open={interBankOpen} toggle={toggleInterBankDrawer} clearName={true} closeButton>
+          <InterBank />
+        </SidebarAddUser>
+      )}
      
     </Box>
   )
