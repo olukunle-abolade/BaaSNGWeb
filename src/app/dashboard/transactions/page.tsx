@@ -75,17 +75,17 @@ const Transactions = () => {
           <Fund />
         </TabPanel>
         <TabPanel value={value} index={1}>
-          <div className='space-y-8 mt-10'>
+          {/* <div className='space-y-8 mt-10'>
             <Recharge />
             <Utility />
             <Education />
             <Travel />
             <Finance /> 
-           </div>
+           </div> */}
         </TabPanel>
 
         <TabPanel value={value} index={2}>
-          <Transaction />
+          {/* <Transaction /> */}
         </TabPanel>
 
       </Box>

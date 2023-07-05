@@ -29,8 +29,7 @@ const OTP = () => {
   const [otp, setOtp] = useState('');
   const [otpVerifyOpen, setOtpVerifyOpen] = useState<boolean>(false)
   const [message, setMessage] = useState(false);
-  const toggleOtpVerifyDrawer = () => setOtpVerifyOpen(!otpVerifyOpen)
-
+  const toggleOtpVerifyDrawer = () => setOtpVerifyOpen(!otpVerifyOpen);
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
 
   // ** Hooks
@@ -54,8 +53,10 @@ const OTP = () => {
       !data.length ? setMessage(true)
          : toggleOtpVerifyDrawer()
     })
-
   }
+
+  const isButtonDisabled = otp.length !== 4; // Check if the OTP length is not equal to 4
+
   return (
     <div className='flex flex-col items-center'>
       <h3 className='text-n800 text-lg font-semibold mb-8'>Enter your transaction pin</h3>
@@ -83,14 +84,17 @@ const OTP = () => {
             Incorrect PIN
           </p>
         }
-        <p className='text-kprimary text-sm font-normal mb-14 text-center'>Forgot PIN?</p>
+        <p className='text-kprimary text-sm font-normal mb-14 text-center'>Forgot PIN? otp</p>
 
         {/* button */}
-        <CustomButton title='Confirm' type="submit"  />
+        <CustomButton title='Confirm' type="submit"  disabled={isButtonDisabled}  buttonStyle={ isButtonDisabled && {marginTop: 10, backgroundColor: "#A499D1"}}   />
       </form>
-      <SidebarAddUser title='OTP verification' open={otpVerifyOpen} toggle={toggleOtpVerifyDrawer} >
-        <OtpVerification/>
-      </SidebarAddUser>
+      {
+        otpVerifyOpen ?
+        <SidebarAddUser header title='OTP verification' open={otpVerifyOpen} toggle={toggleOtpVerifyDrawer} >
+          <OtpVerification/>
+        </SidebarAddUser> : null
+      }
     </div>
   )
 }
