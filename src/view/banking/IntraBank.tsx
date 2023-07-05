@@ -1,5 +1,6 @@
 'use client'
-import { SetStateAction, useEffect, useState } from 'react'
+
+import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
@@ -36,6 +37,9 @@ interface FormData {
   accountNumber: string;
 }
 
+interface IInterBankProps {
+  toggleIntraBankDrawer: () => void
+}
 
 const IntraBank = () => {
   const [values, setValues] = useState<string>('');
@@ -76,7 +80,7 @@ const IntraBank = () => {
       const formData = {
         accountdetailsid: 1,
         transactionref: "2323324452454525",
-        narration: "trf by Olukunle Abolade",
+        narration: "narration",
         senderaccount: "0751252171",
         sendername:"Olukunle Abolade",
         senderbankname: "Beak MFB",
@@ -91,11 +95,13 @@ const IntraBank = () => {
       }
       dispatch(setFormData(formData))
       toggleAddUserDrawer()
+      // toggleIntraBankDrawer()
+
     }else{
       const formData = {
         accountdetailsid: 1,
         transactionref: "2323324452454525",
-        narration: "trf by Olukunle Abolade",
+        narration: "narration",
         senderaccount: "0751252171",
         sendername:"Olukunle Abolade",
         senderbankname: "Beak MFB",
@@ -110,13 +116,10 @@ const IntraBank = () => {
       }
       dispatch(setFormData(formData))
       toggleAddUserDrawer()
+      // toggleIntraBankDrawer()
     }
-    
-    
   };
  
-
-
   const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   const handleChange = (value: string) => {
@@ -135,7 +138,6 @@ const IntraBank = () => {
       dispatch(fetchAsyncInterBankName({url}))
       .unwrap()
       .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
-
       // .then((originalPromiseResult) => originalPromiseResult.records.length === 0 ? setIsAvail(true) : setIsAvail(false))
     }
     
@@ -288,9 +290,7 @@ const IntraBank = () => {
             {selectedBeneficiary === '' && (
               <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
             )}
-            {/* <SelectField label='Beneficiaries'>
-              <option value="">Select Beneficiaries</option>
-            </SelectField> */}
+
             {selectedBeneficiary === '' && (
               <>
                 <div className="relative">
@@ -318,7 +318,7 @@ const IntraBank = () => {
                 required: 'This field is required',
               }}
             />
-            <CustomButton title='Next' type="submit"  disabled={!isValid}  buttonStyle={ !isValid && {marginTop: 10, backgroundColor: "#A499D1"}} />
+            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
           </div>
         </form>
       </FormProvider>

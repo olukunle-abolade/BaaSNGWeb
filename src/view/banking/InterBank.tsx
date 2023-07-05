@@ -50,7 +50,9 @@ const InterBank = () => {
 
   // ** Use Form Hook
   const methods = useForm();
-  const { setValue, reset } = methods;
+  const { setValue, formState, reset } = methods;
+
+  const { isValid } = formState; // Get the validation status of the form
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
@@ -68,6 +70,7 @@ const InterBank = () => {
 
   const onSubmit = (data: any) => {
     const input = data.beneficiaries;
+
     console.log(input)
     if(input){
       const [name, number, bankcode, bankname= "Default Bank Name" ] = input?.split('-');
@@ -75,7 +78,7 @@ const InterBank = () => {
       const formData = {
         accountdetailsid: 1,
         transactionref: "2323324452454525",
-        narration: "trf by Olukunle Abolade",
+        narration: "narration",
         senderaccount: "0751252171",
         sendername: getDashboardInfo?.firstname ?? "",
         senderbankname: "Beak MFB",
@@ -93,10 +96,13 @@ const InterBank = () => {
       toggleAddUserDrawer()
       console.log(formData)
     }else{
+      const input = data.bank;
+      const [bankcode, bankname ] = input?.split('-');
+
       const formData = {
         accountdetailsid: 1,
         transactionref: "2323324452454525",
-        narration: "trf by Olukunle Abolade",
+        narration: "narration",
         senderaccount: "0751252171",
         sendername: getDashboardInfo?.firstname ?? "",
         senderbankname: "Beak MFB",
@@ -104,8 +110,8 @@ const InterBank = () => {
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : "",
         destinationaccountname: getIntraName?.[0]?.accountname,
-        destinationbankcode: data?.bank ? data?.bank : "",
-        destinationbankname: data.bank,
+        destinationbankcode: bankcode ? bankcode.trim() : "",
+        destinationbankname: bankname ? bankname.trim() : "",
         polarity: "D",
         amount: data.amount,
         balance: "0",
@@ -174,7 +180,7 @@ const InterBank = () => {
     convertedBank = [
       { value: '', label: 'Select' }, // Default select option with empty value
       ...getNigerianBanks.map((item) => ({
-        value: item.nipbankcode,
+        value: `${item.nipbankcode}-${item.bankname}`,
         label: item.bankname
       }))
     ];
@@ -200,7 +206,10 @@ const InterBank = () => {
 
   // Fetch API (optional)
   useEffect(() => {
-    const url = `/records/nameenquiry?filter=accountnumber,eq,${values}&filter=nipbankcode,eq,${selectedBank}`
+    const input = selectedBank;
+    const [bankcode, bankname ] = input?.split('-');
+
+    const url = `/records/nameenquiry?filter=accountnumber,eq,${values}&filter=nipbankcode,eq,${bankcode}`
     // Do fetch here...
     // Triggers when "debouncedValue" changes
     if(selectedBank){
@@ -230,6 +239,8 @@ const InterBank = () => {
     ];
   }
 
+
+  console.log(selectedBank)
 
 
   return (
@@ -365,14 +376,14 @@ const InterBank = () => {
                 required: 'This field is required',
               }}
             />
-            <CustomButton title='Next'  buttonStyle={{marginTop: 10}} />
+            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
           </div>
         </form>
       </FormProvider>
               
       {
         toggleAddUserDrawer &&
-        <SidebarAddUser title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton>
+        <SidebarAddUser header clearName  title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton>
           <PaymentSummary />
         </SidebarAddUser>
       }
