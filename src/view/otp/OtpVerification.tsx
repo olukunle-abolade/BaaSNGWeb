@@ -31,6 +31,8 @@ const OtpVerification = () => {
   const [message, setMessage] = useState(false);
   const toggleSuccessDrawer = () => setSuccessOpen(!success)
 
+  const isButtonDisabled = otp.length !== 4; // Check if the OTP length is not equal to 4
+
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
@@ -117,7 +119,7 @@ const OtpVerification = () => {
               }
             </div>
 
-            <CustomButton title="Proceed"  />
+            <CustomButton title="Proceed"  type="submit"  disabled={isButtonDisabled}  buttonStyle={ isButtonDisabled && {marginTop: 10, backgroundColor: "#A499D1"}}   />
           </div>
         </form>
       
@@ -128,10 +130,14 @@ const OtpVerification = () => {
           <Link href={"/"} className='text-kprimary text-sm font-semibold '>Click to resend</Link>
         </div>
       </AuthFlowLayout>
-
-    <SidebarAddUser title='' open={success} toggle={toggleSuccessDrawer} >
-      <TransactionSuccess />
-    </SidebarAddUser>
+      
+      {
+        success ?
+        (<SidebarAddUser title='' open={success} toggle={toggleSuccessDrawer} >
+          <TransactionSuccess />
+        </SidebarAddUser> ) : null
+      }
+     
     </div>
   )
 }

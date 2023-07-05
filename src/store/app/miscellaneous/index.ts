@@ -264,6 +264,31 @@ export const fetchAsyncNigeriaBank= createAsyncThunk<
   }
 })
 
+export const fetchAsyncTransferType= createAsyncThunk<
+  MyData,
+  { url: string },
+  {
+    rejectValue: MyKnownError
+  }
+>('transferType/fetchAsyncThunk', async (userInfo, { rejectWithValue }) => {
+  const { url } = userInfo
+  try {
+    const response = await axios.get(config.baseUrl + url, {
+      headers: headers,
+      validateStatus: () => {
+        return true
+      }
+    })
+
+    return response.data
+  } catch (err: any) {
+    console.log(err)
+
+    return rejectWithValue(err.response.data)
+  }
+})
+
+
 
 
 
@@ -278,7 +303,8 @@ export interface IMiscellaneous {
   states: any[] | null
   sources: any[] | null
   bank:any[] | null
-  loading: string
+  loading: string,
+  transferType: any[] | null
   error: null | string
 }
 
@@ -448,6 +474,23 @@ const MiscellaneousSlice = createSlice({
         // state.error = action.error
       }
     })
+    builder.addCase(fetchAsyncTransferType.pending, state => {
+      // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
+      state.loading = HTTP_STATUS.PENDING
+    })
+    builder.addCase(fetchAsyncTransferType.fulfilled, (state, {payload}) => {
+      console.log(payload);
+      state.loading = HTTP_STATUS.FULFILLED
+      state.transferType = payload.records
+    })
+    builder.addCase(fetchAsyncTransferType.rejected, (state, action: PayloadAction<any>) => {
+      if (action.payload) {
+        // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
+        state.error = action.payload.errorMessage
+      } else {
+        // state.error = action.error
+      }
+    })
   }
 })
 
@@ -462,5 +505,5 @@ export const getMiscellaneousOccupation = (state: RootState) => state.miscellane
 export const getMiscellaneousStates = (state: RootState) => state.miscellaneous?.states
 export const getMiscellaneousGender = (state: RootState) => state.miscellaneous?.gender
 export const getMiscellaneousSourceOfFund = (state: RootState) => state.miscellaneous?.sources
-
+export const getMiscellaneousTransferType = (state: RootState) => state.miscellaneous?.transferType
 export default MiscellaneousSlice.reducer

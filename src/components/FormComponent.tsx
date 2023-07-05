@@ -92,7 +92,7 @@ export const CustomTextField = forwardRef(function CustomTextField(
         value={formatAmountInput ? formatValue(watchedValue): watchedValue}
         onChange={handleChange}
         maxLength={maxLength}
-        style={{ borderColor: hasError && 'red' }}
+        style={{ borderColor: hasError ? 'red' : undefined}}
         {...rest}
       />
       {password &&
