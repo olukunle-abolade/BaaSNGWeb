@@ -48,6 +48,7 @@ const IntraBank = () => {
   const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
   const [isAvail, setIsAvail] = useState(false)
   const [clearName, setClearName] = useState(true)
+  
   // ** Use Form Hook
   const methods = useForm({
     mode: 'onChange'
