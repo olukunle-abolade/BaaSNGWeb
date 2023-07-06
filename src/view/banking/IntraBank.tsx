@@ -334,7 +334,7 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
 
       {paymentSummaryOpen ? (
         <SidebarAddUser header closeButton title='Payment summary' open={paymentSummaryOpen} toggle={togglePaymentSummaryDrawer} clearName={clearName} >
-          <PaymentSummary  setPaymentSummaryOpen={setPaymentSummaryOpen} />
+          <PaymentSummary setIntraBankOpen={setIntraBankOpen}  setPaymentSummaryOpen={setPaymentSummaryOpen} />
         </SidebarAddUser>
       ) : null}
     </div>

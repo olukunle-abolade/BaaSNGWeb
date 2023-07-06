@@ -24,16 +24,18 @@ import { getDashboardInfoData } from '@/store/app/dashboard';
 
 interface IPaymentSummaryProps {
   setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+  setIntraBankOpen: Dispatch<SetStateAction<boolean>>
 }
 
 const PaymentSummary: FC<IPaymentSummaryProps> 
- = ({setPaymentSummaryOpen}) => {
+ = ({setPaymentSummaryOpen, setIntraBankOpen}) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
   const toggleModalDrawer = () => {
     setModalOpen(!modalOpen)
 
     if(modalOpen){
       setPaymentSummaryOpen(false);
+      setIntraBankOpen(false);
     }
   }
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
