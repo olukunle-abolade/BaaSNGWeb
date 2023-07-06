@@ -11,7 +11,7 @@ import SidebarAddUser from '@/components/user/AddUserDrawer';
 // ** Third Party
 import {FiArrowLeft} from 'react-icons/fi'
 import { IoIosArrowForward } from 'react-icons/io';
-import { useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import OTP from '../otp/OTP';
 
 // ** Helpers
@@ -22,11 +22,20 @@ import { useAppSelector } from '@/hooks/useTypedSelector';
 import { RootState } from '@/store';
 import { getDashboardInfoData } from '@/store/app/dashboard';
 
+interface IPaymentSummaryProps {
+  setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+}
 
-const PaymentSummary = () => {
+const PaymentSummary: FC<IPaymentSummaryProps> 
+ = ({setPaymentSummaryOpen}) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false)
-  const toggleModalDrawer = () => setModalOpen(!modalOpen)
+  const toggleModalDrawer = () => {
+    setModalOpen(!modalOpen)
 
+    if(modalOpen){
+      setPaymentSummaryOpen(false);
+    }
+  }
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
 
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
@@ -114,7 +123,7 @@ const PaymentSummary = () => {
           <CustomButton title={`Pay ₦${NumberFormat(parseFloat(getTransactionDetails?.amount ?? ""))}`} buttonStyle={{width: 320}}  onClick={toggleModalDrawer} />
         </div>
 
-        <SidebarAddUser header title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} clearName={true} closeButton>
+        <SidebarAddUser header title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} clearName={true} closeNested={true} closeButton>
           <OTP />
         </SidebarAddUser>
     </div>

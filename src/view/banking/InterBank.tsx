@@ -383,7 +383,7 @@ const InterBank = () => {
               
       {
         toggleAddUserDrawer &&
-        <SidebarAddUser header clearName  title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton>
+        <SidebarAddUser header clearName  title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton closeNested={true}>
           <PaymentSummary />
         </SidebarAddUser>
       }

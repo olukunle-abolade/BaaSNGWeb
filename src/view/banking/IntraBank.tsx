@@ -38,17 +38,25 @@ interface FormData {
 }
 
 interface IInterBankProps {
-  toggleIntraBankDrawer: () => void
+  setIntraBankOpen: any
 }
 
-const IntraBank = () => {
+const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
   const [values, setValues] = useState<string>('');
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const [paymentSummaryOpen, setPaymentSummaryOpen] = useState<boolean>(false);
   const debouncedValue = useDebounce<string>(values, 500)
   const [selectedBeneficiary, setSelectedBeneficiary] = useState('');
   const [isAvail, setIsAvail] = useState(false)
   const [clearName, setClearName] = useState(true)
-  
+
+  const togglePaymentSummaryDrawer = async () => {
+    setPaymentSummaryOpen(true);
+
+    if(paymentSummaryOpen){
+      setIntraBankOpen(false);
+    }
+  };
+
   // ** Use Form Hook
   const methods = useForm({
     mode: 'onChange'
@@ -95,7 +103,7 @@ const IntraBank = () => {
         balance: "0",
       }
       dispatch(setFormData(formData))
-      toggleAddUserDrawer()
+      togglePaymentSummaryDrawer()
       // toggleIntraBankDrawer()
 
     }else{
@@ -116,12 +124,12 @@ const IntraBank = () => {
         balance: "0",
       }
       dispatch(setFormData(formData))
-      toggleAddUserDrawer()
+      togglePaymentSummaryDrawer()
       // toggleIntraBankDrawer()
     }
   };
  
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
+  // const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   const handleChange = (value: string) => {
     if (value.length === 10) {
@@ -202,7 +210,7 @@ const IntraBank = () => {
   }
 
   console.log(getTransferType);
-
+  console.log(isAvail);
 
   return (
     <div>
@@ -319,14 +327,14 @@ const IntraBank = () => {
                 required: 'This field is required',
               }}
             />
-            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
+            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || !isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
           </div>
         </form>
       </FormProvider>
 
-      {addUserOpen ? (
-        <SidebarAddUser header closeButton title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} clearName={clearName} >
-          <PaymentSummary />
+      {paymentSummaryOpen ? (
+        <SidebarAddUser header closeButton title='Payment summary' open={paymentSummaryOpen} toggle={togglePaymentSummaryDrawer} clearName={clearName} >
+          <PaymentSummary  setPaymentSummaryOpen={setPaymentSummaryOpen} />
         </SidebarAddUser>
       ) : null}
     </div>
