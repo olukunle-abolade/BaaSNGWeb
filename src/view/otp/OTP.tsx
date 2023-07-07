@@ -84,7 +84,7 @@ const OTP = () => {
             Incorrect PIN
           </p>
         }
-        <p className='text-kprimary text-sm font-normal mb-14 text-center'>Forgot PIN? otp</p>
+        <p className='text-kprimary text-sm font-normal mb-14 text-center mt-4'>Forgot PIN?</p>
 
         {/* button */}
         <CustomButton title='Confirm' type="submit"  disabled={isButtonDisabled}  buttonStyle={ isButtonDisabled && {marginTop: 10, backgroundColor: "#A499D1"}}   />

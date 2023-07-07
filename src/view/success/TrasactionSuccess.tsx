@@ -3,7 +3,6 @@ import { useState } from 'react'
 // ** Third Party
 import { FaCheck } from 'react-icons/fa'
 
-
 // ** Slice
 import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
@@ -14,6 +13,7 @@ import { useAppSelector } from '@/hooks/useTypedSelector'
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import { NumberFormat } from '@/helpers/convert';
+import Receipt from '../receipt/Receipt';
 
 
 
@@ -73,11 +73,16 @@ const TransactionSuccess = () => {
       {/* button */}
       <div className="grid grid-cols-2 gap-4 w-full mt-14">
         <CustomButton title='Complete' onClick={handleOpen} buttonStyle={{backgroundColor: "#E9E6F4"}} titleColor="#4730A3" />
-        <CustomButton title='View Receipt' />
+        <CustomButton title='View Receipt' onClick={toggleReceiptDrawer} />
       </div>
-      <SidebarAddUser title='' open={reciept} toggle={toggleReceiptDrawer} >
-        {/* <Success /> */}
-      </SidebarAddUser>
+
+      {
+        reciept ? (
+        <SidebarAddUser title='' open={reciept} toggle={toggleReceiptDrawer} >
+          <Receipt />
+        </SidebarAddUser> ) : null
+      }
+     
 
       {/* Modal */}
       <TrasactionModal open = {open} btitle1='No' btitle2='Yes' handleModal={() => null} handleClose={handleClose} title='Save last recipients as a beneficiary' subtitle='Do you confirm to this ?'  />
