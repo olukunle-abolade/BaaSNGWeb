@@ -28,7 +28,7 @@ import { PasswordField, TextField } from '@/components/FormComponent';
 
 interface UserData {
   email: string
-  password: string
+  terms: boolean
 }
 
 const defaultValues = {
@@ -46,7 +46,13 @@ const Signup = () => {
   const router = useRouter();
 
   const onSubmit = async (data: any) => {
-    const { email, setError } = data
+    const { email, terms } = data
+
+    if (!terms) {
+     
+      return;
+    }
+  
     auth.signup({ email }, () => {
       
     })
@@ -75,7 +81,7 @@ const Signup = () => {
               <FormControlLabel
                 control={<Checkbox />}
                 label="I agree to the terms and conditions"
-                className="text-kblackCom text-sm font-normal "
+                className="text-kblackCom text-sm font-normal"
               />
             </div>
 
