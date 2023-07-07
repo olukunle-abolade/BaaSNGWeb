@@ -126,7 +126,7 @@ const PaymentSummary: FC<IPaymentSummaryProps>
         </div>
 
         <SidebarAddUser header title='Transaction PIN' open={modalOpen} toggle={toggleModalDrawer} clearName={true} closeNested={true} closeButton>
-          <OTP />
+          <OTP setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen} setModalOpen = {setModalOpen}/>
         </SidebarAddUser>
     </div>
   )

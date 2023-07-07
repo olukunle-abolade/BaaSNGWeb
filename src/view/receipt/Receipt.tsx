@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { Dispatch, FC, SetStateAction } from 'react';
 
 // ** MUI
 import { Divider } from '@mui/material'
@@ -19,13 +20,29 @@ import { useAppSelector } from '@/hooks/useTypedSelector'
 import { getDashboardInfoData } from '@/store/app/dashboard';
 
 
+interface IReceiptProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+  setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+  setIntraBankOpen: Dispatch<SetStateAction<boolean>>
+  setOtpVerifyOpen: Dispatch<SetStateAction<boolean>>
+  setSuccessOpen: Dispatch<SetStateAction<boolean>>
+  setReceipt: Dispatch<SetStateAction<boolean>>
+}
 
-
-const Receipt = () => {
+const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen,  setOtpVerifyOpen, setSuccessOpen, setReceipt}) => {
 
   // ** Hooks
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
+
+  const handleCloseAll = () => {
+    setModalOpen(false)
+    setPaymentSummaryOpen(false)
+    setIntraBankOpen(false)
+    setOtpVerifyOpen(false)
+    setSuccessOpen(false)
+    setReceipt(false)
+  }
 
   return (
     <div className="">
@@ -120,7 +137,7 @@ const Receipt = () => {
       </div>
       {/* button */}
       <div className="w-full flex justify-center  mt-4">
-        <CustomButton title='Complete' buttonStyle={{backgroundColor: "#E9E6F4", width: 144}} titleColor="#4730A3" />
+        <CustomButton title='Complete' onClick={handleCloseAll} buttonStyle={{backgroundColor: "#E9E6F4", width: 144}} titleColor="#4730A3" />
       </div>
     </div>
   )

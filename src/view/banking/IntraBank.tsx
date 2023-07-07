@@ -327,7 +327,7 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
                 required: 'This field is required',
               }}
             />
-            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || !isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
+            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail ? {marginTop: 10, backgroundColor: "#A499D1"}: null} />
           </div>
         </form>
       </FormProvider>

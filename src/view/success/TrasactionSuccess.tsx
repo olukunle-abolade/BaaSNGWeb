@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 
 // ** Third Party
 import { FaCheck } from 'react-icons/fa'
@@ -15,20 +15,36 @@ import SidebarAddUser from '@/components/user/AddUserDrawer';
 import { NumberFormat } from '@/helpers/convert';
 import Receipt from '../receipt/Receipt';
 
+interface ISuccessProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+  setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+  setIntraBankOpen: Dispatch<SetStateAction<boolean>>
+  setOtpVerifyOpen: Dispatch<SetStateAction<boolean>>
+  setSuccessOpen: Dispatch<SetStateAction<boolean>>
+}
 
 
-const TransactionSuccess = () => {
+const TransactionSuccess: FC<ISuccessProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen,  setOtpVerifyOpen, setSuccessOpen}) => {
   const [reciept, setReceipt] = useState<boolean>(false)
   const toggleReceiptDrawer = () => setReceipt(!reciept)
 
   // Modal Toggller
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleClose = () => {
+    setOpen(false);
+    setModalOpen(false)
+    setPaymentSummaryOpen(false)
+    setIntraBankOpen(false)
+    setOtpVerifyOpen(false)
+    setSuccessOpen(false)
+  }
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
+
+
 
   return (
     <div className='flex flex-col items-center w-full'>
@@ -79,7 +95,7 @@ const TransactionSuccess = () => {
       {
         reciept ? (
         <SidebarAddUser title='' open={reciept} toggle={toggleReceiptDrawer} >
-          <Receipt />
+          <Receipt setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen} setModalOpen = {setModalOpen} setOtpVerifyOpen = {setOtpVerifyOpen} setSuccessOpen = {setSuccessOpen} setReceipt={setReceipt}/>
         </SidebarAddUser> ) : null
       }
      

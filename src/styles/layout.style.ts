@@ -229,7 +229,6 @@ export const ImageBox = styled.div<{ img: any }>`
   justify-content: center;
   position: relative;
   height: 100vh;
-  background-color: black;
 
 
   @media (max-width: 768px) {
