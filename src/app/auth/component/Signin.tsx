@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 
 // ** MUI
-// import { Checkbox, FormControlLabel } from '@mui/material';
+import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -81,22 +81,16 @@ const Signin = () => {
               message: 'Password must contain at least 8 characters, one uppercase letter, one number, and one special character'
             }
           }}
-          // rules={{
-          //   required: 'Email is required',
-          //   pattern: {
-          //     value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-          //     message: 'Invalid email address'
-          //   }
-          // }}
         />
 
         <div className="flex justify-between items-center">
-          {/* <Checkbox label = ""  /> */}
-          {/* <FormControlLabel
-            control={<Checkbox />}
+          <FormControlLabel
+            control={<Checkbox required />}
             label="Remember me for 30days"
+            sx={{fontSize: 14}}
             className="text-kblackCom text-sm font-normal "
-          /> */}
+            aria-required 
+          />
 
           <Link
             href="/auth/forget-password"

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 
 // ** Third Party
 import OtpInput from 'react-otp-input';
@@ -25,7 +25,14 @@ import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import OtpVerification from './OtpVerification';
 
-const OTP = () => {
+interface IOtpProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+  setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+  setIntraBankOpen: Dispatch<SetStateAction<boolean>>
+}
+
+const OTP: FC<IOtpProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen}) => {
+
   const [otp, setOtp] = useState('');
   const [otpVerifyOpen, setOtpVerifyOpen] = useState<boolean>(false)
   const [message, setMessage] = useState(false);
@@ -84,7 +91,7 @@ const OTP = () => {
             Incorrect PIN
           </p>
         }
-        <p className='text-kprimary text-sm font-normal mb-14 text-center'>Forgot PIN? otp</p>
+        <p className='text-kprimary text-sm font-normal mb-14 text-center mt-4'>Forgot PIN?</p>
 
         {/* button */}
         <CustomButton title='Confirm' type="submit"  disabled={isButtonDisabled}  buttonStyle={ isButtonDisabled && {marginTop: 10, backgroundColor: "#A499D1"}}   />
@@ -92,7 +99,7 @@ const OTP = () => {
       {
         otpVerifyOpen ?
         <SidebarAddUser header title='OTP verification' open={otpVerifyOpen} toggle={toggleOtpVerifyDrawer} >
-          <OtpVerification/>
+          <OtpVerification setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen} setModalOpen = {setModalOpen} setOtpVerifyOpen = {setOtpVerifyOpen}/>
         </SidebarAddUser> : null
       }
     </div>

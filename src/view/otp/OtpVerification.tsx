@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import Link from 'next/link';
 
 // ** Third Party
@@ -25,7 +25,15 @@ import { useAppSelector } from '@/hooks/useTypedSelector';
 import { toast } from 'react-hot-toast';
 import TransactionSuccess from '../success/TrasactionSuccess';
 
-const OtpVerification = () => {
+interface IOtpVerificationProps {
+  setModalOpen: Dispatch<SetStateAction<boolean>>
+  setPaymentSummaryOpen: Dispatch<SetStateAction<boolean>>
+  setIntraBankOpen: Dispatch<SetStateAction<boolean>>
+  setOtpVerifyOpen: Dispatch<SetStateAction<boolean>>
+}
+
+
+const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen,  setOtpVerifyOpen}) => {
   const [otp, setOtp] = useState('');
   const [success, setSuccessOpen] = useState<boolean>(false)
   const [message, setMessage] = useState(false);
@@ -134,7 +142,7 @@ const OtpVerification = () => {
       {
         success ?
         (<SidebarAddUser title='' open={success} toggle={toggleSuccessDrawer} >
-          <TransactionSuccess />
+          <TransactionSuccess setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen} setModalOpen = {setModalOpen} setOtpVerifyOpen = {setOtpVerifyOpen} setSuccessOpen = {setSuccessOpen}/>
         </SidebarAddUser> ) : null
       }
      

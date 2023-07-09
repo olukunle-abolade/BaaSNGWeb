@@ -73,14 +73,14 @@ const Fund = () => {
       {/* Render SidebarAddUser for Intrabank Transfer */}
       {intraBankOpen && (
         <SidebarAddUser header closeButton title='Funds Transfer' open={intraBankOpen} toggle={toggleIntraBankDrawer} clearName={true}>
-          <IntraBank />
+          <IntraBank setIntraBankOpen = {setIntraBankOpen} />
         </SidebarAddUser>
       )}
 
        {/* Render SidebarAddUser for Interbank Transfer */}
        {interBankOpen && (
-        <SidebarAddUser title='Funds Transfer' header open={interBankOpen} toggle={toggleInterBankDrawer} clearName={true} closeButton>
-          <InterBank />
+        <SidebarAddUser title='Funds Transfer' header open={interBankOpen} toggle={toggleInterBankDrawer} clearName={true} closeButton closeNested={true}>
+          <InterBank setIntraBankOpen = {setIntraBankOpen} />
         </SidebarAddUser>
       )}
      

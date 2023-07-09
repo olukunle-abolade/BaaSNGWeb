@@ -113,7 +113,7 @@ const Network = () => {
       <CustomButton title='Pay' onClick={toggleOtpDrawer} buttonStyle={{marginTop: 40}} />
 
       <SidebarAddUser title='Transaction PIN' open={otpOpen} toggle={toggleOtpDrawer} >
-        <OTP />
+        {/* <OTP /> */}
       </SidebarAddUser>
     </div>
    

@@ -1,5 +1,5 @@
 'use client'
-import { SetStateAction, useEffect, useState } from 'react'
+import { FC, SetStateAction, useEffect, useState } from 'react'
 
 // Third Party
 import { FiEdit3 } from 'react-icons/fi'
@@ -37,10 +37,13 @@ interface FormData {
   accountNumber: string;
 }
 
+interface IInterBankProps {
+  setIntraBankOpen: any
+}
 
-const InterBank = () => {
+const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
   const [values, setValues] = useState<string>('');
-  const [addUserOpen, setAddUserOpen] = useState<boolean>(false)
+  const [paymentSummaryOpen, setPaymentSummaryOpen] = useState<boolean>(false);
   const [selectedBank, setSelectedBank] = useState('');
   const [isAvail, setIsAvail] = useState(false)
   const debouncedValue = useDebounce<string>(selectedBank, 500)
@@ -67,6 +70,13 @@ const InterBank = () => {
   // const username = auth.user.
 
   // split beneficiries accoutname from account number
+  const togglePaymentSummaryDrawer = async () => {
+    setPaymentSummaryOpen(true);
+
+    if(paymentSummaryOpen){
+      setIntraBankOpen(false);
+    }
+  };
 
   const onSubmit = (data: any) => {
     const input = data.beneficiaries;
@@ -93,7 +103,7 @@ const InterBank = () => {
         balance: "0",
       }
       dispatch(setFormData(formData))
-      toggleAddUserDrawer()
+      togglePaymentSummaryDrawer()
       console.log(formData)
     }else{
       const input = data.bank;
@@ -117,7 +127,7 @@ const InterBank = () => {
         balance: "0",
       }
       dispatch(setFormData(formData))
-      toggleAddUserDrawer()
+      togglePaymentSummaryDrawer()
       console.log(formData)
     }
   
@@ -125,7 +135,6 @@ const InterBank = () => {
  
 
 
-  const toggleAddUserDrawer = () => setAddUserOpen(!addUserOpen)
 
   const handleChange = (value: string) => {
     if (value.length === 10) {
@@ -376,15 +385,15 @@ const InterBank = () => {
                 required: 'This field is required',
               }}
             />
-            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail && {marginTop: 10, backgroundColor: "#A499D1"}} />
+            <CustomButton title='Next' type="submit"  disabled={!isValid || isAvail}  buttonStyle={ !isValid || isAvail ? {marginTop: 10, backgroundColor: "#A499D1"} : null} />
           </div>
         </form>
       </FormProvider>
               
       {
-        toggleAddUserDrawer &&
-        <SidebarAddUser header clearName  title='Payment summary' open={addUserOpen} toggle={toggleAddUserDrawer} reset = {reset} closeButton>
-          <PaymentSummary />
+        paymentSummaryOpen &&
+        <SidebarAddUser header clearName  title='Payment summary' open={paymentSummaryOpen} toggle={togglePaymentSummaryDrawer} reset = {reset} closeButton closeNested={true}>
+          <PaymentSummary  setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen}/>
         </SidebarAddUser>
       }
       
