@@ -1,13 +1,12 @@
 'use client'
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 // ** MUI
 import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ThreeDots } from 'react-loading-icons';
 
 // ** Images
@@ -21,7 +20,7 @@ import { useAuth } from '@/hooks/useAuth';
 
 // ** Componentas
 import CustomButton from '@/components/user/CustomButton';
-import { CustomTextField, PasswordField, TextField } from '@/components/FormComponent';
+import { CustomTextField } from '@/components/FormComponent';
 
 interface UserData {
   email: string
@@ -34,19 +33,15 @@ const defaultValues = {
 }
 
 const Signin = () => {
-  const methods = useForm();
+  const methods = useForm({defaultValues});
 
   // ** Hooks
   const auth = useAuth()
-  const router = useRouter();
 
-  const onSubmit = async (data: any) => {
-    const { email, password, setError } = data
+  const onSubmit = async (data: UserData) => {
+    const { email, password } = data
     auth.login({ email, password }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
+      
     })
   };
 

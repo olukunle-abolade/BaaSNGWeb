@@ -38,11 +38,11 @@ const PaymentSummary: FC<IPaymentSummaryProps>
       setIntraBankOpen(false);
     }
   }
+  
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
-
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
 
-  console.log(getDashboardInfo)
+
   console.log(getTransactionDetails)
 
   return (
