@@ -33,6 +33,7 @@ interface SidebarAddUserType {
   header?: boolean
   clearName?: boolean;
   closeButton?: boolean
+  closeNested?: boolean
 }
 
 const Header = styled(Box)<BoxProps>(({ theme }) => ({
@@ -45,30 +46,34 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 
 const SidebarAddUser = (props: SidebarAddUserType) => {
   // ** Props
-  const { open, toggle, reset, clearName, title,closeButton, header, children } = props
+  const { open, toggle, reset, clearName, title,closeButton, header, closeNested, children } = props
 
   // states
   const [openModal, setOpenModal] = useState(false);
   const handleOpen = () => setOpenModal(true);
+
+
+  useEffect(() => {
+    if (!open) {
+      setOpenModal(false)
+    }
+  }, [open])
+
+
+
   const handleClose = () => {
-    setOpenModal(false);
-    toggle(); 
-    dispatch(clearInterBankName()); 
+    if (closeNested) {
+      toggle()
+    } else {
+      setOpenModal(false)
+      toggle()
+      dispatch(clearInterBankName())
+    }
   } 
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   console.log(clearName)
-
-
-  // ** State
-  const [isClearName, setIsClearName] = useState(false);
-
-
-  // console.log(clearName)
-  // useEffect(() => {
-  //   console.log(clearName);
-  // }, [clearName]);
 
 
   const handleCloseDrawer = () => {
@@ -77,11 +82,12 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
     if (clearName) {
       {/* Modal */}
       setOpenModal(true);
-     
+
     }else{
       toggle();
     }
   }
+
 
   return (
     <>
