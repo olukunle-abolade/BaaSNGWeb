@@ -27,9 +27,14 @@ interface UserData {
   password: string
 }
 
+// const defaultValues = {
+//   email: 'ab3sure@gmail.com',
+//   password: 'P@ssword88283'
+// }
+
 const defaultValues = {
-  email: 'ab3sure@gmail.com',
-  password: 'P@ssword88283'
+  email: '',
+  password: ''
 }
 
 const Signin = () => {

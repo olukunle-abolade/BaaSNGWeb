@@ -31,8 +31,12 @@ interface UserData {
   terms: boolean
 }
 
+// const defaultValues = {
+//   email: 'ab3sure@gmail.com',
+// }
+
 const defaultValues = {
-  email: 'ab3sure@gmail.com',
+  email: '',
 }
 
 const Signup = () => {
