@@ -11,7 +11,8 @@ import {
 
 // ** Third Party
 import { FieldValues, useFormContext } from 'react-hook-form';
-import { FiEye, FiEyeOff } from 'react-icons/fi';
+import { FiEye, FiEyeOff, FiEdit3 } from 'react-icons/fi';
+
 
 type ICustomInputProps = {
   name: string;
@@ -47,7 +48,6 @@ export const CustomTextField = forwardRef(function CustomTextField(
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const [show, setShow] = useState(false);
-  const [inputValue, setInputValue] = useState<string>(defaultValue || '');
   const { register, formState: { errors }, watch, setValue, trigger } = useFormContext<FieldValues>();
   const watchedValue = watch(name);
 
@@ -105,6 +105,51 @@ export const CustomTextField = forwardRef(function CustomTextField(
     </FormField>
   );
 });
+
+export const CustomTextFieldNarration = forwardRef(function CustomTextField(
+  {
+    name,
+    placeholder,
+    rules,
+    onChange,
+  }: ICustomInputProps,
+) {
+  const { register, formState: { errors }, watch, setValue, trigger } = useFormContext<FieldValues>();
+  const watchedValue = watch(name);
+
+
+
+  useEffect(() => {
+    register(name, rules);
+  }, [name, register, rules]);
+
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setValue(name, value); // Update the field value
+    trigger(name); // Trigger validation for the field
+
+    if (onChange) {
+      onChange(value); // Call the onChange prop with the updated value
+    }
+  };
+
+
+  return (
+    <div className="relative mt-6">
+      <input 
+        id={name}
+        className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" 
+        type="text" 
+        placeholder={placeholder}
+        value={watchedValue}
+        onChange={handleChange}
+      />
+      <FiEdit3 className='text-n100 absolute left-5 top-[14.5px]' size={15}/>
+    </div>
+  );
+});
+
 
 interface ICustomSelectProps {
   name: string;

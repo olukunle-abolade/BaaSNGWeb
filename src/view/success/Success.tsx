@@ -19,13 +19,13 @@ const Success = () => {
   const handleClose = () => setOpen(false);
 
   return (
-    <div className='flex flex-col items-center w-full'>
+    <div className='flex flex-col items-center w-full mt-10'>
       {/* icon logo */}
       <div className='flex items-center justify-center mx-auto mb-5 w-[81px] h-[81px] rounded-full bg-kgreen border-[15px]  border-[rgba(18, 183, 106, 0.1)]'>
         <FaCheck color='#FFFFFF' />
       </div>
       
-      <h3 className='text-n800 text-lg font-semibold mb-6'>Enter your transaction pin</h3>
+      <h3 className='text-n800 text-lg font-semibold mb-6'>Successful</h3>
 
       {/* price */}
       <p className='text-black text-3xl font-semibold'>₦200.00</p>

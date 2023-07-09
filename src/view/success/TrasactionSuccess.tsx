@@ -67,7 +67,7 @@ const TransactionSuccess: FC<ISuccessProps> = ({setIntraBankOpen, setPaymentSumm
           {/* desc */}
           <div className="">
             <h3 className="text-black text-lg font-semibold">{getTransactionDetails?.destinationaccountname}</h3>
-            <p className='text-n100 text-[16px] font-medium text-right'>{getTransactionDetails?.destinationbankname} ({getTransactionDetails?.destinationaccountnumber})</p>
+            <p className='text-n100 text-[16px] font-medium text-right'>{ getTransactionDetails?.destinationbankname ? getTransactionDetails?.destinationbankname : "BaaS"} ({getTransactionDetails?.destinationaccountnumber})</p>
           </div>
         </div>
          {/*  */}

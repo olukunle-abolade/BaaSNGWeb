@@ -115,7 +115,7 @@ const initialState = {
 } as IDashboard
 
 const DashboardSlice = createSlice({
-  name: 'helpdesk',
+  name: 'dashboard',
   initialState,
   reducers: {},
   extraReducers: builder => {

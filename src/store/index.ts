@@ -12,12 +12,14 @@ import testmodeReducer from '@/store/app/test-mode'
 import transactionReducer from '@/store/app/transaction'
 import beneficiariesReducer from '@/store/app/beneficiaries'
 import otpReducer from '@/store/app/otp'
+import accountReducer from '@/store/app/account'
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
   profile: profileReducer,
   miscellaneous: miscellaneousReducer,
   password: passwordReducer,
+  account: accountReducer,
   ipwhitelist: ipReducer,
   intrabank: intrabankReducer,
   transaction: transactionReducer,
