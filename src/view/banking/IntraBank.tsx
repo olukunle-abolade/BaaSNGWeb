@@ -2,8 +2,6 @@
 
 import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
 
-// Third Party
-import { FiEdit3 } from 'react-icons/fi'
 
 // ** Contexts
 import { useAuth } from '@/hooks/useAuth';
@@ -23,9 +21,10 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
 import { clearInterBankName, getIntraNameData } from '@/store/app/intrabank'
 import { fetchAsyncBeneficiariesWithoutName, getBeneficiariesWithoutNameData } from '@/store/app/beneficiaries';
+import { getAccountData } from '@/store/app/account';
 
 // ** Components 
-import { CustomSelectField, CustomTextField, SelectField, TextField } from '@/components/FormComponent'
+import { CustomSelectField, CustomTextField, CustomTextFieldNarration, SelectField, TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import PaymentSummary from './PaymentSummary';
@@ -40,6 +39,24 @@ interface FormData {
 interface IInterBankProps {
   setIntraBankOpen: any
 }
+
+interface FormData {
+  accountdetailsid: number | undefined;
+  transactionref: string;
+  narration: string;
+  senderaccount: string | undefined;
+  sendername: string | undefined;
+  senderbankname: string | undefined;
+  senderbankcode: string | undefined;
+  transferType: string;
+  destinationaccountnumber: string;
+  destinationaccountname: string;
+  destinationbankcode: string;
+  polarity: string;
+  amount: number;
+  balance: string;
+}
+
 
 const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
   const [values, setValues] = useState<string>('');
@@ -57,6 +74,9 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
     }
   };
 
+  // ** Get Sender Account
+  const accountData = useAppSelector(getAccountData)
+  console.log(accountData)
   // ** Use Form Hook
   const methods = useForm({
     mode: 'onChange'
@@ -83,24 +103,26 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
   const onSubmit = (data: any) => {
     const input = data.beneficiaries;
 
+    console.log(data.narration)
+
     if(input){
-      const [name, number] = input?.split('-');
+      const [name, number, code] = input?.split('-');
 
       const formData = {
-        accountdetailsid: 1,
+        accountdetailsid: accountData?.[0]?.id ,
         transactionref: "2323324452454525",
-        narration: "narration",
-        senderaccount: "0751252171",
-        sendername:"Olukunle Abolade",
-        senderbankname: "Beak MFB",
-        senderbankcode: "058",
+        narration: data.narration,
+        senderaccount: accountData?.[0]?.accountnumber,
+        sendername: accountData?.[0]?.accountname,
+        senderbankname: accountData?.[0]?.bank,
+        senderbankcode: accountData?.[0]?.bankcode,
         transferType: data.transferType,
         destinationaccountnumber: number.trim(),
         destinationaccountname:  name.trim(),
-        destinationbankcode: "058",
+        destinationbankcode: code.trim(),
         polarity: "D",
         amount: data.amount,
-        balance: "0",
+        balance: accountData?.[0]?.balance,
       }
       dispatch(setFormData(formData))
       togglePaymentSummaryDrawer()
@@ -108,20 +130,20 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
 
     }else{
       const formData = {
-        accountdetailsid: 1,
+        accountdetailsid: accountData?.[0]?.id,
         transactionref: "2323324452454525",
-        narration: "narration",
-        senderaccount: "0751252171",
-        sendername:"Olukunle Abolade",
-        senderbankname: "Beak MFB",
-        senderbankcode: "058",
+        narration: data.narration,
+        senderaccount: accountData?.[0]?.accountnumber,
+        sendername: accountData?.[0]?.accountname,
+        senderbankname: accountData?.[0]?.bank,
+        senderbankcode: accountData?.[0]?.bankcode,
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : "",
         destinationaccountname: getIntraName?.[0]?.accountname,
-        destinationbankcode: "058",
+        destinationbankcode: getIntraName?.[0].bankcode,
         polarity: "D",
         amount: data.amount,
-        balance: "0",
+        balance: accountData?.[0]?.balance,
       }
       dispatch(setFormData(formData))
       togglePaymentSummaryDrawer()
@@ -190,7 +212,7 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
     convertedData = [
       { value: '', label: 'Select' }, // Default select option with empty value
       ...getBeneficiaries.map((item) => ({
-        value: `${item.accountname}-${item.accountnumber}`,
+        value: `${item.accountname}-${item.accountnumber}-${item.bankcodeid}`,
         label: `${item.accountname} (${item.accountnumber})`
       }))
     ];
@@ -292,10 +314,26 @@ const IntraBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
               }}
             />
 
-            <div className="relative mt-6">
-              <input className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Add a note"></input>
+            {/* <div className="relative mt-6">
+              <input className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Add a note" />
               <FiEdit3 className='text-n100 absolute left-5 top-[14.5px]' size={15}/>
-            </div>
+            </div> */}
+
+            {/* <div className='relative'>
+              <CustomTextField 
+                label='Narration' 
+                name='narration'
+                type="text" 
+                placeholder="Narration" 
+                className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline"
+              />
+              <FiEdit3 className='text-n100 absolute left-5 top-[14.5px]' size={15}/>
+            </div> */}
+            <CustomTextFieldNarration 
+              name='narration'
+              placeholder='Narration'
+            />
+
             {selectedBeneficiary === '' && (
               <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
             )}

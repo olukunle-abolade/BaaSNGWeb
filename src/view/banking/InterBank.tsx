@@ -24,9 +24,10 @@ import { AppDispatch } from '@/store'
 import { clearInterBankName, getIntraNameData } from '@/store/app/intrabank'
 import { fetchAsyncBeneficiariesWithName, getBeneficiariesWithNameData } from '@/store/app/beneficiaries';
 import { fetchAsyncNigeriaBank, getMiscellaneousNigerianBanks, getMiscellaneousTransferType } from '@/store/app/miscellaneous';
+import { getAccountData } from '@/store/app/account';
 
 // ** Components 
-import { CustomSelectField, CustomTextField, SelectField, TextField } from '@/components/FormComponent'
+import { CustomSelectField, CustomTextField, CustomTextFieldNarration, SelectField, TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import PaymentSummary from './PaymentSummary';
@@ -38,10 +39,10 @@ interface FormData {
 }
 
 interface IInterBankProps {
-  setIntraBankOpen: any
+  setInterBankOpen: any
 }
 
-const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
+const InterBank: FC<IInterBankProps> = ({setInterBankOpen}) => {
   const [values, setValues] = useState<string>('');
   const [paymentSummaryOpen, setPaymentSummaryOpen] = useState<boolean>(false);
   const [selectedBank, setSelectedBank] = useState('');
@@ -63,18 +64,23 @@ const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
   const getIntraName = useAppSelector(getIntraNameData)
   const getBeneficiaries = useAppSelector(getBeneficiariesWithNameData)
   const getNigerianBanks = useAppSelector(getMiscellaneousNigerianBanks)
+  const accountData = useAppSelector(getAccountData)
+
   console.log(getBeneficiaries)
+
   // ** Context
   const auth = useAuth()
   const userId = auth.user?.id
-  // const username = auth.user.
+  
+
+
 
   // split beneficiries accoutname from account number
   const togglePaymentSummaryDrawer = async () => {
     setPaymentSummaryOpen(true);
 
     if(paymentSummaryOpen){
-      setIntraBankOpen(false);
+      setInterBankOpen(false);
     }
   };
 
@@ -86,13 +92,13 @@ const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
       const [name, number, bankcode, bankname= "Default Bank Name" ] = input?.split('-');
 
       const formData = {
-        accountdetailsid: 1,
+        accountdetailsid: accountData?.[0]?.id ,
         transactionref: "2323324452454525",
-        narration: "narration",
-        senderaccount: "0751252171",
-        sendername: getDashboardInfo?.firstname ?? "",
-        senderbankname: "Beak MFB",
-        senderbankcode: "058",
+        narration: data.narration,
+        senderaccount: accountData?.[0]?.accountnumber,
+        sendername: accountData?.[0]?.accountname,
+        senderbankname: accountData?.[0]?.bank,
+        senderbankcode: accountData?.[0]?.bankcode,
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : number.trim(),
         destinationaccountname: getIntraName?.[0]?.accountname ??  name.trim(),
@@ -110,13 +116,13 @@ const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
       const [bankcode, bankname ] = input?.split('-');
 
       const formData = {
-        accountdetailsid: 1,
+        accountdetailsid: accountData?.[0]?.id ,
         transactionref: "2323324452454525",
-        narration: "narration",
-        senderaccount: "0751252171",
-        sendername: getDashboardInfo?.firstname ?? "",
-        senderbankname: "Beak MFB",
-        senderbankcode: "058",
+        narration: data.narration,
+        senderaccount: accountData?.[0]?.accountnumber,
+        sendername: accountData?.[0]?.accountname,
+        senderbankname: accountData?.[0]?.bank,
+        senderbankcode: accountData?.[0]?.bankcode,
         transferType: data.transferType,
         destinationaccountnumber: data?.accountNumber ? data?.accountNumber : "",
         destinationaccountname: getIntraName?.[0]?.accountname,
@@ -348,10 +354,10 @@ const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
               }}
             />
 
-            <div className="relative mt-6">
-              <input className="appearance-none border border-n40 bg-purple-50 rounded-lg w-full h-[44px] pl-12 text-n50 text-[16px] font-normal  leading-tight focus:outline-none focus:shadow-outline" id="username" type="text" placeholder="Add a note"></input>
-              <FiEdit3 className='text-n100 absolute left-5 top-[14.5px]' size={15}/>
-            </div>
+            <CustomTextFieldNarration 
+              name='narration'
+              placeholder='Narration'
+            />
             {selectedBeneficiary === '' && (
               <p className='text-n100 text-[16px] text-center font-normal mt-6'>or</p>
             )}
@@ -393,7 +399,7 @@ const InterBank: FC<IInterBankProps> = ({setIntraBankOpen}) => {
       {
         paymentSummaryOpen &&
         <SidebarAddUser header clearName  title='Payment summary' open={paymentSummaryOpen} toggle={togglePaymentSummaryDrawer} reset = {reset} closeButton closeNested={true}>
-          <PaymentSummary  setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen}/>
+          <PaymentSummary  setIntraBankOpen={setInterBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen}/>
         </SidebarAddUser>
       }
       

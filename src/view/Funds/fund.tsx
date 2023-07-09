@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 
 // ** MUI
@@ -14,14 +14,38 @@ import SidebarAddUser from '@/components/user/AddUserDrawer';
 import IntraBank from '../banking/IntraBank';
 import InterBank from '../banking/InterBank';
 
+// ** State Management
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { fetchAsyncAccount } from '@/store/app/account';
+
+// ** Hooks 
+import { useAuth } from '@/hooks/useAuth';
+
 const Fund = () => {
   const [intraBankOpen, setIntraBankOpen] = useState<boolean>(false)
   const [interBankOpen, setInterBankOpen] = useState<boolean>(false)
+
+  // ** Context
+  const auth = useAuth()
+  const userId = auth.user?.id
+
+  // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
+
 
   const toggleIntraBankDrawer = () => {
     setIntraBankOpen(!intraBankOpen)
   }
   const toggleInterBankDrawer = () => setInterBankOpen(!interBankOpen)
+
+
+  useEffect(() => {
+    const url = `/records/accountdetails?filter=userid,eq,${userId}`
+    dispatch(fetchAsyncAccount({url}))
+    
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <Box>
@@ -80,7 +104,7 @@ const Fund = () => {
        {/* Render SidebarAddUser for Interbank Transfer */}
        {interBankOpen && (
         <SidebarAddUser title='Funds Transfer' header open={interBankOpen} toggle={toggleInterBankDrawer} clearName={true} closeButton closeNested={true}>
-          <InterBank setIntraBankOpen = {setIntraBankOpen} />
+          <InterBank setInterBankOpen = {setInterBankOpen} />
         </SidebarAddUser>
       )}
      
