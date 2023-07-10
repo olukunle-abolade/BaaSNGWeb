@@ -22,21 +22,22 @@ import { useAuth } from '@/hooks/useAuth';
 import CustomButton from '@/components/user/CustomButton';
 import { CustomTextField } from '@/components/FormComponent';
 import RestCountries from '@/components/ReactCountriesInput';
+import Loader from '@/components/Loader';
 
 interface UserData {
   email: string
   password: string
 }
 
-// const defaultValues = {
-//   email: 'ab3sure@gmail.com',
-//   password: 'P@ssword88283'
-// }
-
 const defaultValues = {
-  email: '',
-  password: ''
+  email: 'ab3sure@gmail.com',
+  password: 'P@ssword88283'
 }
+
+// const defaultValues = {
+//   email: '',
+//   password: ''
+// }
 
 const Signin = () => {
   const methods = useForm({defaultValues});
@@ -121,7 +122,7 @@ const Signin = () => {
           <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
         </div>
       </form>
-    {/* <RestCountries onChange={handleCountryChange} /> */}
+      {/* <Loader/> */}
     </FormProvider>
   )
 }

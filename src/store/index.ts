@@ -13,6 +13,7 @@ import transactionReducer from '@/store/app/transaction'
 import beneficiariesReducer from '@/store/app/beneficiaries'
 import otpReducer from '@/store/app/otp'
 import accountReducer from '@/store/app/account'
+import otpVerificationReducer from './app/otpVerification'
 
 const rootReducer = combineReducers({
   dashboard: dashboardReducer,
@@ -25,6 +26,7 @@ const rootReducer = combineReducers({
   transaction: transactionReducer,
   beneficiaries: beneficiariesReducer,
   otp: otpReducer,
+  otpVerification: otpVerificationReducer,
   testmode: testmodeReducer
 })
 

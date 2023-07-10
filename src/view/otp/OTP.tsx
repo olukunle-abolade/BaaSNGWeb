@@ -18,12 +18,16 @@ import { useAuth } from '@/hooks/useAuth';
 // ** Slice
 import { useDispatch } from 'react-redux'
 import { AppDispatch } from '@/store'
-import { fetchAsyncOtp } from '@/store/app/otp';
+import { fetchAsyncOtp, getOtpLoading } from '@/store/app/otp';
+
+// ** Constants
+import { HTTP_STATUS } from '@/constants';
 
 // ** Components
 import CustomButton from '@/components/user/CustomButton'
 import SidebarAddUser from '@/components/user/AddUserDrawer';
 import OtpVerification from './OtpVerification';
+import Loader from '@/components/Loader';
 
 interface IOtpProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>
@@ -41,7 +45,7 @@ const OTP: FC<IOtpProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOp
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
-
+  const otpLoading = useAppSelector(getOtpLoading)
   // ** Context
   const auth = useAuth()
   const userEmail = auth.user?.email
@@ -63,6 +67,8 @@ const OTP: FC<IOtpProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOp
   }
 
   const isButtonDisabled = otp.length !== 4; // Check if the OTP length is not equal to 4
+
+  if (otpLoading === HTTP_STATUS.PENDING) return <Loader text='Please wait...'/>
 
   return (
     <div className='flex flex-col items-center'>

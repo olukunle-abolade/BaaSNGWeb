@@ -1,0 +1,6 @@
+1. Under the Payment Summary, use the extend keyword
+in typescript rather than passing them one by one
+
+2. In the dashboard, use the getDashboardInfo function instead
+
+-- Work on error handler when there is no internet connection
