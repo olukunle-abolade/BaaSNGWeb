@@ -24,13 +24,14 @@ const headers = {
   'X-API-Key': process.env.NEXT_PUBLIC_BAAS_API_KEY
 }
 
-export const fetchAsyncOtp = createAsyncThunk<
+
+export const fetchAsyncOtpVerification = createAsyncThunk<
   MyData,
   { url: string },
   {
     rejectValue: MyKnownError
   }
->('otp/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
+>('otpVerification/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
   const { url } = formData
   try {
     const response = await axios.get(config.baseUrl + url, {
@@ -53,7 +54,7 @@ export const fetchAsyncOtp = createAsyncThunk<
 
 
 
-export interface IOtp {
+export interface IOtpVerification {
   data: any[] | null
   loading: string
   error: null | string
@@ -63,22 +64,22 @@ const initialState = {
   data: null,
   loading: 'IDLE',
   error: ''
-} as IOtp
+} as IOtpVerification
 
-const OtpSlice = createSlice({
-  name: 'otp',
+const OtpVerificationSlice = createSlice({
+  name: 'otpVerification',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchAsyncOtp.pending, state => {
+    builder.addCase(fetchAsyncOtpVerification.pending, state => {
       // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
       state.loading = HTTP_STATUS.PENDING
     })
-    builder.addCase(fetchAsyncOtp.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAsyncOtpVerification.fulfilled, (state, { payload }) => {
       state.loading = HTTP_STATUS.FULFILLED
       state.data = payload.data
     })
-    builder.addCase(fetchAsyncOtp.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(fetchAsyncOtpVerification.rejected, (state, action: PayloadAction<any>) => {
       if (action.payload) {
         // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
         state.error = action.payload.errorMessage
@@ -89,6 +90,5 @@ const OtpSlice = createSlice({
   }
 })
 
-export const getOtpLoading = (state: RootState) => state.otp?.loading
-export const getOtpData = (state: RootState) => state.otp?.data;
-export default OtpSlice.reducer
+export const getOtpVerificationLoading = (state: RootState) => state.otpVerification?.loading
+export default  OtpVerificationSlice.reducer
