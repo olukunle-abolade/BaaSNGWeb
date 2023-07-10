@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import AuthImage from '@/assets/authImage.png';
+import AuthImage from '@/assets/logo.svg';
 import Logo from '@/assets/logo.png';
 import {
   AuthContainer,
@@ -61,8 +61,8 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
           src={AuthImage}
           alt="First slide"
           height="400"
-          width="600"
-          className='h-full w-full'
+          width="800"
+          className='h-full w-full bg-black'
         />
 
         <Glass>

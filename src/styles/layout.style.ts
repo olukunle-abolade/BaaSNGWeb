@@ -65,8 +65,7 @@ export const AuthContainer = styled.div`
   /** style auth layout here */
   display: grid;
   position: relative;
-  grid-template-columns: repeat(2, 1fr);
-  height: 100vh;
+  grid-template-columns: 1fr auto;  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
@@ -225,8 +224,8 @@ export const ImageBox = styled.div<{ img: any }>`
   background-image: url(${(props) => props.img});
   display: flex;
   position: relative;
-  align-items: center;
-  justify-content: center;
+  align-items: right;
+  justify-content: right;
   position: relative;
   height: 100vh;
 

@@ -175,7 +175,13 @@ const AuthProvider = ({ children }: Props) => {
             }) .catch(err => {
               if (errorCallback) errorCallback(err)
             })
-          } catch (err) {
+          } catch (err:any) {
+            if(err.response.data.message){
+              toast.success("error");
+              toast.error(err.response.data.message);
+            }else{
+              toast.error("Network error, Check your network settings");
+            }
             setLoading(false)
             //  toast.error("net::ERR_INTERNET_DISCONNECTED");
           }
@@ -208,8 +214,7 @@ const AuthProvider = ({ children }: Props) => {
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
           setUser({...params})
-          console.log(response);
-          if(response.status === 200) {
+            if(response.status === 200) {
             try {
               setLoading(true)
               await axios
@@ -239,7 +244,12 @@ const AuthProvider = ({ children }: Props) => {
 
         .catch(err => {
           if (errorCallback) errorCallback(err)
-          toast.error(err.response.data.message);
+          if(err.response.data.message){
+            toast.success("error");
+            toast.error(err.response.data.message);
+          }else{
+            toast.error("Network error, Check your network settings");
+          }
           console.log(err.response.data.message)
           setLoading(false)
         })
