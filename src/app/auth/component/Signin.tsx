@@ -21,6 +21,7 @@ import { useAuth } from '@/hooks/useAuth';
 // ** Componentas
 import CustomButton from '@/components/user/CustomButton';
 import { CustomTextField } from '@/components/FormComponent';
+import RestCountries from '@/components/ReactCountriesInput';
 
 interface UserData {
   email: string
@@ -50,6 +51,10 @@ const Signin = () => {
     })
   };
 
+  const handleCountryChange = (value: any) => {
+    // Handle country change logic here
+    console.log('Selected country:', value);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -116,7 +121,7 @@ const Signin = () => {
           <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
         </div>
       </form>
-    
+    {/* <RestCountries onChange={handleCountryChange} /> */}
     </FormProvider>
   )
 }
