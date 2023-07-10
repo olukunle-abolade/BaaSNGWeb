@@ -89,7 +89,7 @@ export const CredentialBox = styled.div`
  
   justify-content: center;
   flex-direction: column;
-  padding: 6rem;
+  padding: 6rem 0 6rem 10rem;
   margin auto auto;
   width: 80%;
 
@@ -243,10 +243,10 @@ export const ImageBox = styled.div<{ img: any }>`
 export const Glass = styled.div`
   position: absolute;
   // width: fit-content;
-  height: 335px;
-  width: 450px;
+  height: 300px;
+  width: 90%;
   padding: 45px 33px;
-  top: 70%;
+  bottom: -12%;
   left: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(111.26deg, rgba(255, 255, 255, 0.6) 11.75%, rgba(255, 255, 255, 0.18) 88.07%);
