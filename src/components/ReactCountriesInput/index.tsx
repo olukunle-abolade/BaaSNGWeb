@@ -64,7 +64,7 @@ const RestCountries: React.FC<RestCountriesProps> = ({  containerStyle = {},
           className="select"
           style={selectStyle}
           onChange={handleSelectChange}
-          value={selectedCountry}
+          // value={selectedCountry}
         >
           {countries.map((country, index) => (
             <option key={country.name} value={index}>
