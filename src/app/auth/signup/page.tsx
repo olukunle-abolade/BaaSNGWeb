@@ -53,7 +53,7 @@ const Signup = () => {
     const { email, terms } = data
 
     if (!terms) {
-     
+      console.log("confrim")
       return;
     }
   
@@ -83,7 +83,7 @@ const Signup = () => {
             <div className="flex justify-between items-center">
               {/* <Checkbox label = ""  /> */}
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox {...register('email', { required: true })}/>}
                 label="I agree to the terms and conditions"
                 className="text-kblackCom text-sm font-normal"
               />

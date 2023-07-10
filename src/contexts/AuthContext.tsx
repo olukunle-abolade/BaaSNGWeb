@@ -209,7 +209,30 @@ const AuthProvider = ({ children }: Props) => {
           //   : null
           setUser({...params})
           console.log(response);
-          response.status === 200 && router.push("/auth/signin-verification")
+          if(response.status === 200) {
+            try {
+              setLoading(true)
+              await axios
+              .post(authConfig.sendOtpEndpoint, 
+              {
+                email: params.email,
+              },{
+                headers: headers,
+                withCredentials: true, // Enable sending cookies
+              })
+              .then(async response => {
+                console.log(response)
+                response.status === 200 && router.push("/auth/signin-verification")
+                setLoading(false)
+              }) .catch(err => {
+                if (errorCallback) errorCallback(err)
+              })
+            } catch (err) {
+              setLoading(false)
+              //  toast.error("net::ERR_INTERNET_DISCONNECTED");
+            }
+           
+          }
          
           setLoading(false)
         })

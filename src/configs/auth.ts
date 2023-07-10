@@ -9,3 +9,5 @@ export default {
   storageDatekeyName: 'userData',
   onTokenExpiration: 'refreshToken' // logout | refreshToken
 }
+
+
