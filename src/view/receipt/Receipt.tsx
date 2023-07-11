@@ -16,8 +16,11 @@ import { NumberFormat } from '@/helpers/convert';
 
 // ** Slice
 import { RootState } from '@/store'
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
 import { useAppSelector } from '@/hooks/useTypedSelector'
 import { getDashboardInfoData } from '@/store/app/dashboard';
+import { clearInterBankName } from '@/store/app/intrabank'
 
 
 interface IReceiptProps {
@@ -32,6 +35,7 @@ interface IReceiptProps {
 const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen,  setOtpVerifyOpen, setSuccessOpen, setReceipt}) => {
 
   // ** Hooks
+  const dispatch = useDispatch<AppDispatch>()
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
 
@@ -42,6 +46,8 @@ const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, se
     setOtpVerifyOpen(false)
     setSuccessOpen(false)
     setReceipt(false)
+
+    dispatch(clearInterBankName());
   }
 
   return (
@@ -82,7 +88,7 @@ const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, se
             {/* desc */}
             <div className="">
               <p className='text-n400 text-[16px] text-right font-bold uppercase'>{getTransactionDetails?.destinationaccountname}</p>
-              <p className='text-n100 text-sm text-right font-normal uppercase'>{ getTransactionDetails?.destinationbankname && getTransactionDetails?.destinationbankname} | 123 456 7890</p>
+              <p className='text-n100 text-sm text-right font-normal '>{ getTransactionDetails?.destinationbankname ? getTransactionDetails?.destinationbankname : "BaaS"} | {getTransactionDetails?.destinationaccountnumber && getTransactionDetails?.destinationaccountnumber }</p>
             </div>
           </div>
         </div>
@@ -96,7 +102,7 @@ const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, se
             {/* desc */}
             <div className="">
               <p className='text-n400 text-[16px] text-right font-bold'>{getDashboardInfo?.firstname}</p>
-              {/* <p className='text-n100 text-sm text-right font-normal'>Baas | 512 243 3533</p> */}
+              <p className='text-n100 text-sm text-right font-normal'>{getTransactionDetails?.senderbankname && getTransactionDetails?.senderbankname } | {getTransactionDetails?.senderaccount && getTransactionDetails?.senderaccount }</p>
             </div>
           </div>
         </div>
@@ -113,12 +119,17 @@ const Receipt: FC<IReceiptProps> = ({setIntraBankOpen, setPaymentSummaryOpen, se
             <p className='text-n400 text-sm font-semibold'>{getTransactionDetails?.transferType}</p>
           </div>
           {/*  */}
-          <div className="flex items-center justify-between">
-            {/* name */}
-            <p className='text-n400 text-sm font-normal'>What’s it for?</p>
-            {/* desc */}
-            <p className='text-n400 text-sm font-semibold capitalize'>{getTransactionDetails?.narration}</p>
-          </div>
+          {
+            getTransactionDetails?.narration != null ? (
+              <div className="flex items-center justify-between">
+                {/* name */}
+                <p className='text-n400 text-sm font-normal'>What’s it for?</p>
+                {/* desc */}
+                <p className='text-n400 text-sm font-semibold capitalize'>{getTransactionDetails?.narration}</p>
+              </div>
+            ) : null
+          }
+         
           {/*  */}
           <div className="flex items-center justify-between">
             {/* name */}

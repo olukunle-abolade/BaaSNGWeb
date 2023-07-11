@@ -31,12 +31,17 @@ interface UserData {
   terms: boolean
 }
 
-const defaultValues = {
-  email: 'ab3sure@gmail.com',
+// const defaultValues = {
+//   email: 'ab3sure@gmail.com',
+// }
+
+const defaultValues: UserData  = {
+  email: '',
+  terms: false
 }
 
 const Signup = () => {
-  const { handleSubmit, register } = useForm({
+  const { handleSubmit, watch, register } = useForm<UserData>({
     defaultValues,
     mode: 'onChange',
   });
@@ -45,11 +50,13 @@ const Signup = () => {
   const auth = useAuth()
   const router = useRouter();
 
-  const onSubmit = async (data: any) => {
+  const watchTerms = watch('terms');
+
+  const onSubmit = async (data: UserData) => {
     const { email, terms } = data
 
     if (!terms) {
-     
+      console.log("confrim")
       return;
     }
   
@@ -79,7 +86,7 @@ const Signup = () => {
             <div className="flex justify-between items-center">
               {/* <Checkbox label = ""  /> */}
               <FormControlLabel
-                control={<Checkbox />}
+                control={<Checkbox {...register('terms', { required: true })}/>}
                 label="I agree to the terms and conditions"
                 className="text-kblackCom text-sm font-normal"
               />
@@ -89,7 +96,7 @@ const Signup = () => {
                 {auth.loading ? (
                     <ThreeDots width={30} className='loading-circle mx-auto' stroke='#210590' fill='#210590' />
                   ) : (
-                    <CustomButton title="Continue" type ="submit"  />
+                    <CustomButton title="Continue" type ="submit" disabled={!watchTerms} buttonStyle={ !watchTerms ? {marginTop: 10, backgroundColor: "#A499D1"} : null} />
                   )}
               <CustomButton iconImage={Google} title="Sign in with Google" titleColor={COLORS.black} textStyle={{marginLeft: 10}} buttonColor="transparent" buttonStyle={styles.google} onClick={()=> {}} />
             </div>

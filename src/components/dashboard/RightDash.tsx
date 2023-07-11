@@ -11,6 +11,15 @@ import Grid from '@mui/material/Grid'
 import {BiHide} from 'react-icons/bi'
 import { FiUsers} from 'react-icons/fi'
 import {HiOutlineCreditCard} from 'react-icons/hi'
+import { FiEye } from 'react-icons/fi';
+
+// ** Images
+import ClockImage from "@/assets/clock.svg"
+import TrendingUpImage from "@/assets/trending-up.svg"
+import TrendingDownImage from "@/assets/trending-down.svg"
+import DownloadImage from "@/assets/download.svg"
+import CreditCardImage from '@/assets/credit-card.svg'
+import SendImage from "@/assets/send.svg"
 
 //** Image 
 import FolderIcon from '@/assets/icons/folder.png'
@@ -22,30 +31,90 @@ import PendIcon from "@/assets/icons/pend.png"
 // ** Component
 import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
 
-// ** Slice
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-
 // ** Dummy
 import MOCK_DATA3 from '@/utils/MOCK_DATA3.json'
 
 // ** Helpers
 import { NumberFormat } from '@/helpers/convert'
 
+// ** State Management
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
+
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
-import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
-import Greeting from '@/components/Greeting'
 import { useAppSelector } from '@/hooks/useTypedSelector'
+
+// ** Component
 import RTable from '@/components/react-table/table'
 import Badge from '@/components/badge/badge'
+import Greeting from '@/components/Greeting'
+import { fetchAsyncAccountDetails, getAccountDetailsData } from '@/store/app/account'
+import BasicPopover from '../PopOver/PopOver'
+
+const popOverData = [
+  {
+    id: 1,
+    data: [
+      {
+        id: 1,
+        name: 'View last 5 Credits',
+        image: TrendingUpImage
+      }
+    ]
+  },
+  {
+    id: 2,
+    data: [
+      {
+        id: 1,
+        name: 'View last 5 Expense',
+        image: TrendingDownImage
+      }
+    ]
+  },
+  {
+    id: 3,
+    data: [
+      {
+        id: 1,
+        name: 'View last 5 Pending',
+        image: ClockImage
+      }
+    ]
+  },
+  {
+    id: 4,
+    data: [
+      {
+        id: 1,
+        name: 'Download Statement',
+        image: DownloadImage
+      },
+      {
+        id: 2,
+        name: 'View Last 5 Transactions',
+        image: CreditCardImage
+      },
+      {
+        id: 3,
+        name: 'Send Statement',
+        image: SendImage
+      }
+    ]
+  }
+]
 
 const RightDasboard= () => {
   const [userData, setUserData] = useState<MyData[]>([])
+  const [hidden, setHidden] = useState(false);
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
-  console.log(getDashboardInfo)
+  const getAccountDetails = useAppSelector(getAccountDetailsData)
+  console.log(getAccountDetails)
+  
 
   // ** Context
   const auth = useAuth()
@@ -54,12 +123,16 @@ const RightDasboard= () => {
   const userEmail = auth.user?.email
   const url = `/records/userprofile/${userId}`
 
-  
+  console.log(userId)
   
   // ** Status Color
   const claimStatus: any = {
     "deactivated" : "fail",
     "success": "success",
+  }
+
+  const handleHideAccountBalance = () => {
+    setHidden(!hidden)
   }
 
 
@@ -75,11 +148,11 @@ const RightDasboard= () => {
         },
         {
           Header: 'Name',
-          accessor: 'name'
+          accessor: 'destinationaccountname'
         },
         {
           Header: 'Time',
-          accessor: "time"
+          accessor: "transactionref"
         },
         {
           Header: 'Date',
@@ -94,8 +167,8 @@ const RightDasboard= () => {
           Header: 'Status',
           accessor: "status",
             Cell: ({ cell:{ value}}:{cell: any}) => <Badge
-            type = {claimStatus[value]}
-            content = {value}
+            type = {claimStatus["success"]}
+            content = {"success"}
           />
         }
       ],
@@ -117,15 +190,17 @@ const RightDasboard= () => {
   }, [dispatch, url])
 
   useEffect(() => {
-    const url = `/records/users/?join=profile,kyclevel&join=idtype&join=accountdetails,accountactivities&join=carddetails,cardactivities&filter=email,eq,${userEmail}.com&exclude=password,api_key`
-    dispatch(fetchAsyncDashboard({url}))
+    const url = `/records/accountactivities/?join=accountdetails&filter=accountdetailsid,eq,1`
+    dispatch(fetchAsyncAccountDetails({url}))
       .unwrap()
       .then(originalPromiseResult => {
         console.log(originalPromiseResult)
 
         // setUserData({...originalPromiseResult})
       })
-  }, [dispatch, url, userEmail])
+      
+  }, [dispatch, userId])
+
 
   return (
       <>
@@ -133,18 +208,37 @@ const RightDasboard= () => {
         <Greeting name= {userData[0]?.firstname}/>
         <Box>
           <div className="grid grid-cols-4 gap-4">
-            <div className='py-6 px-3 space-y-2 bg-kpsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+            <div className='relative py-6 px-3 space-y-2 bg-kpsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+              <div className='absolute right-4 top-4' >
+                <BasicPopover data={popOverData[3].data} />
+              </div>
               {/*  */}
               <div className="w-[64.55px] h-[64.55px] rounded-full bg-kpsec flex items-center justify-center">
                 <Image src={FolderIcon} alt='' width={25} height={25} />
               </div>
+              {/* icon pop over */}
+              <div className='absolute right-4 top-4' >
+                {/* <BasicPopover > */}
+              </div>
               <div className="flex items-center justify-between">
-                <p className='text-kprimary text-lg font-bold'>₦ {userData[0]?.actualbalance === null ? 0 : NumberFormat(userData[0]?.actualbalance)}</p>
-                <BiHide className='text-n100 text-lg'/>
+                {hidden ? (
+                  <p className='text-kprimary text-lg font-bold'> *** *** **** ***</p>
+                ) :
+                  <p className='text-kprimary text-lg font-bold'>₦ {userData[0]?.actualbalance === null ? 0 : NumberFormat(userData[0]?.actualbalance)}</p>
+                }
+
+                {
+                  hidden ? <BiHide className='text-n100 text-lg' onClick={handleHideAccountBalance}/>
+                  : <FiEye className='text-n100 text-lg' onClick={handleHideAccountBalance}/>
+                }
+                
               </div>
               <p className='text-n100 text-sm font-normal'>Account Balance</p>
             </div>
-            <div className='py-6 px-3 space-y-2 bg-kgsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+            <div className='relative py-6 px-3 space-y-2 bg-kgsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+              <div className='absolute right-4 top-4' >
+                <BasicPopover data={popOverData[0].data} />
+              </div>
               {/*  */}
               <div className="w-[64.55px] h-[64.55px] rounded-full bg-kgsec flex items-center justify-center">
                 <Image src={DownChartIcon} alt='' width={20} height={20} />
@@ -154,7 +248,11 @@ const RightDasboard= () => {
               </div>
               <p className='text-n100 text-sm font-normal'>Amount Funded</p>
             </div>
-            <div className='py-6 px-3 space-y-2 bg-krsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+
+            <div className='relative py-6 px-3 space-y-2 bg-krsec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+              <div className='absolute right-4 top-4' >
+                <BasicPopover data={popOverData[1].data} />
+              </div>
               {/*  */}
               <div className="w-[64.55px] h-[64.55px] rounded-full bg-krsec flex items-center justify-center">
                 <Image src={UpChartIcon} alt='' width={20} height={20} />
@@ -164,7 +262,10 @@ const RightDasboard= () => {
               </div>
               <p className='text-n100 text-sm font-normal'>Total Expenses</p>
             </div>
-            <div className='py-6 px-3 space-y-2 bg-kysec shadow-kpshadow h-[182.55px] rounded-[10px]'>
+            <div className='relative py-6 px-3 space-y-2 bg-kysec shadow-kpshadow h-[182.55px] rounded-[10px] '>
+              <div className='absolute right-4 top-4' >
+                <BasicPopover data={popOverData[2].data} />
+              </div>
               {/*  */}
               <div className="w-[64.55px] h-[64.55px] rounded-full bg-kysec flex items-center justify-center">
                 <Image src={PendIcon} alt='' width={20} height={20} />
@@ -216,7 +317,7 @@ const RightDasboard= () => {
             <p className='text-p200 text-sm font-semibold '>View all</p>
           </div>
           <div className="px-6">
-            <RTable containerStyle={{display: "none"}} columnsData={columns} data={data}/>
+            <RTable containerStyle={{display: "none"}} columnsData={columns} data={getAccountDetails !== null && getAccountDetails.length > 0 ? getAccountDetails?.slice(1, 6) : []}  />
           </div>
         </Grid>
       </>

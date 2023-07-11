@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type IFormData = {
-  accountdetailsid: number;
+  accountdetailsid: number | undefined;
   transactionref: string;
   narration: string;
-  senderaccount: string;
-  sendername: string;
-  senderbankname:  string;
-  senderbankcode: string;
+  senderaccount?: string;
+  sendername?: string;
+  senderbankname?:  string;
+  senderbankcode?: string;
   destinationaccountnumber: string;
   destinationaccountname: string;
   destinationbankcode:string;
   destinationbankname?: string;
   polarity: string;
   amount: string;
-  balance:string;
+  balance?:string;
   transferType: string
 }
 

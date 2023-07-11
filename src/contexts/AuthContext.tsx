@@ -154,15 +154,43 @@ const AuthProvider = ({ children }: Props) => {
           setUser({ ...response?.data })
           // params.rememberMe ? window.localStorage.setItem('userData', JSON.stringify(response?.data?.data?.user)) : null
 
-          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/auth/signin-verification'
-          console.log(user)
-          router.replace(redirectURL as string)
-          console.log(redirectURL)
-          setLoading(false)
+         
+          try {
+            setLoading(true)
+            await axios
+            .post(authConfig.sendOtpEndpoint, 
+            {
+              email: params.email,
+            },{
+              headers: headers,
+              withCredentials: true, // Enable sending cookies
+            })
+            .then(async response => {
+              console.log(response)
+              if(response.status === 200) {
+                const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/auth/signin-verification'
+                router.replace(redirectURL as string)
+              }
+              setLoading(false)
+            }) .catch(err => {
+              if (errorCallback) errorCallback(err)
+            })
+          } catch (err:any) {
+            if(err.response.data.message){
+              toast.success("error");
+              toast.error(err.response.data.message);
+            }else{
+              toast.error("Network error, Check your network settings");
+            }
+            setLoading(false)
+            //  toast.error("net::ERR_INTERNET_DISCONNECTED");
+          }
+         
         })
-
         .catch(err => {
           if (errorCallback) errorCallback(err)
+          // toast.error(err);
+          toast.error(err.response?.data?.message)
           setLoading(false)
         })
     } catch (err) {
@@ -186,15 +214,42 @@ const AuthProvider = ({ children }: Props) => {
           //   ? window.localStorage.setItem(authConfig.storageTokenKeyName, response?.data?.data.token)
           //   : null
           setUser({...params})
-          console.log(response);
-          response.status === 200 && router.push("/auth/signin-verification")
+            if(response.status === 200) {
+            try {
+              setLoading(true)
+              await axios
+              .post(authConfig.sendOtpEndpoint, 
+              {
+                email: params.email,
+              },{
+                headers: headers,
+                withCredentials: true, // Enable sending cookies
+              })
+              .then(async response => {
+                console.log(response)
+                response.status === 200 && router.push("/auth/signin-verification")
+                setLoading(false)
+              }) .catch(err => {
+                if (errorCallback) errorCallback(err)
+              })
+            } catch (err) {
+              setLoading(false)
+              //  toast.error("net::ERR_INTERNET_DISCONNECTED");
+            }
+           
+          }
          
           setLoading(false)
         })
 
         .catch(err => {
           if (errorCallback) errorCallback(err)
-          toast.error(err.response.data.message);
+          if(err.response.data.message){
+            toast.success("error");
+            toast.error(err.response.data.message);
+          }else{
+            toast.error("Network error, Check your network settings");
+          }
           console.log(err.response.data.message)
           setLoading(false)
         })

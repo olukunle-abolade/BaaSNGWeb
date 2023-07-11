@@ -1,13 +1,12 @@
 'use client'
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 // ** MUI
 import { Checkbox, FormControlLabel } from '@mui/material';
 
 // ** Third Party
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ThreeDots } from 'react-loading-icons';
 
 // ** Images
@@ -21,7 +20,9 @@ import { useAuth } from '@/hooks/useAuth';
 
 // ** Componentas
 import CustomButton from '@/components/user/CustomButton';
-import { CustomTextField, PasswordField, TextField } from '@/components/FormComponent';
+import { CustomTextField } from '@/components/FormComponent';
+import RestCountries from '@/components/ReactCountriesInput';
+import Loader from '@/components/Loader';
 
 interface UserData {
   email: string
@@ -33,23 +34,28 @@ const defaultValues = {
   password: 'P@ssword88283'
 }
 
+// const defaultValues = {
+//   email: '',
+//   password: ''
+// }
+
 const Signin = () => {
-  const methods = useForm();
+  const methods = useForm({defaultValues});
 
   // ** Hooks
   const auth = useAuth()
-  const router = useRouter();
 
-  const onSubmit = async (data: any) => {
-    const { email, password, setError } = data
+  const onSubmit = async (data: UserData) => {
+    const { email, password } = data
     auth.login({ email, password }, () => {
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
+      
     })
   };
 
+  const handleCountryChange = (value: any) => {
+    // Handle country change logic here
+    console.log('Selected country:', value);
+  };
 
   return (
     <FormProvider {...methods}>
@@ -116,7 +122,7 @@ const Signin = () => {
           <Link href={"/auth/signup"} className='text-kprimary text-sm font-semibold '>Sign Up</Link>
         </div>
       </form>
-    
+      {/* <Loader/> */}
     </FormProvider>
   )
 }

@@ -4,36 +4,23 @@ import axios from 'axios'
 import config from '@/configs/config'
 import { HTTP_STATUS } from '@/constants'
 
-interface IProps {
-  firstname: string;
-  // ... other properties
-}
-
-interface DashboardInfo {
-  actualbalance: number;
-  firstname: string;
-  // Add other properties if needed
+type account = {
+  id: number | undefined,
+  accountname: string 
+  accountnumber: string
+  balance: string
+  bank: string
+  bankcode: string
 }
 
 export interface MyData {
   message: string
   data: any[]
   records: any[]
-  firstname: string
-  actualbalance: string
-  totalamountfunded: string
-  totalexpenses: string
-  totaltransactions: string
-  totalusersadded: string
-  pendingtransactions: string;
-  payload: any
 }
-
 
 // SIGN UP
-interface ProfileAttributes {
-  token?: string
-}
+
 
 interface MyKnownError {
   errorMessage: string
@@ -44,13 +31,13 @@ const headers = {
   'X-API-Key': process.env.NEXT_PUBLIC_BAAS_API_KEY
 }
 
-export const fetchAsyncDashboard = createAsyncThunk<
+export const fetchAsyncAccount = createAsyncThunk<
   MyData,
-  { url: string } & Partial<ProfileAttributes>,
+  { url: string },
   {
     rejectValue: MyKnownError
   }
->('dashboard/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
+>('account/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
   const { url } = formData
   try {
     const response = await axios.get(config.baseUrl + url, {
@@ -59,7 +46,7 @@ export const fetchAsyncDashboard = createAsyncThunk<
         return true
       }
     })
-    console.log(response)
+
     return response.data
   } catch (err: any) {
     console.log(err)
@@ -71,13 +58,13 @@ export const fetchAsyncDashboard = createAsyncThunk<
   }
 })
 
-export const fetchAsyncDashboardInfo = createAsyncThunk<
+export const fetchAsyncAccountDetails = createAsyncThunk<
   MyData,
-  { url: string } & Partial<ProfileAttributes>,
+  { url: string },
   {
     rejectValue: MyKnownError
   }
->('dashboardinfo/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
+>('accountDetails/fetchAsyncThunk', async (formData, { rejectWithValue }) => {
   const { url } = formData
   try {
     const response = await axios.get(config.baseUrl + url, {
@@ -86,7 +73,7 @@ export const fetchAsyncDashboardInfo = createAsyncThunk<
         return true
       }
     })
-    console.log(response)
+
     return response.data
   } catch (err: any) {
     console.log(err)
@@ -100,34 +87,34 @@ export const fetchAsyncDashboardInfo = createAsyncThunk<
 
 
 
-export interface IDashboard {
-  data: any[] | null
-  info: DashboardInfo | null
+export interface IAccount {
+  data: account[] | null
+  details: any[] | null
   loading: string
   error: null | string
 }
 
 const initialState = {
   data: null,
-  info: null,
+  details: null,
   loading: 'IDLE',
   error: ''
-} as IDashboard
+} as IAccount
 
-const DashboardSlice = createSlice({
-  name: 'dashboard',
+const AccountSlice = createSlice({
+  name: 'account',
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchAsyncDashboard.pending, state => {
+    builder.addCase(fetchAsyncAccount.pending, state => {
       // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
       state.loading = HTTP_STATUS.PENDING
     })
-    builder.addCase(fetchAsyncDashboard.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAsyncAccount.fulfilled, (state, { payload }) => {
       state.loading = HTTP_STATUS.FULFILLED
       state.data = payload.records
     })
-    builder.addCase(fetchAsyncDashboard.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(fetchAsyncAccount.rejected, (state, action: PayloadAction<any>) => {
       if (action.payload) {
         // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
         state.error = action.payload.errorMessage
@@ -135,17 +122,15 @@ const DashboardSlice = createSlice({
         // state.error = action.error
       }
     }),
-    builder.addCase(fetchAsyncDashboardInfo.pending, state => {
+    builder.addCase(fetchAsyncAccountDetails.pending, state => {
       // The type signature on action.payload matches what we passed into the generic for `normalize`, allowing us to access specific properties on `payload.articles` if desired
       state.loading = HTTP_STATUS.PENDING
     })
-    builder.addCase(fetchAsyncDashboardInfo.fulfilled, (state, { payload }) => {
+    builder.addCase(fetchAsyncAccountDetails.fulfilled, (state, { payload }) => {
       state.loading = HTTP_STATUS.FULFILLED
-      console.log(payload)
-     // @ts-ignore
-      state.info = payload
+      state.details = payload.records
     })
-    builder.addCase(fetchAsyncDashboardInfo.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(fetchAsyncAccountDetails.rejected, (state, action: PayloadAction<any>) => {
       if (action.payload) {
         // Since we passed in `MyKnownError` to `rejectValue` in `updateUser`, the type information will be available here.
         state.error = action.payload.errorMessage
@@ -157,6 +142,6 @@ const DashboardSlice = createSlice({
 })
 
 // export const getHelpDeskLoading = (state: RootState) => state?.loading
-
-export const getDashboardInfoData = (state:RootState) => state?.dashboard.info;
-export default DashboardSlice.reducer
+export const getAccountData = (state: RootState) => state.account?.data;
+export const getAccountDetailsData = (state: RootState) => state.account?.details;
+export default AccountSlice.reducer
