@@ -11,6 +11,7 @@ import Grid from '@mui/material/Grid'
 import {BiHide} from 'react-icons/bi'
 import { FiUsers} from 'react-icons/fi'
 import {HiOutlineCreditCard} from 'react-icons/hi'
+import { FiEye, FiEyeOff, FiEdit3 } from 'react-icons/fi';
 
 //** Image 
 import FolderIcon from '@/assets/icons/folder.png'
@@ -22,30 +23,35 @@ import PendIcon from "@/assets/icons/pend.png"
 // ** Component
 import ApexAreaChart from '@/view/charts/apex-charts/ApexAreaChart'
 
-// ** Slice
-import { useDispatch } from 'react-redux'
-import { AppDispatch } from '@/store'
-
 // ** Dummy
 import MOCK_DATA3 from '@/utils/MOCK_DATA3.json'
 
 // ** Helpers
 import { NumberFormat } from '@/helpers/convert'
 
+// ** State Management
+import { useDispatch } from 'react-redux'
+import { AppDispatch } from '@/store'
+import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
+
 // ** Hooks 
 import { useAuth } from '@/hooks/useAuth';
-import { MyData, fetchAsyncDashboard, fetchAsyncDashboardInfo, getDashboardInfoData } from '@/store/app/dashboard'
-import Greeting from '@/components/Greeting'
 import { useAppSelector } from '@/hooks/useTypedSelector'
+
+// ** Component
 import RTable from '@/components/react-table/table'
 import Badge from '@/components/badge/badge'
+import Greeting from '@/components/Greeting'
+import { fetchAsyncAccountDetails, getAccountDetailsData } from '@/store/app/account'
 
 const RightDasboard= () => {
   const [userData, setUserData] = useState<MyData[]>([])
+  const [hidden, setHidden] = useState(false);
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getDashboardInfo = useAppSelector(getDashboardInfoData)
-  console.log(getDashboardInfo)
+  const getAccountDetails = useAppSelector(getAccountDetailsData)
+  console.log(getAccountDetails)
 
   // ** Context
   const auth = useAuth()
@@ -54,12 +60,16 @@ const RightDasboard= () => {
   const userEmail = auth.user?.email
   const url = `/records/userprofile/${userId}`
 
-  
+  console.log(userId)
   
   // ** Status Color
   const claimStatus: any = {
     "deactivated" : "fail",
     "success": "success",
+  }
+
+  const handleHideAccountBalance = () => {
+    setHidden(!hidden)
   }
 
 
@@ -75,11 +85,11 @@ const RightDasboard= () => {
         },
         {
           Header: 'Name',
-          accessor: 'name'
+          accessor: 'destinationaccountname'
         },
         {
           Header: 'Time',
-          accessor: "time"
+          accessor: "transactionref"
         },
         {
           Header: 'Date',
@@ -94,8 +104,8 @@ const RightDasboard= () => {
           Header: 'Status',
           accessor: "status",
             Cell: ({ cell:{ value}}:{cell: any}) => <Badge
-            type = {claimStatus[value]}
-            content = {value}
+            type = {claimStatus["success"]}
+            content = {"success"}
           />
         }
       ],
@@ -117,15 +127,17 @@ const RightDasboard= () => {
   }, [dispatch, url])
 
   useEffect(() => {
-    const url = `/records/users/?join=profile,kyclevel&join=idtype&join=accountdetails,accountactivities&join=carddetails,cardactivities&filter=email,eq,${userEmail}.com&exclude=password,api_key`
-    dispatch(fetchAsyncDashboard({url}))
+    const url = `/records/accountactivities/?join=accountdetails&filter=accountdetailsid,eq,1`
+    dispatch(fetchAsyncAccountDetails({url}))
       .unwrap()
       .then(originalPromiseResult => {
         console.log(originalPromiseResult)
 
         // setUserData({...originalPromiseResult})
       })
-  }, [dispatch, url, userEmail])
+      
+  }, [dispatch, userId])
+
 
   return (
       <>
@@ -139,8 +151,17 @@ const RightDasboard= () => {
                 <Image src={FolderIcon} alt='' width={25} height={25} />
               </div>
               <div className="flex items-center justify-between">
-                <p className='text-kprimary text-lg font-bold'>₦ {userData[0]?.actualbalance === null ? 0 : NumberFormat(userData[0]?.actualbalance)}</p>
-                <BiHide className='text-n100 text-lg'/>
+                {hidden ? (
+                  <p className='text-kprimary text-lg font-bold'> *** *** **** ***</p>
+                ) :
+                  <p className='text-kprimary text-lg font-bold'>₦ {userData[0]?.actualbalance === null ? 0 : NumberFormat(userData[0]?.actualbalance)}</p>
+                }
+
+                {
+                  hidden ? <BiHide className='text-n100 text-lg' onClick={handleHideAccountBalance}/>
+                  : <FiEye className='text-n100 text-lg' onClick={handleHideAccountBalance}/>
+                }
+                
               </div>
               <p className='text-n100 text-sm font-normal'>Account Balance</p>
             </div>
@@ -216,7 +237,7 @@ const RightDasboard= () => {
             <p className='text-p200 text-sm font-semibold '>View all</p>
           </div>
           <div className="px-6">
-            <RTable containerStyle={{display: "none"}} columnsData={columns} data={data}/>
+            <RTable containerStyle={{display: "none"}} columnsData={columns} data={getAccountDetails !== null ? getAccountDetails?.slice(1, 6) : []}  />
           </div>
         </Grid>
       </>
