@@ -11,12 +11,9 @@ import { AuthFlowLayout } from '@/layouts/AuthLayout';
 // ** Slice
 import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
-import { fetchAsyncOtp } from '@/store/app/otp';
+import { fetchAsyncOtpVerification, getOtpVerificationLoading } from '@/store/app/otpVerification';
 
-// ** Components
-import CustomButton from '@/components/user/CustomButton'
-import SidebarAddUser from '@/components/user/AddUserDrawer';
-import Success from '../success/Success';
+
 
 // ** Hooks
 import { useAuth } from '@/hooks/useAuth';
@@ -24,6 +21,14 @@ import { postAsyncInterBank } from '@/store/app/intrabank';
 import { useAppSelector } from '@/hooks/useTypedSelector';
 import { toast } from 'react-hot-toast';
 import TransactionSuccess from '../success/TrasactionSuccess';
+
+// ** Constants
+import { HTTP_STATUS } from '@/constants';
+
+// ** Components
+import CustomButton from '@/components/user/CustomButton'
+import SidebarAddUser from '@/components/user/AddUserDrawer';
+import Loader from '@/components/Loader';
 
 interface IOtpVerificationProps {
   setModalOpen: Dispatch<SetStateAction<boolean>>
@@ -35,26 +40,28 @@ interface IOtpVerificationProps {
 
 const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOpen,  setOtpVerifyOpen}) => {
   const [otp, setOtp] = useState('');
-  const [success, setSuccessOpen] = useState<boolean>(false)
+  const [successOpen, setSuccessOpen] = useState<boolean>(false)
   const [message, setMessage] = useState(false);
-  const toggleSuccessDrawer = () => setSuccessOpen(!success)
+  const toggleSuccessDrawer = () => setSuccessOpen(!successOpen)
 
   const isButtonDisabled = otp.length !== 4; // Check if the OTP length is not equal to 4
 
   // ** Hooks
   const dispatch = useDispatch<AppDispatch>()
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
+  const otpVerificationLoading = useAppSelector(getOtpVerificationLoading)
 
   // ** Context
   const auth = useAuth()
   const userEmail = auth.user?.email
+  if (otpVerificationLoading === HTTP_STATUS.PENDING) return <Loader text='Transaction in progress..'/>
 
   // ** Hooks
   const handleSubmit = (e: any) => {
     e.preventDefault();
     const url =`/records/validateotp?filter=email,eq,${userEmail}&filter=token,eq,${otp}`
     console.log(url);
-    dispatch(fetchAsyncOtp({url}))
+    dispatch(fetchAsyncOtpVerification({url}))
     .unwrap()
     .then(originalPromiseResult=> {
       console.log(originalPromiseResult)
@@ -90,7 +97,8 @@ const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymen
 
           if(typeof originalPromiseResult === "number"){
             toast.success("Transaction Successful!")
-            toggleSuccessDrawer()
+            console.log("it a number")
+            setSuccessOpen(true)
           }
         });
       }else {
@@ -98,8 +106,11 @@ const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymen
       }
     })
   }
-  
+  // getOtpVerificationLoading
+  // if (otpVerificationLoading === HTTP_STATUS.PENDING) return <Loader />
 
+  
+  console.log(successOpen)
   return (
     <div className=''>
       <AuthFlowLayout
@@ -140,8 +151,8 @@ const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymen
       </AuthFlowLayout>
       
       {
-        success ?
-        (<SidebarAddUser title='' open={success} toggle={toggleSuccessDrawer} >
+        successOpen ?
+        (<SidebarAddUser title='' open={successOpen} toggle={toggleSuccessDrawer} >
           <TransactionSuccess setIntraBankOpen={setIntraBankOpen} setPaymentSummaryOpen={setPaymentSummaryOpen} setModalOpen = {setModalOpen} setOtpVerifyOpen = {setOtpVerifyOpen} setSuccessOpen = {setSuccessOpen}/>
         </SidebarAddUser> ) : null
       }
