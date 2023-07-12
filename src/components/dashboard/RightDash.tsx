@@ -129,6 +129,7 @@ const RightDasboard= () => {
   const claimStatus: any = {
     "deactivated" : "fail",
     "success": "success",
+    "pending": 'pending'
   }
 
   const handleHideAccountBalance = () => {
@@ -168,8 +169,8 @@ const RightDasboard= () => {
           Header: 'Status',
           accessor: "status",
             Cell: ({ cell:{ value}}:{cell: any}) => <Badge
-            type = {claimStatus["success"]}
-            content = {"success"}
+            type = {claimStatus["pending"]}
+            content = {"pending"}
           />
         }
       ],
