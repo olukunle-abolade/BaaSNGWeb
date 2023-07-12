@@ -146,8 +146,8 @@ const Topnav = () => {
           </div>
         </div>
       </TopNavWrapper>
-      <SidebarAddUser title='Create Role & Privileges' open={addUserOpen} toggle={toggleAddUserDrawer} >
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <SidebarAddUser title='Create Role & Privileges' open={addUserOpen} toggle={toggleAddUserDrawer} header closeButton >
+        <form onSubmit={handleSubmit(onSubmit)} className='z-50'>
           <SelectField label='Role Name' >
             <option value="">Choose...</option>
           </SelectField>

@@ -8,7 +8,7 @@ import Image from 'next/image';
 type IData = {
   id: number;
   name: string;
-  image: string;
+  image?: string;
 }
 
 
@@ -44,18 +44,21 @@ export default function BasicPopover({data}: {data: IData[]}) {
         {
           data && data.map((d,i) => {
             return (
-              <div className='w-[270px] py-3 px-3' key = {i}>
+              <div className='pl-3 pr-8 py-3 ' key = {i}>
                 {/*  */}
                 <div className = "flex flex-row space-x-4">
                   {/* icon */}
-                  <Image
-                    src= {d.image}
-                    alt='image'
-                    height={30}
-                    width={30}
-          
-                    style={{zIndex: 1000, height: 'auto', width: 'auto'}}
-                  />
+                  {d?.image ?
+                    <Image
+                      src= {d.image}
+                      alt='image'
+                      height={30}
+                      width={30}
+            
+                      style={{zIndex: 1000, height: 'auto', width: 'auto'}}
+                    /> : null
+                  }
+                  
                   {/*  description */}
                   <p className='text-black text-[16px] font-medium '>{d.name}</p>
                 </div>

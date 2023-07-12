@@ -3,7 +3,7 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-
+import "./Dasboard.css"
 //** Third Party
 import {FiArrowDown, FiArrowUp, FiMoreHorizontal, FiUsers} from 'react-icons/fi'
 import { IoMdAddCircleOutline } from 'react-icons/io'
@@ -89,35 +89,60 @@ const LeftDash = () => {
         </div>
 
         {/* second card */}
-        <div className="h-[137.99px] w-[111.64px] rounded-[11.81px] bg-p400 px-2 py-2">
-          <div className="">
-            <Image 
-              src={Cyclic}
-              alt=''
-              height={30}
-              width={30}
-            />
-          </div>
-          <div className="space-y-3">
-            <h3 className='text-white text-[8.42px] text-right'>Debit Card</h3>
-            <h3 className='text-white text-[8.42px] text-right'>XXXX XXXX 6453</h3>
-          </div>
+        <div className="second__container h-[137.99px] w-[111.64px]">
+          <div className="second__card relative ">
+            <div className="front h-[137.99px] w-[111.64px] rounded-[11.81px] bg-p400 px-2 py-2">
+              <div className="">
+                <Image 
+                  src={Cyclic}
+                  alt=''
+                  height={30}
+                  width={30}
+                />
+              </div>
+              <div className="space-y-3">
+                <h3 className='text-white text-[8.42px] text-right'>Debit Card</h3>
+                <h3 className='text-white text-[8.42px] text-right'>XXXX XXXX 6453</h3>
+              </div>
 
-          <div className="flex items-center justify-between mt-4">
-            <div className="space-y-3">
-              <h3 className='text-white text-[8.42px]'>Exp.</h3>
-              <h3 className='text-white text-[8.42px]'>08/24</h3>
+              <div className="flex items-center justify-between mt-4">
+                <div className="space-y-3">
+                  <h3 className='text-white text-[8.42px]'>Exp.</h3>
+                  <h3 className='text-white text-[8.42px]'>08/24</h3>
+                </div>
+
+                <Image 
+                  src={Verve}
+                  alt=''
+                  height={30}
+                  width={30}
+                />
+              </div>
             </div>
 
-            <Image 
-              src={Verve}
-              alt=''
-              height={30}
-              width={30}
-            />
-          </div>
+            <div className="back h-[137.99px] w-[111.64px] flex flex-col justify-between  bg-white ">
+              <div className='space-y-1'>
+                <p className='text-n100 text-xs font-normal'>Card Number</p>
+                <h3 className='text-black text-xs font-normal'>5033 2453 </h3>
+              </div>
+              <div className='flex items-center justify-between'>
+                <div className='space-y-1'>
+                  <p className='text-n100 text-xs font-normal'>Expiry Dater</p>
+                  <h3 className='text-black text-xs font-normal'>08/24 </h3>
+                </div>
+                <div className='space-y-1'>
+                  <p className='text-n100 text-xs font-normal'>CVV</p>
+                  <h3 className='text-black text-xs font-normal'>665</h3>
+                </div>
+              </div>
+              <div className='space-y-1'>
+                <p className='text-n100 text-xs font-normal'>Account No.</p>
+                <h3 className='text-black text-xs font-normal'>245 334 6453 </h3>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
 
       {/* i hv to build this to a component later */}
       <div className="flex items-center justify-between space-x-2 mt-8">

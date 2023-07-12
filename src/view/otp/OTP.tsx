@@ -40,7 +40,10 @@ const OTP: FC<IOtpProps> = ({setIntraBankOpen, setPaymentSummaryOpen, setModalOp
   const [otp, setOtp] = useState('');
   const [otpVerifyOpen, setOtpVerifyOpen] = useState<boolean>(false)
   const [message, setMessage] = useState(false);
-  const toggleOtpVerifyDrawer = () => setOtpVerifyOpen(!otpVerifyOpen);
+  const toggleOtpVerifyDrawer = () => {
+    setOtpVerifyOpen(!otpVerifyOpen)
+    
+  }
   const getTransactionDetails = useAppSelector((state: RootState) => state.transaction.formData)
 
   // ** Hooks

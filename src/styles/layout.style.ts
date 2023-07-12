@@ -68,6 +68,9 @@ export const AuthContainer = styled.div`
   grid-template-columns: 1fr auto;  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
+    displays: flex;
+    height: 100vh;
+    justify-content: center
   }
   background: ${COLORS.white};
 `;
@@ -212,6 +215,11 @@ export const CredentialBox = styled.div`
     }
   }
   @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    margin 20px auto;
+    width: 100%;
+    padding: 6rem 0 0 0;
     padding: 0 1.5em;
     .form_container {
       width: 100%;

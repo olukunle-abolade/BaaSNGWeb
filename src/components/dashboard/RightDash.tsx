@@ -129,6 +129,7 @@ const RightDasboard= () => {
   const claimStatus: any = {
     "deactivated" : "fail",
     "success": "success",
+    "pending": 'pending'
   }
 
   const handleHideAccountBalance = () => {
@@ -148,7 +149,8 @@ const RightDasboard= () => {
         },
         {
           Header: 'Name',
-          accessor: 'destinationaccountname'
+          accessor: 'destinationaccountname',
+          Cell: ({ cell:{ value}}:{cell: any}) => <div>{value ? value : "No Name Test"}</div>
         },
         {
           Header: 'Time',
@@ -161,14 +163,14 @@ const RightDasboard= () => {
         {
           Header: 'Amount',
           accessor: "amount",
-          Cell: ({ cell:{ value}}:{cell: any}) => <div className='text-kgreen'>{value}</div>
+          Cell: ({ cell:{ value}}:{cell: any}) => <div className='text-kgreen'>{NumberFormat(value)}</div>
         },
         {
           Header: 'Status',
           accessor: "status",
             Cell: ({ cell:{ value}}:{cell: any}) => <Badge
-            type = {claimStatus["success"]}
-            content = {"success"}
+            type = {claimStatus["pending"]}
+            content = {"pending"}
           />
         }
       ],
