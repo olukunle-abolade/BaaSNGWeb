@@ -8,7 +8,7 @@ import { FaRegEnvelope } from 'react-icons/fa';
 import OtpInput from 'react-otp-input';
 import { ThreeDots } from 'react-loading-icons';
 
-// ** Hooks
+// ** Context
 import { useAuth } from '@/hooks/useAuth';
 
 // ** Component
