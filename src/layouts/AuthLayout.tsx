@@ -65,13 +65,6 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
             layout='responsive'
             style={{ maxWidth: '100%', maxHeight: '100%' }}
           />
-          <style jsx>{`
-            img {
-              object-fit: contain;
-              width: 100%;
-              height: 100%;
-            }
-          `}</style>
         </div>
        
         <Glass>
