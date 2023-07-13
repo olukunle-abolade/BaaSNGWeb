@@ -16,7 +16,6 @@ import { AppDispatch } from '@/store'
 import { clearInterBankName } from '@/store/app/intrabank'
 
 // ** Third Party Imports
-import { useForm, Controller } from 'react-hook-form'
 import { Icon } from '@iconify/react'
 import { Divider } from '@mui/material'
 
@@ -64,6 +63,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
   const handleClose = () => {
     if (closeNested) {
       toggle()
+      dispatch(clearInterBankName())
     } else {
       setOpenModal(false)
       toggle()
@@ -95,7 +95,7 @@ const SidebarAddUser = (props: SidebarAddUserType) => {
         open={open}
         anchor='right'
         variant='temporary'
-        onClose={handleCloseDrawer}
+        // onClose={handleCloseDrawer}
         // ModalProps={{ disableBackdropClick: true }}      
         sx={{ '& .MuiDrawer-paper': { width: { xs: 300, sm: 450 }, zIndex: 1000 } }}
       >

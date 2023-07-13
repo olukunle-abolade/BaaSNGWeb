@@ -227,7 +227,7 @@ const AuthProvider = ({ children }: Props) => {
               })
               .then(async response => {
                 console.log(response)
-                response.status === 200 && router.push("/auth/signin-verification")
+                response.status === 200 && router.push("/auth/email-verify")
                 setLoading(false)
               }) .catch(err => {
                 if (errorCallback) errorCallback(err)
@@ -391,3 +391,9 @@ const AuthProvider = ({ children }: Props) => {
 }
 
 export { AuthContext, AuthProvider }
+
+
+
+// handleSignin -> signin-verification -> signin-otp -> signin-email-success -> Go to Dashboard
+
+// handleSignUp -> signin-verification -> 

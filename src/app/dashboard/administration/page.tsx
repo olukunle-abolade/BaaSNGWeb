@@ -19,6 +19,19 @@ import SidebarAddUser from '@/components/user/AddUserDrawer';
 import { Box, FormControl, FormHelperText, InputLabel, MenuItem, Select } from '@mui/material';
 import { SelectField, TextField } from '@/components/FormComponent'
 import CustomButton from '@/components/user/CustomButton'
+import BasicPopover from '@/components/PopOver/PopOver'
+
+
+const popOverData = [
+  {
+    id: 1,
+    name: "edit"
+  },
+  {
+    id: 2,
+    name: "delete"
+  }
+]
 
 const renderUserProfile = (item: any, index: number) => (
   <div key={index}>
@@ -94,11 +107,8 @@ const RolesnPri = () => {
       {
         Header: "Action",
         width: 90,
-        Cell: () => <Dropdown
-        customToggle = {() => renderUserToggle()}
-        contentData = {user_menu}
-        renderData = {(item: any, index: number) => renderUserProfile(item, index)}
-      />
+        Cell: () => <BasicPopover data={popOverData} />
+
       }
     ],
   []

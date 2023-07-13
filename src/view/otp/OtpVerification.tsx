@@ -96,7 +96,7 @@ const OtpVerification: FC<IOtpVerificationProps> = ({setIntraBankOpen, setPaymen
           }
 
           if(typeof originalPromiseResult === "number"){
-            toast.success("Transaction Successful!")
+            // toast.success("Transaction Successful!")
             console.log("it a number")
             setSuccessOpen(true)
           }

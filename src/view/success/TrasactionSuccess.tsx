@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { AppDispatch, RootState } from '@/store'
 import TrasactionModal from '@/components/Modal/Modal';
 import { useAppSelector } from '@/hooks/useTypedSelector'
+import { clearInterBankName } from '@/store/app/intrabank'
 
 // ** Components
 import CustomButton from '@/components/user/CustomButton'
@@ -38,6 +39,7 @@ const TransactionSuccess: FC<ISuccessProps> = ({setIntraBankOpen, setPaymentSumm
     setIntraBankOpen(false)
     setOtpVerifyOpen(false)
     setSuccessOpen(false)
+    dispatch(clearInterBankName())
   }
 
   // ** Hooks
@@ -101,7 +103,7 @@ const TransactionSuccess: FC<ISuccessProps> = ({setIntraBankOpen, setPaymentSumm
      
 
       {/* Modal */}
-      <TrasactionModal open = {open} btitle1='No' btitle2='Yes' handleModal={() => null} handleClose={handleClose} title='Save last recipients as a beneficiary' subtitle='Do you confirm to this ?'  />
+      <TrasactionModal open = {open} btitle1='No' btitle2='Yes' handleModal={handleClose} handleClose={handleClose} title='Save last recipients as a beneficiary' subtitle='Do you confirm to this ?'  />
     </div>
   )
 }
