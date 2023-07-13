@@ -58,17 +58,22 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
         
       </CredentialBox>
       <ImageBox {...props} img={props.img}>
-        <Image
-          src={AuthImage}
-          alt="First slide"
-          height="400"
-          width="800"
-          sizes="(max-width: 768px) 100vw"
-          style={{objectFit: "cover"}}
-          className='bg-black'
-          // className='h-full w-full '
-        />
-
+        <div style={{ maxWidth: '100%', maxHeight: '100%', overflow: 'hidden' }}>
+          <Image
+            src={AuthImage}
+            alt="First slide"
+            layout='responsive'
+            style={{ maxWidth: '100%', maxHeight: '100%' }}
+          />
+          <style jsx>{`
+            img {
+              object-fit: contain;
+              width: 100%;
+              height: 100%;
+            }
+          `}</style>
+        </div>
+       
         <Glass>
           <h6 className='text-n600 text-3xl '>Streamline Your B2B Payments with Confidence and Convenience.</h6>
 

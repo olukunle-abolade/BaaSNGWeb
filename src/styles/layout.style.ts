@@ -65,11 +65,13 @@ export const AuthContainer = styled.div`
   /** style auth layout here */
   display: grid;
   position: relative;
-  grid-template-columns: 1fr 1fr;  
+  max-height: 100vh;
+  width: 100%;
+  grid-template-columns: 1fr 1fr;   
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     displays: flex;
-    height: 100vh;
+    height: 100%;
     justify-content: center
   }
   background: ${COLORS.white};
@@ -229,14 +231,13 @@ export const CredentialBox = styled.div`
 
 export const ImageBox = styled.div<{ img: any }>`
   /** style side image container for login */
-  background-image: url(${(props) => props.img});
-  display: flex;
   position: relative;
-  align-items: right;
-  justify-content: right;
-  position: relative;
+  width: 100%;
   height: 100vh;
-
+  display: flex,
+  justifyContent: center; 
+  alignItems: center; 
+  background: black;
 
   @media (max-width: 768px) {
     display: none;
@@ -254,7 +255,7 @@ export const Glass = styled.div`
   height: 300px;
   width: 90%;
   padding: 45px 33px;
-  bottom: -12%;
+  bottom: -3.5rem;
   left: 50%;
   transform: translate(-50%, -50%);
   background: linear-gradient(111.26deg, rgba(255, 255, 255, 0.6) 11.75%, rgba(255, 255, 255, 0.18) 88.07%);
