@@ -65,7 +65,7 @@ export const AuthContainer = styled.div`
   /** style auth layout here */
   display: grid;
   position: relative;
-  grid-template-columns: 1fr auto;  
+  grid-template-columns: 1fr 1fr;  
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     displays: flex;

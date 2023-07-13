@@ -1,14 +1,21 @@
 'use client'
 
+import Image from "next/image";
+
+// ** Image
+import Edu from '@/assets/images/bill/education.svg'
+import Assoc from '@/assets/images/bill/assoc.svg'
 
 const utils = [
   {
     id: 1,
-    name: 'Education'
+    name: 'Education',
+    image: Edu
   },
   {
     id: 2,
-    name: 'Association & Societies'
+    name: 'Association & Societies',
+    image: Assoc
   }
 ]
 
@@ -23,7 +30,14 @@ const Education = () => {
             return (
               <div className="flex items-center pl-3 space-x-2 w-[200px] h-[70px] border border-n40 rounded-[20px]" key={index}>
                 {/*  */}
-                <div className='flex items-center justify-center w-[50px] h-[50px] rounded-full bg-kysec'></div>
+                <div className='flex items-center justify-center w-[50px] h-[50px] rounded-full bg-kysec'>
+                  <Image
+                    src={util.image}
+                    alt=""
+                    width={200}
+                    height={70}
+                  />
+                </div>
                 <h2 className="text-[14px] text-black font-medium">{util.name}</h2>
               </div>
             )

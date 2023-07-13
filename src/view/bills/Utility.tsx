@@ -1,22 +1,33 @@
 'use client'
 
+import Image from "next/image";
+
+// ** Image
+import Tv from '@/assets/images/bill/tv.svg'
+import Internet from '@/assets/images/bill/internet.svg'
+import Water from '@/assets/images/bill/water.svg'
+import Electric from '@/assets/images/bill/electric.svg'
 
 const utils = [
   {
     id: 1,
-    name: 'TV'
+    name: 'TV',
+    image: Tv
   },
   {
     id: 2,
-    name: 'Internet'
+    name: 'Internet',
+    image: Internet
   },
   {
     id: 3,
-    name: 'Water'
+    name: 'Water',
+    image: Water
   },
   {
     id: 4,
-    name: 'Electricity'
+    name: 'Electricity',
+    image:Electric
   }
 ]
 
@@ -31,7 +42,14 @@ const Utility = () => {
             return (
               <div className="flex items-center pl-3 space-x-2 w-[200px] h-[70px] border border-n40 rounded-[20px]" key={index}>
                 {/*  */}
-                <div className='flex items-center justify-center w-[50px] h-[50px] rounded-full bg-kpsec'></div>
+                <div className='flex items-center justify-center w-[50px] h-[50px] rounded-full bg-kpsec'>
+                  <Image
+                    src={util.image}
+                    alt=""
+                    width={200}
+                    height={70}
+                  />
+                </div>
                 <h2 className="text-[14px] text-black font-medium">{util.name}</h2>
               </div>
             )
