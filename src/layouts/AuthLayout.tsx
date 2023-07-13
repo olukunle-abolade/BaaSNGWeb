@@ -63,7 +63,10 @@ const AuthLayout: React.FC<IAuthLayout> = ({ children, ...props }) => {
           alt="First slide"
           height="400"
           width="800"
-          className='h-full w-full bg-black'
+          sizes="(max-width: 768px) 100vw"
+          style={{objectFit: "cover"}}
+          className='bg-black'
+          // className='h-full w-full '
         />
 
         <Glass>
